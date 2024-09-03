@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: local
+    include: local
+  application:
+    name: yoyo
+server:
+  port: 8080
+
+cool-sms:
+  api-key: NCS2BT9XCBDOKM00
+  api-secret: A0KQGWPABG62CS21X8OJHZ9P4J8LDFSR
+  domain: https://api.coolsms.co.kr
+  send-phone-number: 01054513115
