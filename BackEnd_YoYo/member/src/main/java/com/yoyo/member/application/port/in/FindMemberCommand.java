@@ -1,0 +1,12 @@
+package com.yoyo.member.application.port.in;
+
+import com.yoyo.common.SelfValidating;
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
+@Builder
+public class FindMemberCommand extends SelfValidating<FindMemberCommand> {
+
+    private final Long memberId;
+}

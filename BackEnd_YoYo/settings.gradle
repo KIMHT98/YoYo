@@ -1,3 +1,5 @@
 rootProject.name = 'yoyo'
 include 'member'
+include 'smsauth'
+include 'common'
 
