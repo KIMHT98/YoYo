@@ -1,6 +1,6 @@
 import { Pressable, View } from "react-native";
 import { Entypo } from "react-native-vector-icons";
-import { MainStyle } from "../constants/style";
+import { MainStyle } from "../../constants/style";
 
 export function CheckBox({ checked, onPress }) {
     let backgroundColor,

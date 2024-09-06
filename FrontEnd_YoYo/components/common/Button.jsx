@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import { useState } from "react";
-import { MainStyle } from "../constants/style";
+import { MainStyle } from "../../constants/style";
 
 export default function Button({ color, children }) {
     // 버튼의 상태를 true/false로 관리

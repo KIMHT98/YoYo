@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
-import { MainStyle } from "../constants/style";
+import { MainStyle } from "../../constants/style";
 
 const tagColor = {
     friend: MainStyle.tagColors.friend,

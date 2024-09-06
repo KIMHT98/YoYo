@@ -13,7 +13,7 @@ export const MainStyle = {
         lightGray: "#D9D9D9",
         green: "#3DBC42",
         yellow: "#E1F12A",
-        erroe: "#FB1010",
+        error: "#FB1010",
     },
     tagColors: {
         family: "#4B810F",
