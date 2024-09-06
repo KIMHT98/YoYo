@@ -10,18 +10,20 @@ import ScheduleList from "./pages/schedule/list/ScheduleList";
 import PayList from "./pages/payment/payList/PayList";
 import SettingList from "./pages/setting/list/SettingList";
 import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const BottomTab = createBottomTabNavigator();
 
 export default function App() {
     return (
         <>
-            <View style={styles.header}>
+            <SafeAreaView style={styles.header}>
                 <Text>YOYO</Text>
-            </View>
+            </SafeAreaView>
             <NavigationContainer>
                 <BottomTab.Navigator
                     screenOptions={({ route }) => ({
+                        unmountOnBlur: true,
                         headerStyle: {
                             backgroundColor: MainStyle.colors.white,
                         },
@@ -91,6 +93,5 @@ const styles = StyleSheet.create({
     header: {
         paddingHorizontal: 24,
         paddingVertical: 8,
-        marginTop: 40,
     },
 });
