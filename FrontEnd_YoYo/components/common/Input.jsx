@@ -1,47 +1,50 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
-import { MainStyle } from '../../constants/style';
+import { View, Text, TextInput, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { MainStyle } from "../../constants/style";
 
-export default function Input({ placeholder, onChange, isError }) {
-  const [isFocused, setIsFocused] = useState(false);
+export default function Input({ type, placeholder, onChange, isError, text }) {
+    const [isFocused, setIsFocused] = useState(false);
 
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
+    const handleFocus = () => setIsFocused(true);
 
-  const borderColor = isError
-    ? MainStyle.colors.error // 에러가 있을 때의 색상
-    : isFocused
-      ? MainStyle.colors.main // 포커스될 때의 색상
-      : MainStyle.colors.lightGray; // 기본 색상
+    const borderColor = isError
+        ? MainStyle.colors.error // 에러가 있을 때의 색상
+        : isFocused
+        ? MainStyle.colors.main // 포커스될 때의 색상
+        : MainStyle.colors.lighter; // 기본 색상
 
-  return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={[styles.input, { borderBottomColor: borderColor }]}
-        placeholder={placeholder}
-        placeholderTextColor={MainStyle.colors.lightGray}
-        onChangeText={onChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      />
-      {isError && <Text style={styles.error}>※ error Message</Text>}
-    </View>
-  );
+    return (
+        <View style={styles.inputContainer}>
+            <TextInput
+                style={[styles.input, { borderBottomColor: borderColor }]}
+                placeholder={placeholder}
+                placeholderTextColor={MainStyle.colors.lighter}
+                onChangeText={onChange}
+                onFocus={handleFocus}
+                onBlur={() => setIsFocused(text.length > 0)}
+                secureTextEntry={type === "password" ? true : false}
+                keyboardType={type === "phoneNumber" ? "number-pad" : "default"}
+                autoCapitalize="none"
+                autoCorrect="none"
+            />
+            {isError && <Text style={styles.error}>※ error Message</Text>}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    paddingHorizontal: 24,
-    paddingVertical: 4,
-  },
-  input: {
-    borderBottomWidth: 1,
-    fontSize: MainStyle.fontSize.md,
-    paddingHorizontal: 4,
-    paddingTop: 8,
-  },
-  error: {
-    color: MainStyle.colors.error,
-    fontSize: MainStyle.fontSize.subContent
-  }
+    inputContainer: {
+        paddingVertical: 4,
+        width: "100%",
+    },
+    input: {
+        borderBottomWidth: 1,
+        fontSize: MainStyle.fontSize.md,
+        paddingHorizontal: 4,
+        paddingVertical: 8,
+    },
+    error: {
+        color: MainStyle.colors.error,
+        fontSize: MainStyle.fontSize.subContent,
+    },
 });
