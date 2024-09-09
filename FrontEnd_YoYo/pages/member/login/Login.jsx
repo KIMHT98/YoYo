@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { MainStyle } from "../../../constants/style";
+import YoYoText from "../../../constants/YoYoText";
+import LoginBackground from "../../../assets/svg/loginBackground.svg";
+import LoginYoYo from "../../../assets/svg/loginYoYo.svg";
 import Button from "../../../components/common/Button";
+import Input from "../../../components/common/Input";
+import SignUp from "../signup/SignUp";
 
 export default function Login() {
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -17,32 +22,45 @@ export default function Login() {
             // 배경 이미지 경로
             style={styles.background}
         >
-            <View style={styles.container}>
-                {/* 상단 텍스트 */}
-                <Text style={styles.logoText}>Yo! Yo!</Text>
+            <LoginBackground />
 
-                {/* 전화번호 입력 */}
-                <TextInput
-                    style={styles.input}
-                    placeholder="전화번호를 입력해주세요Yo"
-                    placeholderTextColo={MainStyle.colors.gray}
-                    value={phoneNumber}
-                    onChangeText={(text) => setPhoneNumber(text)}
-                    keyboardType="phone-pad"
-                />
+            <View style={styles.outerContainer}>
+                <View style={styles.logoContainer}>
+                    {/* 상단 텍스트 */}
+                    <Text style={styles.logoText}>Yo! Yo!</Text>
+                </View>
 
-                {/* 비밀번호 입력 */}
-                <TextInput
-                    style={styles.input}
-                    placeholder="비밀번호를 입력해주세요Yo"
-                    placeholderTextColor={MainStyle.colors.gray}
-                    secureTextEntry={true}
-                    value={password}
-                    onChangeText={(text) => setPassword(text)}
-                />
+                <View style={styles.inputContainer}>
+                    {/* 전화번호 입력 */}
+                    <Input
+                        type="phoneNumber"
+                        placeholder="전화번호를 입력해주세요."
+                        onChange={setPhoneNumber}
+                        isError={false}
+                        text={phoneNumber}
+                    />
 
-                {/* 로그인 버튼 */}
-                <Button color={MainStyle.colors.main}>로그인</Button>
+                    {/* 비밀번호 입력 */}
+                    <Input
+                        type="password"
+                        placeholder="비밀번호를 입력해주세요."
+                        onChange={setPassword}
+                        isError={false}
+                        text={password}
+                    />
+
+                    {/* 로그인 버튼 */}
+                    <Button type="fill" width="100%">
+                        로그인
+                    </Button>
+
+                    <YoYoText type={"content"}>
+                        아직 회원이 아니신가요?
+                    </YoYoText>
+                </View>
+            </View>
+            <View style={styles.imageContainer}>
+                <LoginYoYo />
             </View>
         </View>
     );
@@ -51,30 +69,31 @@ export default function Login() {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        alignItems: "center",
         backgroundColor: MainStyle.colors.hover,
     },
-    container: {
+    outerContainer: {
         position: "absolute",
         top: 150,
-        width: "80%",
+        width: "100%",
         alignItems: "center",
-        justifyContent: "center",
         borderRadius: 10,
+    },
+    logoContainer: {
+        marginBottom: 70,
+    },
+    inputContainer: {
+        alignItems: "center",
+        width: "80%",
+        rowGap: 10,
+    },
+    imageContainer: {
+        width: "100%",
+        position: "absolute",
+        bottom: 0,
     },
     logoText: {
         fontSize: MainStyle.fontSize.logo,
         fontWeight: "bold",
         color: MainStyle.colors.main,
-        marginBottom: 40,
-    },
-    input: {
-        width: "100%",
-        height: 50,
-        borderBottomWidth: 1,
-        borderBottomColor: MainStyle.colors.main,
-        marginBottom: 20,
-        fontSize: MainStyle.fontSize.md,
-        paddingLeft: 10,
     },
 });
