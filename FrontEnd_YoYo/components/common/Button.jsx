@@ -3,42 +3,57 @@ import React from "react";
 import { useState } from "react";
 import { MainStyle } from "../../constants/style";
 
-export default function Button({ color, children, onPress }) {
+export default function Button({ type, children, width, onPress }) {
+    let buttonStyle = {
+        normal: {
+            backgroundColor: MainStyle.colors.white,
+            borderColor: MainStyle.colors.main,
+        },
+        fill: {
+            backgroundColor: MainStyle.colors.main,
+            borderColor: MainStyle.colors.main,
+        },
+        inactive: {
+            backgroundColor: MainStyle.colors.gray,
+            borderColor: MainStyle.colors.gray,
+        },
+    };
+
+    let textStyle = {
+        normal: { color: MainStyle.colors.main },
+        fill: {
+            color: MainStyle.colors.white,
+        },
+        inactive: {
+            color: MainStyle.colors.white,
+        },
+    };
+
     return (
-        <View style={styles.buttonOuterContainer}>
+        <View style={[styles.buttonOuterContainer, { width: width }]}>
             <Pressable
-                style={[
+                style={({ pressed }) => [
                     styles.buttonInnerContainer,
-                    {
-                        backgroundColor: color,
-                        borderColor: color,
-                    },
+                    buttonStyle[type],
+                    pressed && styles.pressed
                 ]}
-                onPress={() => console.log("Pressed")}
-                android_ripple={{ color: MainStyle.colors.white }}
+                onPress={onPress}
             >
-                <Text
-                    style={{
-                        color: MainStyle.colors.white,
-                    }}
-                >
-                    {children}
-                </Text>
+                <Text style={[{ ...textStyle[type] }]}>{children}</Text>
             </Pressable>
-        </View>
+        </View >
     );
 }
 
 const styles = StyleSheet.create({
     buttonOuterContainer: {
-        width: 160,
         margin: 4,
         overflow: "hidden",
     },
     buttonInnerContainer: {
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical: 16,
+        paddingVertical: 12,
         borderRadius: 24,
         borderWidth: 2,
     },
@@ -46,4 +61,7 @@ const styles = StyleSheet.create({
         fontSize: MainStyle.fontSize.subTitle,
         fontWeight: "bold",
     },
+    pressed: {
+        opacity: 0.75
+    }
 });

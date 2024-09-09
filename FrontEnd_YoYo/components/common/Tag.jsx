@@ -1,6 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
 import { MainStyle } from "../../constants/style";
+import YoYoText from "../../constants/YoYoText";
 
 const tagColor = {
     all: MainStyle.tagColors.all,
@@ -10,28 +11,32 @@ const tagColor = {
     etc: MainStyle.tagColors.etc,
 };
 
-export default function Tag({ type, margin, children }) {
+export default function Tag({ type, margin, children, width }) {
     return (
         <View
             style={[
                 styles.container,
                 {
+
                     backgroundColor: tagColor[type],
                     marginHorizontal: margin ? margin : 0,
                 },
             ]}
         >
-            {children}
+            <YoYoText color="white" type="desc" bold>
+                {children}
+            </YoYoText>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        width: 88,
         alignItems: "center",
         justifyContent: "center",
         paddingVertical: 8,
-        paddingHorizontal: 48,
+        paddingHorizontal: 16,
         borderRadius: 32,
         alignSelf: "flex-start",
     },
