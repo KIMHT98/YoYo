@@ -3,38 +3,23 @@ import React from "react";
 import { useState } from "react";
 import { MainStyle } from "../../constants/style";
 
-export default function Button({ color, children }) {
-    // 버튼의 상태를 true/false로 관리
-    const [isPressed, setIsPressed] = useState(false);
-
-    // 버튼 클릭 시 상태를 반전
-    const handlePress = () => {
-        setIsPressed(!isPressed);
-    };
-
-    /*
-  isPressed = false  ----> 배경색은 흰색이고, 테두리는 main 색상
-  isPressed = true ----> 배경색은 부모에게서 전달받은 색상이고 테두리는 배경색
-  */
+export default function Button({ color, children, onPress }) {
     return (
         <View style={styles.buttonOuterContainer}>
             <Pressable
                 style={[
                     styles.buttonInnerContainer,
                     {
-                        backgroundColor: isPressed
-                            ? color
-                            : MainStyle.colors.white,
-                        borderColor: isPressed ? color : MainStyle.colors.main,
+                        backgroundColor: color,
+                        borderColor: color,
                     },
                 ]}
-                onPress={handlePress}
+                onPress={() => console.log("Pressed")}
+                android_ripple={{ color: MainStyle.colors.white }}
             >
                 <Text
                     style={{
-                        color: isPressed
-                            ? MainStyle.colors.white
-                            : MainStyle.colors.main,
+                        color: MainStyle.colors.white,
                     }}
                 >
                     {children}
@@ -54,7 +39,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         paddingVertical: 16,
-        borderRadius: 16,
+        borderRadius: 24,
         borderWidth: 2,
     },
     normalText: {

@@ -3,6 +3,7 @@ import React from "react";
 import { MainStyle } from "../../constants/style";
 
 const tagColor = {
+    all: MainStyle.tagColors.all,
     friend: MainStyle.tagColors.friend,
     family: MainStyle.tagColors.family,
     company: MainStyle.tagColors.company,

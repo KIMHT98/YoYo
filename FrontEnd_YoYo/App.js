@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Notification from "./pages/notification/Notification";
+import Login from "./pages/member/login/Login";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -89,7 +90,7 @@ function BottomTabBar() {
             />
             <BottomTab.Screen
                 name="Payment"
-                component={PayList}
+                component={Login}
                 options={{ tabBarLabel: "페이" }}
             />
             <BottomTab.Screen
