@@ -12,6 +12,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Notification from "./pages/notification/Notification";
 import Login from "./pages/member/login/Login";
+import YoYoText from "./constants/YoYoText";
+import AccountRegist from "./pages/payment/regist/AccountRegist";
+import EventList from "./pages/event/list/EventList";
+import GiveAndTakeList from "./pages/giveAndtake/list/GiveAndTakeList";
+import SendMoney from "./pages/payment/send/SendMoney";
+import ChargeMoney from "./pages/payment/send/ChargeMoney";
+import GiveAndTakeDetail from "./pages/giveAndtake/detail/GiveAndTakeDetail";
+import EventDetail from "./pages/event/detail/EventDetail";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -105,7 +113,9 @@ export default function App() {
     return (
         <>
             <SafeAreaView style={styles.header}>
-                <Text>YOYO</Text>
+                <YoYoText type="mainTitle" bold>
+                    YOYO
+                </YoYoText>
             </SafeAreaView>
             <NavigationContainer>
                 <Stack.Navigator
@@ -113,14 +123,37 @@ export default function App() {
                         headerStyle: {
                             backgroundColor: MainStyle.colors.white,
                         },
-                        headerShown: false,
+                        headerTitleAlign: "center",
                     }}
                 >
                     <Stack.Screen
                         name="BottomTabBar"
                         component={BottomTabBar}
+                        options={{
+                            headerShown: false,
+                        }}
                     />
-                    <Stack.Screen name="TopTabBar" component={TopTabBar} />
+                    <Stack.Screen
+                        name="TopTabBar"
+                        component={TopTabBar}
+                        options={{
+                            headerShown: false,
+                        }}
+                    />
+                    <Stack.Screen name="은행 선택" component={AccountRegist} />
+                    <Stack.Screen name="Pay List" component={PayList} />
+                    <Stack.Screen name="옮기기" component={SendMoney} />
+                    <Stack.Screen name="충전" component={ChargeMoney} />
+                    <Stack.Screen name="EventList" component={EventList} />
+                    <Stack.Screen
+                        name="GiveAndTake"
+                        component={GiveAndTakeList}
+                    />
+                    <Stack.Screen
+                        name="YoYoDetail"
+                        component={GiveAndTakeDetail}
+                    />
+                    <Stack.Screen name="EventDetail" component={EventDetail} />
                 </Stack.Navigator>
             </NavigationContainer>
         </>
