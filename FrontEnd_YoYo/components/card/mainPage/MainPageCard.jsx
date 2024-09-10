@@ -9,7 +9,7 @@ import YoYoText from "../../../constants/YoYoText";
 
 const imageArray = [Funeral, Marry, Cake]; // 자동으로 변경될 이미지 배열
 
-export default function MainPageCard({ title, subTitle, type, navigation, onPress }) {
+export default function MainPageCard({ title, subTitle, type, onPress }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const fadeAnimOut = useRef(new Animated.Value(1)).current; // 현재 이미지의 페이드 아웃 값
     const fadeAnimIn = useRef(new Animated.Value(0)).current; // 다음 이미지의 페이드 인 값
@@ -42,7 +42,7 @@ export default function MainPageCard({ title, subTitle, type, navigation, onPres
                     return nextIndex;
                 });
             });
-        }, 6000); // 3초마다 이미지 변경
+        }, 5000); // 5초마다 이미지 변경
 
         return () => clearInterval(interval); // 컴포넌트가 언마운트될 때 interval 클리어
     }, []);

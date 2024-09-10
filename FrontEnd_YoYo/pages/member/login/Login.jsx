@@ -60,6 +60,7 @@ export default function Login() {
                         type="fill"
                         width="100%"
                         onPress={clickLoginHandler}
+                        radius={24}
                     >
                         <YoYoText type={"content"} bold>
                             로그인
