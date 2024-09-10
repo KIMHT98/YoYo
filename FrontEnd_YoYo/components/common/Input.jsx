@@ -10,8 +10,8 @@ export default function Input({ type, placeholder, onChange, isError, text }) {
     const borderColor = isError
         ? MainStyle.colors.error // 에러가 있을 때의 색상
         : isFocused
-        ? MainStyle.colors.main // 포커스될 때의 색상
-        : MainStyle.colors.lighter; // 기본 색상
+            ? MainStyle.colors.main // 포커스될 때의 색상
+            : MainStyle.colors.lighter; // 기본 색상
 
     return (
         <View style={styles.inputContainer}>
@@ -25,7 +25,6 @@ export default function Input({ type, placeholder, onChange, isError, text }) {
                 secureTextEntry={type === "password" ? true : false}
                 keyboardType={type === "phoneNumber" ? "number-pad" : "default"}
                 autoCapitalize="none"
-                autoCorrect="none"
             />
             {isError && <Text style={styles.error}>※ error Message</Text>}
         </View>
