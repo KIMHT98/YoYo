@@ -55,7 +55,7 @@ export default function SignUp() {
                     ></Input>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button type="normal">
+                    <Button type="normal" radius={24}>
                         <YoYoText type="content" bold>
                             인증번호받기
                         </YoYoText>

@@ -43,7 +43,7 @@ export default function PayCard({ name, money, account, onPress
         </Pressable>
       </View> :
         <View style={styles.buttonContainer}>
-          <Button type="normal" width="50%" onPress={onPress}><YoYoText type="desc" bold>계좌 등록하기</YoYoText></Button></View>}
+          <Button type="normal" width="50%" onPress={onPress} radius={24}><YoYoText type="desc" bold>계좌 등록하기</YoYoText></Button></View>}
     </View >
   )
 }
