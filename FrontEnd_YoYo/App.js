@@ -20,6 +20,9 @@ import SendMoney from "./pages/payment/send/SendMoney";
 import ChargeMoney from "./pages/payment/send/ChargeMoney";
 import GiveAndTakeDetail from "./pages/giveAndtake/detail/GiveAndTakeDetail";
 import EventDetail from "./pages/event/detail/EventDetail";
+import PhoneNumber from "./pages/member/signup/PhoneNumber";
+import Password from "./pages/member/signup/Password";
+import UserInfo from "./pages/member/signup/UserInfo";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -154,6 +157,10 @@ export default function App() {
                         component={GiveAndTakeDetail}
                     />
                     <Stack.Screen name="EventDetail" component={EventDetail} />
+                    <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
+                    <Stack.Screen name="Password" component={Password} />
+                    <Stack.Screen name="UserInfo" component={UserInfo} />
+                    <Stack.Screen name="Login" component={Login} />
                 </Stack.Navigator>
             </NavigationContainer>
         </>

@@ -35,13 +35,13 @@ export default function Button({ type, children, width, onPress }) {
                 style={({ pressed }) => [
                     styles.buttonInnerContainer,
                     buttonStyle[type],
-                    pressed && styles.pressed
+                    pressed && styles.pressed,
                 ]}
                 onPress={onPress}
             >
                 <Text style={[{ ...textStyle[type] }]}>{children}</Text>
             </Pressable>
-        </View >
+        </View>
     );
 }
 
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     pressed: {
-        opacity: 0.75
-    }
+        opacity: 0.75,
+    },
 });

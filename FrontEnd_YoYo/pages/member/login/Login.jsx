@@ -1,20 +1,26 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { MainStyle } from "../../../constants/style";
 import YoYoText from "../../../constants/YoYoText";
 import LoginBackground from "../../../assets/svg/loginBackground.svg";
 import LoginYoYo from "../../../assets/svg/loginYoYo.svg";
 import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
-import SignUp from "../signup/SignUp";
+
+import { useNavigation } from "@react-navigation/native";
 
 export default function Login() {
+    const navigation = useNavigation();
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogin = () => {
+    const clickSignUpHandler = () => {
+        navigation.navigate("PhoneNumber");
+    };
+
+    const clickLoginHandler = () => {
         // 로그인 버튼 클릭 시 처리할 로직
-        console.log("로그인 버튼 클릭");
+        navigation.navigate("Home");
     };
 
     return (
@@ -50,13 +56,31 @@ export default function Login() {
                     />
 
                     {/* 로그인 버튼 */}
-                    <Button type="fill" width="100%">
-                        로그인
+                    <Button
+                        type="fill"
+                        width="100%"
+                        onPress={clickLoginHandler}
+                    >
+                        <YoYoText type={"content"} bold>
+                            로그인
+                        </YoYoText>
                     </Button>
 
-                    <YoYoText type={"content"}>
-                        아직 회원이 아니신가요?
-                    </YoYoText>
+                    <View style={styles.textContainer}>
+                        <YoYoText type={"content"}>
+                            아직 회원이 아니신가요?
+                        </YoYoText>
+                        <Pressable onPress={clickSignUpHandler}>
+                            <YoYoText
+                                type={"content"}
+                                color={MainStyle.colors.main}
+                                bold
+                            >
+                                {"  "}
+                                회원가입
+                            </YoYoText>
+                        </Pressable>
+                    </View>
                 </View>
             </View>
             <View style={styles.imageContainer}>
@@ -90,6 +114,9 @@ const styles = StyleSheet.create({
         width: "100%",
         position: "absolute",
         bottom: 0,
+    },
+    textContainer: {
+        flexDirection: "row",
     },
     logoText: {
         fontSize: MainStyle.fontSize.logo,
