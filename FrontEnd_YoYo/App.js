@@ -23,6 +23,7 @@ import EventDetail from "./pages/event/detail/EventDetail";
 import PhoneNumber from "./pages/member/signup/PhoneNumber";
 import Password from "./pages/member/signup/Password";
 import UserInfo from "./pages/member/signup/UserInfo";
+import GiveAndTakeRegist from "./pages/giveAndtake/regist/GiveAndTakeRegist";
 import EventRegist from "./pages/event/regist/EventRegist";
 
 const BottomTab = createBottomTabNavigator();
@@ -165,6 +166,10 @@ export default function App() {
                     <Stack.Screen name="Password" component={Password} />
                     <Stack.Screen name="UserInfo" component={UserInfo} />
                     <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen
+                        name="GiveAndTakeRegist"
+                        component={GiveAndTakeRegist}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </>
