@@ -15,7 +15,7 @@ export default function Login() {
     const [password, setPassword] = useState("");
 
     const clickSignUpHandler = () => {
-        navigation.navigate("PhoneNumber");
+        navigation.navigate("SignUp");
     };
 
     const clickLoginHandler = () => {

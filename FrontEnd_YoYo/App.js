@@ -12,7 +12,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Notification from "./pages/notification/Notification";
 import Login from "./pages/member/login/Login";
-import YoYoText from "./constants/YoYoText";
 import AccountRegist from "./pages/payment/regist/AccountRegist";
 import EventList from "./pages/event/list/EventList";
 import GiveAndTakeList from "./pages/giveAndtake/list/GiveAndTakeList";
@@ -20,11 +19,9 @@ import SendMoney from "./pages/payment/send/SendMoney";
 import ChargeMoney from "./pages/payment/send/ChargeMoney";
 import GiveAndTakeDetail from "./pages/giveAndtake/detail/GiveAndTakeDetail";
 import EventDetail from "./pages/event/detail/EventDetail";
-import PhoneNumber from "./pages/member/signup/PhoneNumber";
-import Password from "./pages/member/signup/Password";
-import UserInfo from "./pages/member/signup/UserInfo";
 import GiveAndTakeRegist from "./pages/giveAndtake/regist/GiveAndTakeRegist";
 import EventRegist from "./pages/event/regist/EventRegist";
+import SignUp from "./pages/member/signup/SignUp";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -162,10 +159,14 @@ export default function App() {
                         component={GiveAndTakeDetail}
                     />
                     <Stack.Screen name="EventDetail" component={EventDetail} />
-                    <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
-                    <Stack.Screen name="Password" component={Password} />
-                    <Stack.Screen name="UserInfo" component={UserInfo} />
-                    <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen
+                        name="SignUp"
+                        component={SignUp}
+                        options={{
+                            // headerShown: false,
+                            title: "",
+                        }}
+                    />
                     <Stack.Screen
                         name="GiveAndTakeRegist"
                         component={GiveAndTakeRegist}

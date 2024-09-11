@@ -1,42 +1,42 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
-import React from "react";
-import YoYoText from "../../../constants/YoYoText";
-import Input from "../../../components/common/Input";
-import IconButton from "../../../components/common/IconButton";
-import { MainStyle } from "../../../constants/style";
-import { useNavigation } from "@react-navigation/native";
-import Container from "../../../components/common/Container";
-import { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import YoYoText from "../../constants/YoYoText";
+import Input from "../common/Input";
+import IconButton from "../common/IconButton";
+import { MainStyle } from "../../constants/style";
 
-export default function UserInfo() {
-    const navigation = useNavigation();
+export default function UserInfo({ setIsActive }) {
     const [name, setName] = useState("");
     const [birthday, setBirthday] = useState("");
     const [address, setAddress] = useState("");
+    const [isNameCorrect, setIsNameCorrect] = useState(false);
 
-    const clickNextHandler = () => {
-        navigation.navigate("Login");
+    useEffect(() => {
+        if (name.length > 0) {
+            setIsNameCorrect(validateName());
+        }
+    }, [isNameCorrect]);
+
+    const validateName = () => {
+        // 이름은 최소 2자 이상, 특수문자와 숫자는 포함되지 않도록 설정
+        const nameRegex = /^[a-zA-Z가-힣 ]{2,}$/;
+
+        if (nameRegex.test(name)) {
+            return true;
+        } else {
+            return false;
+        }
     };
+
     return (
-        <Container>
-            <View style={styles.nextContainer}>
-                <Pressable onPress={clickNextHandler}>
-                    <YoYoText type="subTitle" bold>
-                        완료
-                    </YoYoText>
-                </Pressable>
-            </View>
-            <View style={styles.titleContainer}>
-                <YoYoText type="subTitle" bold color={MainStyle.colors.main}>
-                    개인정보를 입력해주세요.
-                </YoYoText>
-            </View>
+        <View style={styles.container}>
             <View style={styles.textContainer}>
                 <Input
                     type="default"
                     placeholder="이름"
                     onChange={setName}
                     text={name}
+                    isError={name.length === 0 ? false : isNameCorrect}
                 />
             </View>
             <View style={styles.textContainer}>
@@ -60,16 +60,13 @@ export default function UserInfo() {
                     <IconButton icon="search" size={25} />
                 </View>
             </View>
-        </Container>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    nextContainer: {
-        flexDirection: "row-reverse",
-    },
-    titleContainer: {
-        marginVertical: 30,
+    container: {
+        marginTop: 30,
     },
     textContainer: {
         marginVertical: 5,
