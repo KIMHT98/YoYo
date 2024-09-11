@@ -24,6 +24,7 @@ import PhoneNumber from "./pages/member/signup/PhoneNumber";
 import Password from "./pages/member/signup/Password";
 import UserInfo from "./pages/member/signup/UserInfo";
 import GiveAndTakeRegist from "./pages/giveAndtake/regist/GiveAndTakeRegist";
+import EventRegist from "./pages/event/regist/EventRegist";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -116,11 +117,7 @@ function BottomTabBar() {
 export default function App() {
     return (
         <>
-            <SafeAreaView style={styles.header}>
-                <YoYoText type="mainTitle" bold>
-                    YOYO
-                </YoYoText>
-            </SafeAreaView>
+            <SafeAreaView />
             <NavigationContainer>
                 <Stack.Navigator
                     screenOptions={{
@@ -137,18 +134,25 @@ export default function App() {
                             headerShown: false,
                         }}
                     />
-                    <Stack.Screen
-                        name="TopTabBar"
-                        component={TopTabBar}
-                        options={{
-                            headerShown: false,
-                        }}
-                    />
                     <Stack.Screen name="은행 선택" component={AccountRegist} />
                     <Stack.Screen name="Pay List" component={PayList} />
                     <Stack.Screen name="옮기기" component={SendMoney} />
                     <Stack.Screen name="충전" component={ChargeMoney} />
-                    <Stack.Screen name="EventList" component={EventList} />
+                    <Stack.Screen
+                        name="EventList"
+                        component={EventList}
+                        options={{
+                            title: "경조사 목록",
+                        }}
+                    />
+                    <Stack.Screen
+                        name="EventRegist"
+                        component={EventRegist}
+                        options={{
+                            // headerShown: false,
+                            title: "",
+                        }}
+                    />
                     <Stack.Screen
                         name="GiveAndTake"
                         component={GiveAndTakeList}
@@ -171,9 +175,3 @@ export default function App() {
         </>
     );
 }
-const styles = StyleSheet.create({
-    header: {
-        paddingHorizontal: 24,
-        paddingVertical: 8,
-    },
-});

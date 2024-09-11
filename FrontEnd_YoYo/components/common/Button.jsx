@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { MainStyle } from "../../constants/style";
 
-export default function Button({ type, children, width, onPress }) {
+export default function Button({ type, children, width, onPress, radius }) {
     let buttonStyle = {
         normal: {
             backgroundColor: MainStyle.colors.white,
@@ -17,6 +17,10 @@ export default function Button({ type, children, width, onPress }) {
             backgroundColor: MainStyle.colors.gray,
             borderColor: MainStyle.colors.gray,
         },
+        hover: {
+            backgroundColor: MainStyle.colors.hover,
+            borderColor: MainStyle.colors.hover,
+        },
     };
 
     let textStyle = {
@@ -27,13 +31,28 @@ export default function Button({ type, children, width, onPress }) {
         inactive: {
             color: MainStyle.colors.white,
         },
-    };
+        hover: {
+            color: MainStyle.colors.white,
+        },
 
+    };
+    let buttonInnerContainerStyle = {
+        alignItems: "center",
+        justifyContent: "center",
+        paddingVertical: 12,
+        borderWidth: 2,
+    }
+    if (radius > 0) {
+        buttonInnerContainerStyle = {
+            ...buttonInnerContainerStyle,
+            borderRadius: radius,
+        }
+    }
     return (
         <View style={[styles.buttonOuterContainer, { width: width }]}>
             <Pressable
                 style={({ pressed }) => [
-                    styles.buttonInnerContainer,
+                    buttonInnerContainerStyle,
                     buttonStyle[type],
                     pressed && styles.pressed,
                 ]}
@@ -47,15 +66,7 @@ export default function Button({ type, children, width, onPress }) {
 
 const styles = StyleSheet.create({
     buttonOuterContainer: {
-        margin: 4,
         overflow: "hidden",
-    },
-    buttonInnerContainer: {
-        alignItems: "center",
-        justifyContent: "center",
-        paddingVertical: 12,
-        borderRadius: 24,
-        borderWidth: 2,
     },
     normalText: {
         fontSize: MainStyle.fontSize.subTitle,
