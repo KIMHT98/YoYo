@@ -17,7 +17,7 @@ export default function Tag({ type, margin, children, width }) {
             style={[
                 styles.container,
                 {
-
+                    width: width,
                     backgroundColor: tagColor[type],
                     marginHorizontal: margin ? margin : 0,
                 },
@@ -32,7 +32,6 @@ export default function Tag({ type, margin, children, width }) {
 
 const styles = StyleSheet.create({
     container: {
-        width: 88,
         alignItems: "center",
         justifyContent: "center",
         paddingVertical: 8,
