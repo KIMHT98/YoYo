@@ -42,14 +42,14 @@ export default function GiveAndTakeDetail() {
             return (
                 <FlatList
                     data={DATA}
-                    renderItem={({}) => <YoYoCardDetail />}
+                    renderItem={({ }) => <YoYoCardDetail />}
                 ></FlatList>
             );
         } else {
             return (
                 <FlatList
                     data={DATA2}
-                    renderItem={({}) => <YoYoCardDetail />}
+                    renderItem={({ }) => <YoYoCardDetail />}
                 ></FlatList>
             );
         }
@@ -78,6 +78,8 @@ export default function GiveAndTakeDetail() {
                     stateHandler={setGiveAndTake}
                     leftColor={MainStyle.colors.main}
                     rightColor={MainStyle.colors.red}
+                    left="받았어Yo"
+                    right="보냈어Yo"
                 />
             </View>
             {detailList()}

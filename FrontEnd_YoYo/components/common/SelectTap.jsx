@@ -31,7 +31,7 @@ export default function SelectTap({ leftColor, rightColor, stateHandler }) {
                         isTakeSelected ? leftColor : MainStyle.colors.lightGray
                     }
                 >
-                    받았어요
+                    {left}
                 </YoYoText>
                 {isTakeSelected && (
                     <View
@@ -61,7 +61,7 @@ export default function SelectTap({ leftColor, rightColor, stateHandler }) {
                             : MainStyle.colors.lightGray
                     }
                 >
-                    보냈어요
+                    {right}
                 </YoYoText>
                 {!isTakeSelected && (
                     <View

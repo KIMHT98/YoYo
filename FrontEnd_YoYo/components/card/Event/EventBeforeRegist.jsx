@@ -2,15 +2,10 @@ import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import Card from '../Card'
 import YoYoText from '../../../constants/YoYoText'
-import { useNavigation } from '@react-navigation/native'
 import { MainStyle } from '../../../constants/style'
-export default function EventBeforeRegist({ event }) {
-  const navigation = useNavigation();
-  function clickFriendHandler() {
-    navigation.navigate("")
-  }
+export default function EventBeforeRegist({ event, onPress }) {
   return (
-    <Card height={96} onPress={clickFriendHandler}>
+    <Card height={96} onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <YoYoText type="subTitle" bold>{event.name}</YoYoText>
