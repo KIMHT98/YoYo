@@ -4,7 +4,7 @@ import React from "react";
 import YoYoText from "../../constants/YoYoText";
 import { MainStyle } from "../../constants/style";
 
-export default function SelectButton({ leftColor, rightColor, stateHandler }) {
+export default function SelectButton({ leftColor, rightColor, stateHandler, left, right }) {
     const [isTakeSelected, setIsTakeSelected] = useState(true);
 
     const buttonTakeHandler = () => {
@@ -31,7 +31,7 @@ export default function SelectButton({ leftColor, rightColor, stateHandler }) {
                         isTakeSelected ? leftColor : MainStyle.colors.lightGray
                     }
                 >
-                    받았어요
+                    {left}
                 </YoYoText>
                 {isTakeSelected && (
                     <View
@@ -61,7 +61,7 @@ export default function SelectButton({ leftColor, rightColor, stateHandler }) {
                             : MainStyle.colors.lightGray
                     }
                 >
-                    보냈어요
+                    {right}
                 </YoYoText>
                 {!isTakeSelected && (
                     <View
