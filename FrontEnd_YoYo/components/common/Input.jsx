@@ -25,6 +25,7 @@ export default function Input({ type, placeholder, onChange, isError, text }) {
                 secureTextEntry={type === "password" ? true : false}
                 keyboardType={type === "phoneNumber" ? "number-pad" : "default"}
                 autoCapitalize="none"
+                value={text}
             />
             {isError && <Text style={styles.error}>※ error Message</Text>}
         </View>

@@ -25,6 +25,12 @@ import Password from "./pages/member/signup/Password";
 import UserInfo from "./pages/member/signup/UserInfo";
 import GiveAndTakeRegist from "./pages/giveAndtake/regist/GiveAndTakeRegist";
 import EventRegist from "./pages/event/regist/EventRegist";
+import SelectCard from "./pages/event/detail/SelectCard";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import RegistNewFriend from "./pages/event/detail/RegistNewFriend";
+import SelectRegistType from "./pages/event/select/SelectRegistType";
+import SelectLinkType from "./pages/event/select/SelectLinkType";
+import QrCode from "./pages/event/select/QrCode";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -118,60 +124,98 @@ export default function App() {
     return (
         <>
             <SafeAreaView />
-            <NavigationContainer>
-                <Stack.Navigator
-                    screenOptions={{
-                        headerStyle: {
-                            backgroundColor: MainStyle.colors.white,
-                        },
-                        headerTitleAlign: "center",
-                    }}
-                >
-                    <Stack.Screen
-                        name="BottomTabBar"
-                        component={BottomTabBar}
-                        options={{
-                            headerShown: false,
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <NavigationContainer>
+                    <Stack.Navigator
+                        screenOptions={{
+                            headerStyle: {
+                                backgroundColor: MainStyle.colors.white,
+                            },
+                            headerTitleAlign: "center",
                         }}
-                    />
-                    <Stack.Screen name="은행 선택" component={AccountRegist} />
-                    <Stack.Screen name="Pay List" component={PayList} />
-                    <Stack.Screen name="옮기기" component={SendMoney} />
-                    <Stack.Screen name="충전" component={ChargeMoney} />
-                    <Stack.Screen
-                        name="EventList"
-                        component={EventList}
-                        options={{
-                            title: "경조사 목록",
-                        }}
-                    />
-                    <Stack.Screen
-                        name="EventRegist"
-                        component={EventRegist}
-                        options={{
-                            // headerShown: false,
-                            title: "",
-                        }}
-                    />
-                    <Stack.Screen
-                        name="GiveAndTake"
-                        component={GiveAndTakeList}
-                    />
-                    <Stack.Screen
-                        name="YoYoDetail"
-                        component={GiveAndTakeDetail}
-                    />
-                    <Stack.Screen name="EventDetail" component={EventDetail} />
-                    <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
-                    <Stack.Screen name="Password" component={Password} />
-                    <Stack.Screen name="UserInfo" component={UserInfo} />
-                    <Stack.Screen name="Login" component={Login} />
-                    <Stack.Screen
-                        name="GiveAndTakeRegist"
-                        component={GiveAndTakeRegist}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
+                    >
+                        <Stack.Screen
+                            name="BottomTabBar"
+                            component={BottomTabBar}
+                            options={{
+                                headerShown: false,
+                            }}
+                        />
+                        <Stack.Screen
+                            name="은행 선택"
+                            component={AccountRegist}
+                        />
+                        <Stack.Screen name="Pay List" component={PayList} />
+                        <Stack.Screen name="옮기기" component={SendMoney} />
+                        <Stack.Screen name="충전" component={ChargeMoney} />
+                        <Stack.Screen
+                            name="EventList"
+                            component={EventList}
+                            options={{
+                                title: "경조사 목록",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="EventRegist"
+                            component={EventRegist}
+                            options={{
+                                // headerShown: false,
+                                title: "",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="GiveAndTake"
+                            component={GiveAndTakeList}
+                        />
+                        <Stack.Screen
+                            name="YoYoDetail"
+                            component={GiveAndTakeDetail}
+                        />
+                        <Stack.Screen
+                            name="EventDetail"
+                            component={EventDetail}
+                        />
+                        <Stack.Screen
+                            name="PhoneNumber"
+                            component={PhoneNumber}
+                        />
+                        <Stack.Screen name="Password" component={Password} />
+                        <Stack.Screen name="UserInfo" component={UserInfo} />
+                        <Stack.Screen name="Login" component={Login} />
+                        <Stack.Screen
+                            name="GiveAndTakeRegist"
+                            component={GiveAndTakeRegist}
+                        />
+                        <Stack.Screen name="지인선택" component={SelectCard} />
+                        <Stack.Screen
+                            name="지인추가"
+                            component={RegistNewFriend}
+                        />
+                        <Stack.Screen
+                            name="SelectRegistType"
+                            component={SelectRegistType}
+                            options={{
+                                title: "",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="SelectLinkType"
+                            component={SelectLinkType}
+                            options={{
+                                title: "",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="QrCode"
+                            component={QrCode}
+                            options={{
+                                title: "",
+                                presentation: "modal",
+                            }}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </GestureHandlerRootView>
         </>
     );
 }
