@@ -1,9 +1,8 @@
 import { View, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
-import YoYoText from "../../constants/YoYoText";
 import Input from "../common/Input";
 import IconButton from "../common/IconButton";
-import { MainStyle } from "../../constants/style";
+import validate from "../../util/validate";
 
 export default function UserInfo({ setIsActive }) {
     const [name, setName] = useState("");
@@ -13,20 +12,9 @@ export default function UserInfo({ setIsActive }) {
 
     useEffect(() => {
         if (name.length > 0) {
-            setIsNameCorrect(validateName());
+            setIsNameCorrect(validate.validateName(name));
         }
     }, [isNameCorrect]);
-
-    const validateName = () => {
-        // 이름은 최소 2자 이상, 특수문자와 숫자는 포함되지 않도록 설정
-        const nameRegex = /^[a-zA-Z가-힣 ]{2,}$/;
-
-        if (nameRegex.test(name)) {
-            return true;
-        } else {
-            return false;
-        }
-    };
 
     return (
         <View style={styles.container}>

@@ -5,12 +5,10 @@ import YoYoCard from "../../../components/card/Yoyo/YoYoCard";
 import SearchBar from "../../../components/common/SearchBar";
 import Tag from "../../../components/common/Tag";
 import YoYoText from "../../../constants/YoYoText";
-import { MainStyle } from "../../../constants/style";
 import Button from "../../../components/common/Button";
 import { useNavigation } from "@react-navigation/native";
 
-export default function GiveAndTakeList() {
-    const navigation = useNavigation();
+export default function GiveAndTakeList({ navigation }) {
     const margin = 2;
 
     const DATA = [
@@ -25,7 +23,7 @@ export default function GiveAndTakeList() {
     ];
 
     const clickNextHandler = () => {
-        navigation.navigate("GiveAndTakeRegist");
+        navigation.navigate("SelectGiveAndTake");
     };
 
     const tagHandler = () => {

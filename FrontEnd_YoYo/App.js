@@ -22,6 +22,7 @@ import EventDetail from "./pages/event/detail/EventDetail";
 import GiveAndTakeRegist from "./pages/giveAndtake/regist/GiveAndTakeRegist";
 import EventRegist from "./pages/event/regist/EventRegist";
 import SignUp from "./pages/member/signup/SignUp";
+import SelectGiveAndTake from "./pages/giveAndtake/regist/SelectGiveAndTake";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -153,6 +154,10 @@ export default function App() {
                     <Stack.Screen
                         name="GiveAndTake"
                         component={GiveAndTakeList}
+                        options={{
+                            // headerShown: false,
+                            title: "요요 목록",
+                        }}
                     />
                     <Stack.Screen
                         name="YoYoDetail"
@@ -170,6 +175,18 @@ export default function App() {
                     <Stack.Screen
                         name="GiveAndTakeRegist"
                         component={GiveAndTakeRegist}
+                        options={{
+                            // headerShown: false,
+                            title: "",
+                        }}
+                    />
+                    <Stack.Screen
+                        name="SelectGiveAndTake"
+                        component={SelectGiveAndTake}
+                        options={{
+                            // headerShown: false,
+                            title: "",
+                        }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
