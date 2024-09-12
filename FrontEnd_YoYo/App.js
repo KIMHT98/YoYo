@@ -142,8 +142,11 @@ export default function App() {
                             }}
                         />
                         <Stack.Screen
-                            name="은행 선택"
+                            name="계좌등록"
                             component={AccountRegist}
+                            options={{
+                                headerBackVisible: false,
+                            }}
                         />
                         <Stack.Screen name="Pay List" component={PayList} />
                         <Stack.Screen name="옮기기" component={SendMoney} />

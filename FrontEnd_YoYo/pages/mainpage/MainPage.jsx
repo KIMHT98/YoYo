@@ -9,7 +9,7 @@ import { StyleSheet, View } from "react-native";
 export default function MainPage() {
     const navigation = useNavigation();
     function clickPayCardHandler() {
-        navigation.navigate("은행 선택")
+        navigation.navigate("계좌등록")
     }
     function clickEventHandler() {
         navigation.navigate("EventList")
