@@ -5,6 +5,7 @@ import YoYoText from '../../../constants/YoYoText';
 import IconButton from '../../../components/common/IconButton';
 import SelectBank from './SelectBank';
 import RegistAccountNumber from './RegistAccountNumber';
+import RegistAuthNumber from './RegistAuthNumber';
 
 
 
@@ -48,6 +49,10 @@ export default function AccountRegist({ navigation }) {
           <YoYoText type="md" bold>계좌번호 입력</YoYoText>
         </View>
       );
+    } else if (stage === 2 && accountNumber) {
+      return (
+        <YoYoText type="md" bold>계좌 인증</YoYoText>
+      )
     }
   }
 
@@ -59,7 +64,7 @@ export default function AccountRegist({ navigation }) {
   }
   function clickAuth() {
     if (accountNumber.length > 10) {
-      alert("계좌번호를 입력하세요.")
+      setStage(stage + 1)
     } else {
       alert("계좌번호를 입력하세요.")
     }
@@ -70,6 +75,7 @@ export default function AccountRegist({ navigation }) {
         <SelectBank onPress={clickBank} />
       )}
       {stage === 1 && <RegistAccountNumber number={accountNumber} setNumber={setAccountNumber} onPress={clickAuth} />}
+      {stage === 2 && <RegistAuthNumber />}
     </Container>
   );
 }
