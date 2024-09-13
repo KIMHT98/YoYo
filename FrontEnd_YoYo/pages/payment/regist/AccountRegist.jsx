@@ -6,6 +6,7 @@ import IconButton from '../../../components/common/IconButton';
 import SelectBank from './SelectBank';
 import RegistAccountNumber from './RegistAccountNumber';
 import RegistAuthNumber from './RegistAuthNumber';
+import CompleteRegist from './CompleteRegist';
 
 
 
@@ -25,6 +26,7 @@ export default function AccountRegist({ navigation }) {
   const [selectedBank, setSelectedBank] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [stage, setStage] = useState(0);
+  const [accountAuthNumber, setAccountAuthNumber] = useState("");
   function clickPrev() {
     if (stage === 0) {
       navigation.goBack();
@@ -34,7 +36,11 @@ export default function AccountRegist({ navigation }) {
   }
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerLeft: () => <IconButton icon="arrow-back-outline" size={24} onPress={clickPrev} />,
+      headerLeft: () => {
+        if (stage <= 2) {
+          return <IconButton icon="arrow-back-outline" size={24} onPress={clickPrev} />
+        }
+      },
       headerTitle: () => headerTitle(),
 
     });
@@ -75,7 +81,8 @@ export default function AccountRegist({ navigation }) {
         <SelectBank onPress={clickBank} />
       )}
       {stage === 1 && <RegistAccountNumber number={accountNumber} setNumber={setAccountNumber} onPress={clickAuth} />}
-      {stage === 2 && <RegistAuthNumber />}
+      {stage === 2 && <RegistAuthNumber bank={selectedBank} bankImg={bankImages[selectedBank]} accountNumber={accountNumber} setAccountAuthNumber={setAccountAuthNumber} onPress={() => setStage(3)} />}
+      {stage === 3 && <CompleteRegist bank={bankImages[selectedBank]} accountNumber={accountNumber} />}
     </Container>
   );
 }
