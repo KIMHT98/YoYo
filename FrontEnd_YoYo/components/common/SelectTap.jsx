@@ -4,7 +4,13 @@ import React from "react";
 import YoYoText from "../../constants/YoYoText";
 import { MainStyle } from "../../constants/style";
 
-export default function SelectTap({ leftColor, rightColor, stateHandler }) {
+export default function SelectTap({
+    left,
+    right,
+    leftColor,
+    rightColor,
+    stateHandler,
+}) {
     const [isTakeSelected, setIsTakeSelected] = useState(true);
 
     const buttonTakeHandler = () => {

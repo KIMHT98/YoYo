@@ -29,6 +29,9 @@ import RegistNewFriend from "./pages/event/detail/RegistNewFriend";
 import SelectRegistType from "./pages/event/select/SelectRegistType";
 import SelectLinkType from "./pages/event/select/SelectLinkType";
 import QrCode from "./pages/event/select/QrCode";
+import PhoneNumber from "./components/login/PhoneNumber";
+import Password from "./components/login/Password";
+import UserInfo from "./components/login/UserInfo";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -212,22 +215,6 @@ export default function App() {
                             }}
                         />
                         <Stack.Screen
-                            name="GiveAndTake"
-                            component={GiveAndTakeList}
-                            options={{
-                                // headerShown: false,
-                                title: "요요 목록",
-                            }}
-                        />
-                        <Stack.Screen
-                            name="YoYoDetail"
-                            component={GiveAndTakeDetail}
-                        />
-                        <Stack.Screen
-                            name="EventDetail"
-                            component={EventDetail}
-                        />
-                        <Stack.Screen
                             name="SignUp"
                             component={SignUp}
                             options={{
@@ -242,6 +229,10 @@ export default function App() {
                                 // headerShown: false,
                                 title: "",
                             }}
+                        />
+                        <Stack.Screen
+                            name="GiveAndTakeDetail"
+                            component={GiveAndTakeDetail}
                         />
                     </Stack.Navigator>
                 </NavigationContainer>

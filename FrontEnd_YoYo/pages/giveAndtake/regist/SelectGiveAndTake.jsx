@@ -9,21 +9,25 @@ import { useNavigation } from "@react-navigation/native";
 export default function SelectButton() {
     const navigation = useNavigation();
 
-    function clickButton() {
-        navigation.navigate("GiveAndTakeRegist");
+    function clickGiveButton() {
+        navigation.navigate("GiveAndTakeRegist", { type: 1 });
+    }
+
+    function clickTakeButton() {
+        navigation.navigate("GiveAndTakeRegist", { type: 2 });
     }
 
     return (
         <Container>
             <View style={styles.buttonContainer}>
-                <WhiteButton text={"받았어Yo"} onPress={clickButton}>
+                <WhiteButton text={"받았어Yo"} onPress={clickTakeButton}>
                     <FontAwesome6
                         name={"gift"}
                         size={76}
                         color={MainStyle.colors.main}
                     />
                 </WhiteButton>
-                <WhiteButton text={"보냈어Yo"} onPress={clickButton}>
+                <WhiteButton text={"보냈어Yo"} onPress={clickGiveButton}>
                     <FontAwesome6
                         name={"gift"}
                         size={76}

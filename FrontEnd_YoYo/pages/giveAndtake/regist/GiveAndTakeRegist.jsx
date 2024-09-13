@@ -5,6 +5,7 @@ import Next from "../../../components/common/Next";
 import IconButton from "../../../components/common/IconButton";
 import Name from "../../../components/giveAndTake/regist/Name";
 import Detail from "../../../components/giveAndTake/regist/Detail";
+import Event from "../../../components/giveAndTake/regist/Event";
 
 export default function GiveAndTakeRegist({ navigation }) {
     const [stage, setStage] = useState(0);
@@ -14,6 +15,18 @@ export default function GiveAndTakeRegist({ navigation }) {
         tag: "",
         description: "",
     });
+    const type = navigation.type;
+
+    const DATA = [
+        {
+            id: "1",
+            title: "First Item",
+        },
+        {
+            id: "2",
+            title: "Second Item",
+        },
+    ];
 
     function clickNextButton() {
         if (stage < 4 && isActive) {
@@ -66,9 +79,11 @@ export default function GiveAndTakeRegist({ navigation }) {
                         setIsActive={setIsActive}
                         person={person}
                         setPerson={setPerson}
+                        data={DATA}
                     />
                 )}
             </View>
+            <View>{stage === 2 && <Event type={type} />}</View>
         </Container>
     );
 }
