@@ -32,6 +32,9 @@ import QrCode from "./pages/event/select/QrCode";
 import PhoneNumber from "./components/login/PhoneNumber";
 import Password from "./components/login/Password";
 import UserInfo from "./components/login/UserInfo";
+import ScheduleDetail from "./pages/schedule/detail/ScheduleDetail";
+import Private from "./pages/setting/agree/Private";
+import ManageAccount from "./pages/setting/account/ManageAccount";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -233,6 +236,34 @@ export default function App() {
                         <Stack.Screen
                             name="GiveAndTakeDetail"
                             component={GiveAndTakeDetail}
+                        />
+                        <Stack.Screen
+                            name="ScheduleDetail"
+                            component={ScheduleDetail}
+                        />
+                        <Stack.Screen
+                            name="Notification"
+                            component={Notification}
+                            options={{
+                                // headerShown: false,
+                                title: "",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="Private"
+                            component={Private}
+                            options={{
+                                // headerShown: false,
+                                title: "개인정보처리방침",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="ManageAccount"
+                            component={ManageAccount}
+                            options={{
+                                // headerShown: false,
+                                title: "나의 계좌",
+                            }}
                         />
                     </Stack.Navigator>
                 </NavigationContainer>

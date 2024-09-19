@@ -9,11 +9,11 @@ import { useNavigation } from "@react-navigation/native";
 export default function SelectButton() {
     const navigation = useNavigation();
 
-    function clickGiveButton() {
+    function clickTakeButton() {
         navigation.navigate("GiveAndTakeRegist", { type: 1 });
     }
 
-    function clickTakeButton() {
+    function clickGiveButton() {
         navigation.navigate("GiveAndTakeRegist", { type: 2 });
     }
 

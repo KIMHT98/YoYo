@@ -6,8 +6,9 @@ import IconButton from "../../../components/common/IconButton";
 import Name from "../../../components/giveAndTake/regist/Name";
 import Detail from "../../../components/giveAndTake/regist/Detail";
 import Event from "../../../components/giveAndTake/regist/Event";
+import Money from "../../../components/giveAndTake/regist/Money";
 
-export default function GiveAndTakeRegist({ navigation }) {
+export default function GiveAndTakeRegist({ navigation, route }) {
     const [stage, setStage] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const [person, setPerson] = useState({
@@ -15,9 +16,9 @@ export default function GiveAndTakeRegist({ navigation }) {
         tag: "",
         description: "",
     });
-    const type = navigation.type;
+    const { type } = route.params;
 
-    const DATA = [
+    const detailList = [
         {
             id: "1",
             title: "First Item",
@@ -28,8 +29,23 @@ export default function GiveAndTakeRegist({ navigation }) {
         },
     ];
 
+    const eventList = [
+        {
+            id: 1,
+            name: "결혼식",
+            date: "24.08.29",
+            position: "서울시 강남구",
+        },
+        {
+            id: 2,
+            name: "장례식",
+            date: "24.09.04",
+            position: "서울시 강남구",
+        },
+    ];
+
     function clickNextButton() {
-        if (stage < 4 && isActive) {
+        if (stage < 3 && isActive) {
             setStage(stage + 1);
         }
         setIsActive(false);
@@ -79,11 +95,28 @@ export default function GiveAndTakeRegist({ navigation }) {
                         setIsActive={setIsActive}
                         person={person}
                         setPerson={setPerson}
-                        data={DATA}
+                        data={detailList}
                     />
                 )}
             </View>
-            <View>{stage === 2 && <Event type={type} />}</View>
+            <View>
+                {stage === 2 && (
+                    <Event
+                        type={type}
+                        data={eventList}
+                        setIsActive={setIsActive}
+                    />
+                )}
+            </View>
+            <View>
+                {stage === 3 && (
+                    <Money
+                        type={type}
+                        data={eventList}
+                        setIsActive={setIsActive}
+                    />
+                )}
+            </View>
         </Container>
     );
 }

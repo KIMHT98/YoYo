@@ -1,9 +1,8 @@
-import { View, StyleSheet, Pressable, FlatList } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import React, { useState } from "react";
 import Container from "../../../components/common/Container";
 import YoYoCard from "../../../components/card/Yoyo/YoYoCard";
 import SearchBar from "../../../components/common/SearchBar";
-import Tag from "../../../components/common/Tag";
 import YoYoText from "../../../constants/YoYoText";
 import Button from "../../../components/common/Button";
 import TagList from "../../../components/common/TagList";

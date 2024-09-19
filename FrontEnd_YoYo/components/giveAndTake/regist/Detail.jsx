@@ -27,7 +27,7 @@ export default function Detail({ setIsActive, person, setPerson, data }) {
     }
 
     const clickDetailHandler = () => {
-        navigation.navigate("GiveAndTakeDetail");
+        setIsActive(true);
     };
 
     return (
