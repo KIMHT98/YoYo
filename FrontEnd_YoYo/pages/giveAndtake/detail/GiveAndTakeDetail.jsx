@@ -4,7 +4,7 @@ import YoYoText from "../../../constants/YoYoText";
 import Tag from "../../../components/common/Tag";
 import Container from "../../../components/common/Container";
 import DetailMoneyGauge from "../../../components/card/Yoyo/DetailMoneyGauge";
-import SelectButton from "../../../components/common/SelectButton";
+import SelectTap from "../../../components/common/SelectTap";
 import YoYoCardDetail from "../../../components/card/Yoyo/YoYoCardDetail";
 import { MainStyle } from "../../../constants/style";
 
@@ -74,7 +74,7 @@ export default function GiveAndTakeDetail() {
                 <DetailMoneyGauge give={54000} take={68000}></DetailMoneyGauge>
             </View>
             <View style={styles.selectContainer}>
-                <SelectButton
+                <SelectTap
                     stateHandler={setGiveAndTake}
                     leftColor={MainStyle.colors.main}
                     rightColor={MainStyle.colors.red}

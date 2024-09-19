@@ -6,22 +6,23 @@ import LoginBackground from "../../../assets/svg/loginBackground.svg";
 import LoginYoYo from "../../../assets/svg/loginYoYo.svg";
 import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
-
 import { useNavigation } from "@react-navigation/native";
+import { useFonts } from "expo-font";
+import useFontsLoader from "../../../constants/useFontsLoader";
 
 export default function Login() {
     const navigation = useNavigation();
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
-
     const clickSignUpHandler = () => {
-        navigation.navigate("PhoneNumber");
+        navigation.navigate("SignUp");
     };
-
     const clickLoginHandler = () => {
         // 로그인 버튼 클릭 시 처리할 로직
         navigation.navigate("Home");
     };
+    const fontsLoaded = useFontsLoader();
+    if (!fontsLoaded) return null;
 
     return (
         <View
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
     },
     logoText: {
         fontSize: MainStyle.fontSize.logo,
-        fontWeight: "bold",
         color: MainStyle.colors.main,
+        fontFamily: MainStyle.fontFamily.OleoBold,
     },
 });

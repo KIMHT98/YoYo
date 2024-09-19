@@ -2,15 +2,11 @@ import { View, StyleSheet } from "react-native";
 import React from "react";
 import YoYoText from "../../../constants/YoYoText";
 import { MainStyle } from "../../../constants/style";
+import format from "../../../util/format";
 
 export default function DetailMoneyGauge({ give, take }) {
     // 게이지 너비 give & take 비율로 결정
     const gaugeWidth = (take / (give + take)) * 100 + "%";
-
-    // 입력받은 숫자를 쉼표 형식으로 변환
-    const formatNumber = (num) => {
-        return parseInt(num, 10).toLocaleString();
-    };
 
     return (
         <View>
@@ -19,10 +15,10 @@ export default function DetailMoneyGauge({ give, take }) {
             </View>
             <View style={styles.rowContainer}>
                 <YoYoText type="subTitle" bold color={MainStyle.colors.main}>
-                    {formatNumber(take)}
+                    {format.formatNumber(take)}
                 </YoYoText>
                 <YoYoText type="subTitle" bold color={MainStyle.colors.red}>
-                    {formatNumber(give)}
+                    {format.formatNumber(give)}
                 </YoYoText>
             </View>
         </View>
