@@ -8,8 +8,6 @@ import RegistAccountNumber from './RegistAccountNumber';
 import RegistAuthNumber from './RegistAuthNumber';
 import CompleteRegist from './CompleteRegist';
 
-
-
 const bankImages = {
   KB국민은행: require("../../../assets/svg/banks/KB국민은행.png"),
   신한은행: require("../../../assets/svg/banks/신한은행.png"),
@@ -59,6 +57,8 @@ export default function AccountRegist({ navigation }) {
       return (
         <YoYoText type="md" bold>계좌 인증</YoYoText>
       )
+    } else if (stage === 3) {
+      return (<YoYoText type='subTitle' bold>등록완료</YoYoText>)
     }
   }
 
@@ -75,6 +75,9 @@ export default function AccountRegist({ navigation }) {
       alert("계좌번호를 입력하세요.")
     }
   }
+  function clickRegistPasswordHandler() {
+    navigation.navigate("RegistPayPassword", { data: { title: "등록 완료", content: "결제 비밀번호 등록이 완료되었습니다." } })
+  }
   return (
     <Container>
       {stage === 0 && (
@@ -82,7 +85,7 @@ export default function AccountRegist({ navigation }) {
       )}
       {stage === 1 && <RegistAccountNumber number={accountNumber} setNumber={setAccountNumber} onPress={clickAuth} />}
       {stage === 2 && <RegistAuthNumber bank={selectedBank} bankImg={bankImages[selectedBank]} accountNumber={accountNumber} setAccountAuthNumber={setAccountAuthNumber} onPress={() => setStage(3)} />}
-      {stage === 3 && <CompleteRegist bank={bankImages[selectedBank]} accountNumber={accountNumber} />}
+      {stage === 3 && <CompleteRegist bank={bankImages[selectedBank]} accountNumber={accountNumber} onPress={clickRegistPasswordHandler} />}
     </Container>
   );
 }

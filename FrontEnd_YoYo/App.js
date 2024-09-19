@@ -5,14 +5,12 @@ import MainPage from "./pages/mainpage/MainPage";
 import ScheduleList from "./pages/schedule/list/ScheduleList";
 import PayList from "./pages/payment/payList/PayList";
 import SettingList from "./pages/setting/list/SettingList";
-import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Notification from "./pages/notification/Notification";
 import Login from "./pages/member/login/Login";
-import YoYoText from "./constants/YoYoText";
 import AccountRegist from "./pages/payment/regist/AccountRegist";
 import EventList from "./pages/event/list/EventList";
 import GiveAndTakeList from "./pages/giveAndtake/list/GiveAndTakeList";
@@ -31,7 +29,8 @@ import RegistNewFriend from "./pages/event/detail/RegistNewFriend";
 import SelectRegistType from "./pages/event/select/SelectRegistType";
 import SelectLinkType from "./pages/event/select/SelectLinkType";
 import QrCode from "./pages/event/select/QrCode";
-
+import RegistPayPassword from "./pages/payment/password/RegistPayPassword";
+import AfterPassword from "./pages/payment/password/AfterPassword.jsx";
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const TopTab = createMaterialTopTabNavigator();
@@ -213,6 +212,22 @@ export default function App() {
                             component={QrCode}
                             options={{
                                 title: "",
+                                presentation: "modal",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="RegistPayPassword"
+                            component={RegistPayPassword}
+                            options={{
+                                headerShown: false,
+                                presentation: "modal",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="AfterPassword"
+                            component={AfterPassword}
+                            options={{
+                                headerShown: false,
                                 presentation: "modal",
                             }}
                         />
