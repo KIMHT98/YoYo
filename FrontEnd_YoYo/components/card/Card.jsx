@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         elevation: 5,
         backgroundColor: "white",
-        marginVertical: 8
+        marginVertical: 8,
     },
     pressableContainer: {
         borderRadius: 16,

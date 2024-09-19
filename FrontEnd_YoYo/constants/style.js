@@ -33,4 +33,8 @@ export const MainStyle = {
         xs: 8,
         logo: 48,
     },
+    fontFamily: {
+        OleoBold: "OleoBold",
+        NotoRegular: "NotoRegular",
+    },
 };

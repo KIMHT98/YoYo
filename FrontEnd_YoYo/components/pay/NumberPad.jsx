@@ -66,7 +66,7 @@ export default function NumberPad({ setPayPassword, next }) {
               <Pressable style={({ pressed }) => [styles.iconContainer, pressed && styles.pressed]} onPress={eraseAll}>
                 <Ionicons name="close" color="white" size={24} />
               </Pressable>
-              <NumberPadButton number={num} onPress={() => clickNumberHandler(num)} key={num + Math.random()} />
+              <NumberPadButton number={num} onPress={() => clickNumberHandler(num)} key={new Date() + Math.random()} />
               <Pressable style={({ pressed }) => [styles.iconContainer, pressed && styles.pressed]} onPress={eraseOne}>
                 <Ionicons name="backspace-outline" color="white" size={24} />
               </Pressable>

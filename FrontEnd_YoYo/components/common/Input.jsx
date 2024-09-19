@@ -2,7 +2,14 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { MainStyle } from "../../constants/style";
 
-export default function Input({ type, placeholder, onChange, isError, text }) {
+export default function Input({
+    type,
+    placeholder,
+    onChange,
+    isError,
+    text,
+    notEditable,
+}) {
     const [isFocused, setIsFocused] = useState(false);
 
     const handleFocus = () => setIsFocused(true);
@@ -10,8 +17,8 @@ export default function Input({ type, placeholder, onChange, isError, text }) {
     const borderColor = isError
         ? MainStyle.colors.error // 에러가 있을 때의 색상
         : isFocused
-            ? MainStyle.colors.main // 포커스될 때의 색상
-            : MainStyle.colors.lighter; // 기본 색상
+        ? MainStyle.colors.main // 포커스될 때의 색상
+        : MainStyle.colors.lighter; // 기본 색상
 
     return (
         <View style={styles.inputContainer}>
@@ -26,6 +33,7 @@ export default function Input({ type, placeholder, onChange, isError, text }) {
                 keyboardType={type === "phoneNumber" ? "number-pad" : "default"}
                 autoCapitalize="none"
                 value={text}
+                editable={notEditable ? false : true}
             />
             {isError && <Text style={styles.error}>※ error Message</Text>}
         </View>
