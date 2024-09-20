@@ -36,6 +36,7 @@ import ScheduleDetail from "./pages/schedule/detail/ScheduleDetail";
 import Private from "./pages/setting/agree/Private";
 import ManageAccount from "./pages/setting/account/ManageAccount";
 import YoYoText from "./constants/YoYoText.jsx";
+import PayPage from "./pages/payment/PayPage.jsx";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -114,7 +115,7 @@ function BottomTabBar() {
             />
             <BottomTab.Screen
                 name="Payment"
-                component={Login}
+                component={PayPage}
                 options={{ tabBarLabel: "페이" }}
             />
             <BottomTab.Screen

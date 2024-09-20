@@ -10,7 +10,7 @@ import Header from "../../components/header/Header";
 export default function MainPage() {
     const navigation = useNavigation();
     function clickPayCardHandler() {
-        navigation.navigate("계좌등록")
+        navigation.navigate("계좌등록");
     }
     function clickEventHandler() {
         navigation.navigate("EventList");
