@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, FlatList, StyleSheet } from "react-native";
 import { MainStyle } from "../../../constants/style";
-import EventListCard from "../../../components/card/Event/EventListCard";
-import YoYoText from "../../../constants/YoYoText";
 import IconButton from "../../../components/common/IconButton";
-import { FontAwesome } from "@expo/vector-icons";
 import Header from "../../../components/header/Header";
-import Container from "../../../components/common/Container";
+import EventScheduleCard from "../../../components/card/Event/EventScheduleCard";
+import YoYoText from "../../../constants/YoYoText";
 const eventsData = [
     {
         // 이거 어떻게 가져올지 고민해 봐야 함
@@ -17,7 +15,7 @@ const eventsData = [
                 title: "이벤트 이름",
                 name: "주최자 이름",
                 position: "주소",
-                startAt: "2024.09.02",
+                date: "2024.09.02",
                 endAt: "2024.09.02",
             },
             {
@@ -25,7 +23,7 @@ const eventsData = [
                 title: "이벤트 이름",
                 name: "주최자 이름",
                 position: "주소",
-                startAt: "2024.09.02",
+                date: "2024.09.02",
                 endAt: "2024.09.02",
             },
             {
@@ -33,7 +31,7 @@ const eventsData = [
                 title: "이벤트 이름",
                 name: "주최자 이름",
                 position: "주소",
-                startAt: "2024.09.02",
+                date: "2024.09.02",
                 endAt: "2024.09.03",
             },
         ],
@@ -46,7 +44,7 @@ const eventsData = [
                 title: "이벤트 이름",
                 name: "주최자 이름",
                 position: "주소",
-                startAt: "2024.09.03",
+                date: "2024.09.03",
                 endAt: "2024.09.04",
             },
         ],
@@ -67,7 +65,7 @@ export default function ScheduleList({ navigation }) {
         }
     }
     function renderItem({ item }) {
-        return <EventListCard event={item} onPress={clickSchedule} />;
+        return <EventScheduleCard event={item} onPress={clickSchedule} />;
     }
     const scheduleList = ({ item }) => (
         <View>
@@ -75,19 +73,23 @@ export default function ScheduleList({ navigation }) {
                 onPress={() => toggleExpand(item.date)}
                 style={({}) => [styles.dateContainer]}
             >
-                <Text>{item.date}</Text>
+                <YoYoText type={"md"} bold>
+                    {item.date}
+                </YoYoText>
                 <View style={styles.dateRightContainer}>
-                    <Text>{item.events.length}개</Text>
+                    <YoYoText type={"md"}>{item.events.length}개</YoYoText>
                     <IconButton icon={"chevron-down-sharp"} />
                 </View>
             </Pressable>
 
             {expandedDate === item.date && (
-                <FlatList
-                    data={item.events}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.eventId}
-                />
+                <View style={styles.scheduleListContainer}>
+                    <FlatList
+                        data={item.events}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.eventId}
+                    />
+                </View>
             )}
         </View>
     );
@@ -124,6 +126,10 @@ const styles = StyleSheet.create({
         columnGap: 10,
         justifyContent: "space-around",
         alignItems: "center",
+    },
+    scheduleListContainer: {
+        padding: 16,
+        backgroundColor: MainStyle.colors.white,
     },
     header: {
         marginVertical: 24,

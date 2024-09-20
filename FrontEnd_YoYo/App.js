@@ -270,6 +270,10 @@ export default function App() {
                         <Stack.Screen
                             name="ScheduleDetail"
                             component={ScheduleDetail}
+                            options={{
+                                // headerShown: false,
+                                title: "일정 상세보기",
+                            }}
                         />
                         <Stack.Screen
                             name="Notification"
