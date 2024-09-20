@@ -8,7 +8,7 @@ import { CheckBox } from "../../common/CheckBox";
 
 export default function YoYoCard({ item, type, onPress, selectedCard }) {
     return (
-        <Card height={128} onPress={onPress}>
+        <Card height={144} onPress={onPress}>
             <View style={styles.innerContainer}>
                 <View>
                     <View

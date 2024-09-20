@@ -95,7 +95,7 @@ export default function ScheduleList({ navigation }) {
     );
 
     return (
-        <>
+        <View style={styles.outerContainer}>
             <View style={styles.container}>
                 <Header />
             </View>
@@ -106,11 +106,15 @@ export default function ScheduleList({ navigation }) {
                     keyExtractor={(item) => item.date}
                 />
             </View>
-        </>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
+    outerContainer: {
+        backgroundColor: MainStyle.colors.white,
+        flex: 1,
+    },
     container: {
         padding: 24,
     },

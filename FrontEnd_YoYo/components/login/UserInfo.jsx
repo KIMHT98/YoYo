@@ -13,6 +13,7 @@ export default function UserInfo({ setIsActive }) {
     useEffect(() => {
         if (name.length > 0) {
             setIsNameCorrect(validate.validateName(name));
+            setIsActive(true);
         }
     }, [isNameCorrect]);
 

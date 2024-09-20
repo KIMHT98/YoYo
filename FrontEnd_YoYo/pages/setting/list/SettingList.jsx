@@ -36,7 +36,7 @@ export default function SettingList() {
         );
     }
     return (
-        <>
+        <View style={styles.outerContainer}>
             <View style={styles.container}>
                 <Header />
                 <YoYoText type={"title"} bold>
@@ -53,11 +53,15 @@ export default function SettingList() {
                     )}
                 />
             </View>
-        </>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
+    outerContainer: {
+        backgroundColor: MainStyle.colors.white,
+        flex: 1,
+    },
     container: {
         padding: 24,
     },

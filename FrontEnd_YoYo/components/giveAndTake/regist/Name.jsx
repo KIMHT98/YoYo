@@ -22,7 +22,7 @@ export default function Name({ setIsActive, setPerson }) {
         <View style={styles.titleContainer}>
             <View>
                 <YoYoText type="title" bold color={MainStyle.colors.main}>
-                    이름입력
+                    이름 입력
                 </YoYoText>
             </View>
             <View style={styles.textContainer}>
