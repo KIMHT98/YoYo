@@ -15,7 +15,6 @@ import AccountRegist from "./pages/payment/regist/AccountRegist";
 import EventList from "./pages/event/list/EventList";
 import GiveAndTakeList from "./pages/giveAndtake/list/GiveAndTakeList";
 import SendMoney from "./pages/payment/send/SendMoney";
-import ChargeMoney from "./pages/payment/send/ChargeMoney";
 import GiveAndTakeDetail from "./pages/giveAndtake/detail/GiveAndTakeDetail";
 import EventDetail from "./pages/event/detail/EventDetail";
 import GiveAndTakeRegist from "./pages/giveAndtake/regist/GiveAndTakeRegist";
@@ -36,6 +35,7 @@ import UserInfo from "./components/login/UserInfo";
 import ScheduleDetail from "./pages/schedule/detail/ScheduleDetail";
 import Private from "./pages/setting/agree/Private";
 import ManageAccount from "./pages/setting/account/ManageAccount";
+import YoYoText from "./constants/YoYoText.jsx";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -153,9 +153,18 @@ export default function App() {
                                 headerBackVisible: false,
                             }}
                         />
-                        <Stack.Screen name="Pay List" component={PayList} />
-                        <Stack.Screen name="옮기기" component={SendMoney} />
-                        <Stack.Screen name="충전" component={ChargeMoney} />
+                        <Stack.Screen
+                            name="Pay List"
+                            component={PayList}
+                            options={{
+                                headerTitle: () => (
+                                    <YoYoText type="subTitle" logo>
+                                        Pay List
+                                    </YoYoText>
+                                ),
+                            }}
+                        />
+                        <Stack.Screen name="돈보내기" component={SendMoney} />
                         <Stack.Screen
                             name="EventList"
                             component={EventList}
@@ -235,9 +244,10 @@ export default function App() {
                             options={{
                                 headerShown: false,
                                 presentation: "modal",
-                            }}/>
-                            <Stack.Screen
-                             name="SignUp"
+                            }}
+                        />
+                        <Stack.Screen
+                            name="SignUp"
                             component={SignUp}
                             options={{
                                 // headerShown: false,

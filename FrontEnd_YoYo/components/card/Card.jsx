@@ -6,13 +6,13 @@ export default function Card({ children, onPress, height }) {
     return (
         <View style={styles.cardContainer}>
             <Pressable
-                onPress={onPress}
+                onPress={onPress && onPress}
                 style={({ pressed }) => [
                     styles.pressableContainer,
-                    pressed && styles.pressed,
+                    onPress && pressed && styles.pressed,
                     { height: height },
                 ]}
-                android_ripple={{ color: MainStyle.colors.hover }}
+                android_ripple={onPress ? { color: MainStyle.colors.hover } : null}
             >
                 <View style={[styles.container, { height: height }]}>
                     {children}

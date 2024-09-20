@@ -1,34 +1,30 @@
 import { StyleSheet, View, Pressable } from 'react-native'
 import React from 'react'
 import YoYoText from '../../../constants/YoYoText'
-import YoYoIcon from '../../../assets/svg/YoYoIcon.svg'
 import Button from '../../common/Button';
 import { MainStyle } from '../../../constants/style';
 import { useNavigation } from '@react-navigation/native';
+import MoneyCard from './MoneyCard';
 
-export default function PayCard({ name, money, account, onPress
-
-}) {
+export default function PayCard({ name, money, account, onPress }) {
   const navigation = useNavigation();
   function clickeGiveHandler() {
-    navigation.navigate("옮기기")
+    navigation.navigate("돈보내기", {
+      title: "옮기기"
+    })
   }
   function clickChargeHandler() {
-    navigation.navigate("충전")
+    navigation.navigate("돈보내기", {
+      title: "충전하기"
+    })
   }
   function clickPayListHandler() {
     navigation.navigate("Pay List")
   }
   return (
     <View style={styles.container}>
-      <YoYoText type="subTitle" bold color={MainStyle.colors.white}>{name}님, 반갑습니다!</YoYoText>
-      <View style={styles.moneyContainer}>
-        <View style={styles.payContainer}>
-          <YoYoIcon />
-          <YoYoText type="md" bold>pay</YoYoText>
-        </View>
-        <YoYoText type={account ? "subTitle" : "md"} bold color={MainStyle.colors.white}>{account ? money + "원" : "등록된 계좌가 없습니다."}</YoYoText>
-      </View>
+      <YoYoText type="subTitle" logo color={MainStyle.colors.white}>{name}님, 반갑습니다!</YoYoText>
+      <MoneyCard account={account} money={money} />
       {account ? <View style={styles.buttons}>
         <Pressable onPress={clickeGiveHandler}>
           <YoYoText type="md" bold color="white">옮기기</YoYoText>

@@ -76,7 +76,7 @@ export default function AccountRegist({ navigation }) {
     }
   }
   function clickRegistPasswordHandler() {
-    navigation.navigate("RegistPayPassword", { data: { title: "등록 완료", content: "결제 비밀번호 등록이 완료되었습니다." } })
+    navigation.navigate("RegistPayPassword", { data: { title: "등록 완료", content: "결제 비밀번호 등록이 완료되었습니다." }, type: 'account' })
   }
   return (
     <Container>

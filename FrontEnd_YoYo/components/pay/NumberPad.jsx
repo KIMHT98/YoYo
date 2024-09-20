@@ -62,17 +62,35 @@ export default function NumberPad({ setPayPassword, next }) {
       <View style={styles.innerContainer}>
         {nums.map((num, idx) => {
           if (idx === 9) {
-            return <>
-              <Pressable style={({ pressed }) => [styles.iconContainer, pressed && styles.pressed]} onPress={eraseAll}>
-                <Ionicons name="close" color="white" size={24} />
-              </Pressable>
-              <NumberPadButton number={num} onPress={() => clickNumberHandler(num)} key={new Date() + Math.random()} />
-              <Pressable style={({ pressed }) => [styles.iconContainer, pressed && styles.pressed]} onPress={eraseOne}>
-                <Ionicons name="backspace-outline" color="white" size={24} />
-              </Pressable>
-            </>
+            return (
+              <>
+                <Pressable
+                  key={`eraseAll-${idx}`}
+                  style={({ pressed }) => [styles.iconContainer, pressed && styles.pressed]}
+                  onPress={eraseAll}>
+                  <Ionicons name="close" color="white" size={24} />
+                </Pressable>
+                <NumberPadButton
+                  key={`number-${idx}`}
+                  number={num}
+                  onPress={() => clickNumberHandler(num)}
+                />
+                <Pressable
+                  key={`eraseOne-${idx}`}
+                  style={({ pressed }) => [styles.iconContainer, pressed && styles.pressed]}
+                  onPress={eraseOne}>
+                  <Ionicons name="backspace-outline" color="white" size={24} />
+                </Pressable>
+              </>
+            );
           }
-          return <NumberPadButton number={num} onPress={() => clickNumberHandler(num)} key={num} />
+          return (
+            <NumberPadButton
+              key={`number-${idx}`}
+              number={num}
+              onPress={() => clickNumberHandler(num)}
+            />
+          );
         })}
       </View>
     </View>

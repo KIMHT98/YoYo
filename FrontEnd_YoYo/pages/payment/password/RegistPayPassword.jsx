@@ -9,6 +9,7 @@ import NumberPad from '../../../components/pay/NumberPad'
 
 export default function RegistPayPassword({ navigation, route }) {
   const data = route.params.data
+  const type = route.params.type
   const [payPassword, setPayPassword] = useState([-1, -1, -1, -1, -1, -1])
   const [checkPayPassword, setCheckPayPassword] = useState([-1, -1, -1, -1, -1, -1])
   const [stage, setStage] = useState(1);
@@ -16,18 +17,22 @@ export default function RegistPayPassword({ navigation, route }) {
     navigation.goBack()
   }
   function next() {
-
-    if (stage === 1) {
-      setStage(2)
-    } else if (stage === 2) {
-      if (payPassword.join("") === checkPayPassword.join("")) {
-        navigation.navigate("AfterPassword", {
-          data: data
-        })
-      } else {
-
-        alert("비밀번호 확인좀")
-        setCheckPayPassword([-1, -1, -1, -1, -1, -1])
+    if (type === 'pay') {
+      navigation.navigate("AfterPassword", {
+        data: data
+      })
+    } else {
+      if (stage === 1) {
+        setStage(2)
+      } else if (stage === 2) {
+        if (payPassword.join("") === checkPayPassword.join("")) {
+          navigation.navigate("AfterPassword", {
+            data: data
+          })
+        } else {
+          alert("비밀번호 확인좀")
+          setCheckPayPassword([-1, -1, -1, -1, -1, -1])
+        }
       }
     }
 
