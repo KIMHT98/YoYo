@@ -10,12 +10,12 @@ import Header from "../../components/header/Header";
 export default function MainPage() {
     const navigation = useNavigation();
     function clickPayCardHandler() {
-        navigation.navigate("은행 선택");
+        navigation.navigate("계좌등록")
     }
     function clickEventHandler() {
         navigation.navigate("EventList");
     }
-    function cliclYoyoHandler() {
+    function clickYoyoHandler() {
         navigation.navigate("GiveAndTake");
     }
     return (
@@ -25,6 +25,7 @@ export default function MainPage() {
                 name="김현태"
                 money={1000000}
                 onPress={clickPayCardHandler}
+                account={true}
             />
             <MainPageCard
                 title={"Event"}
@@ -36,7 +37,7 @@ export default function MainPage() {
                 title={"Yo! Yo!"}
                 subTitle={"주변인들과의" + "\n" + "경조사비 현황을 확인해Yo!"}
                 type="yoyo"
-                onPress={cliclYoyoHandler}
+                onPress={clickYoyoHandler}
             />
         </Container>
     );

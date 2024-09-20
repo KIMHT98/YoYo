@@ -52,13 +52,16 @@ export default function YoYoText({
             color: color,
         },
     };
-    const finalStyle = {
+    let finalStyle = {
         ...fontStyle[type],
         fontWeight: bold ? "bold" : "normal",
         textAlign: center ? "center" : "left",
-        fontFamily: logo
-            ? MainStyle.fontFamily.OleoBold
-            : MainStyle.fontFamily.NotoRegular,
+    };
+    if (logo) finalStyle = {
+        ...fontStyle[type],
+        fontWeight: bold ? "bold" : "normal",
+        textAlign: center ? "center" : "left",
+        fontFamily: MainStyle.fontFamily.OleoBold
     };
 
     return <Text style={finalStyle}>{children}</Text>;

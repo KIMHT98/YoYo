@@ -5,7 +5,6 @@ import MainPage from "./pages/mainpage/MainPage";
 import ScheduleList from "./pages/schedule/list/ScheduleList";
 import PayList from "./pages/payment/payList/PayList";
 import SettingList from "./pages/setting/list/SettingList";
-import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -16,7 +15,6 @@ import AccountRegist from "./pages/payment/regist/AccountRegist";
 import EventList from "./pages/event/list/EventList";
 import GiveAndTakeList from "./pages/giveAndtake/list/GiveAndTakeList";
 import SendMoney from "./pages/payment/send/SendMoney";
-import ChargeMoney from "./pages/payment/send/ChargeMoney";
 import GiveAndTakeDetail from "./pages/giveAndtake/detail/GiveAndTakeDetail";
 import EventDetail from "./pages/event/detail/EventDetail";
 import GiveAndTakeRegist from "./pages/giveAndtake/regist/GiveAndTakeRegist";
@@ -29,12 +27,15 @@ import RegistNewFriend from "./pages/event/detail/RegistNewFriend";
 import SelectRegistType from "./pages/event/select/SelectRegistType";
 import SelectLinkType from "./pages/event/select/SelectLinkType";
 import QrCode from "./pages/event/select/QrCode";
+import RegistPayPassword from "./pages/payment/password/RegistPayPassword";
+import AfterPassword from "./pages/payment/password/AfterPassword.jsx";
 import PhoneNumber from "./components/login/PhoneNumber";
 import Password from "./components/login/Password";
 import UserInfo from "./components/login/UserInfo";
 import ScheduleDetail from "./pages/schedule/detail/ScheduleDetail";
 import Private from "./pages/setting/agree/Private";
 import ManageAccount from "./pages/setting/account/ManageAccount";
+import YoYoText from "./constants/YoYoText.jsx";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -146,12 +147,24 @@ export default function App() {
                             }}
                         />
                         <Stack.Screen
-                            name="은행 선택"
+                            name="계좌등록"
                             component={AccountRegist}
+                            options={{
+                                headerBackVisible: false,
+                            }}
                         />
-                        <Stack.Screen name="Pay List" component={PayList} />
-                        <Stack.Screen name="옮기기" component={SendMoney} />
-                        <Stack.Screen name="충전" component={ChargeMoney} />
+                        <Stack.Screen
+                            name="Pay List"
+                            component={PayList}
+                            options={{
+                                headerTitle: () => (
+                                    <YoYoText type="subTitle" logo>
+                                        Pay List
+                                    </YoYoText>
+                                ),
+                            }}
+                        />
+                        <Stack.Screen name="돈보내기" component={SendMoney} />
                         <Stack.Screen
                             name="EventList"
                             component={EventList}
@@ -214,6 +227,22 @@ export default function App() {
                             component={QrCode}
                             options={{
                                 title: "",
+                                presentation: "modal",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="RegistPayPassword"
+                            component={RegistPayPassword}
+                            options={{
+                                headerShown: false,
+                                presentation: "modal",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="AfterPassword"
+                            component={AfterPassword}
+                            options={{
+                                headerShown: false,
                                 presentation: "modal",
                             }}
                         />

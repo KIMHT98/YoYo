@@ -62,7 +62,7 @@ export default function MainPageCard({ title, subTitle, type, onPress }) {
             >
                 <View style={styles.container}>
                     <View style={styles.textContainer}>
-                        <YoYoText type="title" bold>
+                        <YoYoText type="title" logo>
                             {title}
                         </YoYoText>
                         <YoYoText type="md">{subTitle}</YoYoText>
