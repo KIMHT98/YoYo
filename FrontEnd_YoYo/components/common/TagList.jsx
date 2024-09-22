@@ -35,7 +35,7 @@ export default function TagList({ onPress, selectedTag, size, all }) {
 const styles = StyleSheet.create({
 
   tagContainer: {
-    marginVertical: 24,
+    marginVertical: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'

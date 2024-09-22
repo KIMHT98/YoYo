@@ -36,6 +36,9 @@ import ScheduleDetail from "./pages/schedule/detail/ScheduleDetail";
 import Private from "./pages/setting/agree/Private";
 import ManageAccount from "./pages/setting/account/ManageAccount";
 import YoYoText from "./constants/YoYoText.jsx";
+import OcrPage from "./pages/ocr/OcrPage.jsx";
+import OcrList from "./pages/ocr/list/OcrList";
+import OcrSelect from "./pages/ocr/select/OcrSelect";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -292,6 +295,27 @@ export default function App() {
                             options={{
                                 // headerShown: false,
                                 title: "나의 계좌",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="OCRPAGE"
+                            component={OcrPage}
+                            options={{
+                                title: "",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="OCRLIST"
+                            component={OcrList}
+                            options={{
+                                title: "인식 결과",
+                            }}
+                        />
+                        <Stack.Screen
+                            name="OCRSELECT"
+                            component={OcrSelect}
+                            options={{
+                                title: "",
                             }}
                         />
                     </Stack.Navigator>
