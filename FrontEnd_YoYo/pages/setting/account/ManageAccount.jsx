@@ -1,9 +1,7 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import React from "react";
 import Container from "../../../components/common/Container";
-import Header from "../../../components/header/Header";
 import YoYoText from "../../../constants/YoYoText";
-import BankCard from "../../../components/pay/BankCard";
 import Button from "../../../components/common/Button";
 
 const bankImages = {

@@ -31,7 +31,11 @@ export default function SettingList() {
         return (
             <Pressable style={styles.item} onPress={() => clickItem(item)}>
                 <YoYoText type={"subTitle"}>{item.title}</YoYoText>
-                <IconButton icon={"chevron-forward"} size={24} />
+                <IconButton
+                    icon={"chevron-forward"}
+                    size={24}
+                    onPress={() => clickItem(item)}
+                />
             </Pressable>
         );
     }

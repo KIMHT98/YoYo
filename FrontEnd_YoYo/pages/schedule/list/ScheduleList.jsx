@@ -78,7 +78,14 @@ export default function ScheduleList({ navigation }) {
                 </YoYoText>
                 <View style={styles.dateRightContainer}>
                     <YoYoText type={"md"}>{item.events.length}개</YoYoText>
-                    <IconButton icon={"chevron-down-sharp"} />
+                    <IconButton
+                        icon={
+                            expandedDate === item.date
+                                ? "chevron-up-sharp"
+                                : "chevron-down-sharp"
+                        }
+                        onPress={() => toggleExpand(item.date)}
+                    />
                 </View>
             </Pressable>
 
