@@ -6,7 +6,15 @@ import Tag from "../../common/Tag";
 import MoneyGauge from "./MoneyGauge";
 import { CheckBox } from "../../common/CheckBox";
 
-export default function YoYoCard({ item, type, onPress, selectedCard }) {
+const tagTranslate = {
+    all: "전체",
+    friend: "친구",
+    family: "가족",
+    company: "직장",
+    etc: "기타",
+};
+
+export default function YoYoCard({ data, type, onPress, selectedCard }) {
     return (
         <Card height={144} onPress={onPress}>
             <View style={styles.innerContainer}>
@@ -19,16 +27,16 @@ export default function YoYoCard({ item, type, onPress, selectedCard }) {
                         }}
                     >
                         <YoYoText type="subTitle" bold>
-                            김현태
+                            {data.title}
                         </YoYoText>
                         {type === "select" && (
-                            <CheckBox checked={item.id === selectedCard} />
+                            <CheckBox checked={data.id === selectedCard} />
                         )}
                     </View>
-                    <YoYoText type="content">고등학교 친구</YoYoText>
+                    <YoYoText type="content">{data.description}</YoYoText>
                 </View>
-                <Tag type="friend" width={88}>
-                    친구
+                <Tag type={data.type} width={88}>
+                    {tagTranslate[data.type]}
                 </Tag>
             </View>
             <MoneyGauge give={20000} take={12000} />
