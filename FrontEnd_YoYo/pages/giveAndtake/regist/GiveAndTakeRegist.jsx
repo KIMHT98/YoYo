@@ -32,21 +32,27 @@ export default function GiveAndTakeRegist({ navigation, route }) {
     const eventList = [
         {
             id: 1,
-            name: "결혼식",
+            title: "결혼식",
+            name: "김현태",
             date: "24.08.29",
             position: "서울시 강남구",
         },
         {
             id: 2,
-            name: "장례식",
+            title: "돌잔치",
+            name: "이찬진",
             date: "24.09.04",
             position: "서울시 강남구",
         },
     ];
 
     function clickNextButton() {
-        if (stage < 3 && isActive) {
-            setStage(stage + 1);
+        if (isActive) {
+            if (stage < 3) {
+                setStage(stage + 1);
+            } else {
+                navigation.navigate("GiveAndTake");
+            }
         }
         setIsActive(false);
     }
@@ -58,11 +64,6 @@ export default function GiveAndTakeRegist({ navigation, route }) {
             setStage(stage - 1);
         }
     }
-
-    function clickButton() {
-        setStage(stage + 1);
-    }
-
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (

@@ -14,8 +14,12 @@ export default function SignUp({ navigation }) {
     const [isActive, setIsActive] = useState(false);
 
     function clickNextButton() {
-        if (stage < 3 && isActive) {
-            setStage(stage + 1);
+        if (isActive) {
+            if (stage < 2) {
+                setStage(stage + 1);
+            } else {
+                navigation.navigate("Login");
+            }
         }
         setIsActive(false);
     }

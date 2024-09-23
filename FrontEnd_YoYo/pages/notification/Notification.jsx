@@ -36,6 +36,8 @@ export default function Notification() {
         },
     ];
 
+    const [data, setData] = useState(DATA);
+
     const DATA2 = [
         {
             id: "3",
@@ -53,18 +55,27 @@ export default function Notification() {
             name: "최광림",
         },
     ];
+
+    const [data2, setData2] = useState(DATA2);
+
+    function clickScheduleButton(id) {
+        setData((prevData) => prevData.filter((item) => item.id !== id));
+    }
+    function clickNotification(id) {
+        setData2((prevData) => prevData.filter((item) => item.id !== id));
+    }
     function renderScheduleItem({ item }) {
-        return <ScheduleCard item={item} />;
+        return <ScheduleCard item={item} onPress={clickScheduleButton} />;
     }
     function renderNotificationItem({ item }) {
-        return <NotificationCard item={item} />;
+        return <NotificationCard item={item} onLongPress={clickNotification} />;
     }
 
     const notificationList = () => {
         if (isLeft) {
             return (
                 <FlatList
-                    data={DATA}
+                    data={data}
                     renderItem={renderScheduleItem}
                     keyExtractor={(item) => item.id}
                 ></FlatList>
@@ -72,7 +83,7 @@ export default function Notification() {
         } else {
             return (
                 <FlatList
-                    data={DATA2}
+                    data={data2}
                     renderItem={renderNotificationItem}
                     keyExtractor={(item) => item.id}
                 ></FlatList>

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import YoYoText from "../../../constants/YoYoText";
 import Input from "../../common/Input";
 import { MainStyle } from "../../../constants/style";
-import EventListCard from "../../card/Event/EventListCard";
+import EventScheduleCard from "../../card/Event/EventScheduleCard";
 
 export default function Event({ type, person, data, setIsActive }) {
     const [eventName, setEventName] = useState("");
@@ -11,6 +11,7 @@ export default function Event({ type, person, data, setIsActive }) {
     function clickCard(id) {
         if (id === selectedCard) {
             setSelectedCard(-1);
+            setIsActive(false);
         } else {
             setSelectedCard(id);
             setIsActive(true);
@@ -18,7 +19,7 @@ export default function Event({ type, person, data, setIsActive }) {
     }
     function renderedItem(item) {
         return (
-            <EventListCard
+            <EventScheduleCard
                 type="select"
                 onPress={() => clickCard(item.item.id)}
                 event={item.item}

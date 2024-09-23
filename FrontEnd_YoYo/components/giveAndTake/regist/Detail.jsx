@@ -11,6 +11,16 @@ export default function Detail({ setIsActive, person, setPerson, data }) {
     const navigation = useNavigation();
     const [description, setDescription] = useState("");
     const [selectedTag, setSelectedTag] = useState("all");
+    const [selectedCard, setSelectedCard] = useState(-1);
+    function clickCard(id) {
+        if (id === selectedCard) {
+            setSelectedCard(-1);
+            setIsActive(false);
+        } else {
+            setSelectedCard(id);
+            setIsActive(true);
+        }
+    }
 
     useEffect(() => {
         if (description.length > 0) {
@@ -26,16 +36,12 @@ export default function Detail({ setIsActive, person, setPerson, data }) {
         setSelectedTag(type);
     }
 
-    const clickDetailHandler = () => {
-        setIsActive(true);
-    };
-
     return (
         <View>
             <View style={styles.container}>
                 <View>
                     <YoYoText type="title" bold color={MainStyle.colors.main}>
-                        이름
+                        이름 입력
                     </YoYoText>
                 </View>
                 <View style={styles.textContainer}>
@@ -46,8 +52,13 @@ export default function Detail({ setIsActive, person, setPerson, data }) {
                 {data.length > 0 ? (
                     <FlatList
                         data={data}
-                        renderItem={({}) => (
-                            <YoYoCard onPress={clickDetailHandler} />
+                        renderItem={({ item }) => (
+                            <YoYoCard
+                                item={item}
+                                onPress={() => clickCard(item.id)}
+                                type="select"
+                                selectedCard={selectedCard}
+                            />
                         )}
                         style={styles.innerContainer}
                     ></FlatList>

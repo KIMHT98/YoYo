@@ -9,29 +9,42 @@ import TagList from "../../../components/common/TagList";
 
 export default function GiveAndTakeList({ navigation }) {
     const [selectedTag, setSelectedTag] = useState("all");
-    const margin = 2;
 
     const DATA = [
         {
             id: "1",
-            title: "First Item",
+            title: "김현태",
+            description: "고등학교 친구",
+            type: "friend",
         },
         {
             id: "2",
-            title: "Second Item",
+            title: "최광림",
+            description: "주먹왕",
+            type: "family",
         },
     ];
 
-    const clickDetailHandler = () => {
-        navigation.navigate("GiveAndTakeDetail");
-    };
+    const [data, setData] = useState(DATA);
 
+    const clickDetailHandler = (item) => {
+        navigation.navigate("GiveAndTakeDetail", { id: item.id });
+    };
     const clickAddHandler = () => {
         navigation.navigate("SelectGiveAndTake");
     };
-
     function clickTag(type) {
         setSelectedTag(type);
+        if (type === "all") {
+            setData(DATA);
+        } else {
+            setData(DATA.filter((item) => item.type === type));
+        }
+    }
+    function renderItem({ item }) {
+        return (
+            <YoYoCard data={item} onPress={() => clickDetailHandler(item)} />
+        );
     }
 
     return (
@@ -49,10 +62,9 @@ export default function GiveAndTakeList({ navigation }) {
                     />
                 </View>
                 <FlatList
-                    data={DATA}
-                    renderItem={({}) => (
-                        <YoYoCard onPress={clickDetailHandler} />
-                    )}
+                    data={data}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
                     style={styles.innerContainer}
                 ></FlatList>
             </Container>

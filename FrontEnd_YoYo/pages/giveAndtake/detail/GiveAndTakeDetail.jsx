@@ -8,8 +8,9 @@ import SelectTap from "../../../components/common/SelectTap";
 import YoYoCardDetail from "../../../components/card/Yoyo/YoYoCardDetail";
 import { MainStyle } from "../../../constants/style";
 
-export default function GiveAndTakeDetail() {
+export default function GiveAndTakeDetail({ route }) {
     const [giveAndTake, setGiveAndTake] = useState(true);
+    const { id } = route.params;
 
     const DATA = [
         {
@@ -42,14 +43,14 @@ export default function GiveAndTakeDetail() {
             return (
                 <FlatList
                     data={DATA}
-                    renderItem={({ }) => <YoYoCardDetail />}
+                    renderItem={({}) => <YoYoCardDetail />}
                 ></FlatList>
             );
         } else {
             return (
                 <FlatList
                     data={DATA2}
-                    renderItem={({ }) => <YoYoCardDetail />}
+                    renderItem={({}) => <YoYoCardDetail />}
                 ></FlatList>
             );
         }

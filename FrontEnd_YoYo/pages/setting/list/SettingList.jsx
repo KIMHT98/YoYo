@@ -9,17 +9,15 @@ import { useNavigation } from "@react-navigation/native";
 export default function SettingList() {
     const navigation = useNavigation();
     const settingList = [
-        { id: "1", title: "계좌관리" },
-        { id: "2", title: "개인정보 처리방침" },
-        { id: "3", title: "로그인" },
-        { id: "4", title: "로그아웃" },
+        { id: "1", title: "개인정보 처리방침" },
+        { id: "2", title: "로그인" },
+        { id: "3", title: "로그아웃" },
     ];
 
     const navigationList = {
-        1: () => navigation.navigate("ManageAccount"), // 예시로 콘솔 로그
-        2: () => navigation.navigate("Private"), // 실제 네비게이션 이동
-        3: () => navigation.navigate("Login"), // 로그아웃을 처리할 함수
-        4: () => console.log("로그아웃 진행"),
+        1: () => navigation.navigate("Private"), // 실제 네비게이션 이동
+        2: () => navigation.navigate("Login"), // 로그아웃을 처리할 함수
+        3: () => console.log("로그아웃 진행"),
     };
 
     function clickItem(item) {
@@ -33,12 +31,16 @@ export default function SettingList() {
         return (
             <Pressable style={styles.item} onPress={() => clickItem(item)}>
                 <YoYoText type={"subTitle"}>{item.title}</YoYoText>
-                <IconButton icon={"chevron-forward"} size={24} />
+                <IconButton
+                    icon={"chevron-forward"}
+                    size={24}
+                    onPress={() => clickItem(item)}
+                />
             </Pressable>
         );
     }
     return (
-        <>
+        <View style={styles.outerContainer}>
             <View style={styles.container}>
                 <Header />
                 <YoYoText type={"title"} bold>
@@ -55,11 +57,15 @@ export default function SettingList() {
                     )}
                 />
             </View>
-        </>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
+    outerContainer: {
+        backgroundColor: MainStyle.colors.white,
+        flex: 1,
+    },
     container: {
         padding: 24,
     },
@@ -68,6 +74,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         paddingHorizontal: 20,
+        paddingVertical: 10,
     },
     separator: {
         height: 1,

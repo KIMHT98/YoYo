@@ -13,7 +13,7 @@ const tagTranslate = {
     etc: "기타",
 };
 
-export default function ScheduleCard({ item }) {
+export default function ScheduleCard({ item, onPress }) {
     return (
         <Card>
             <View style={styles.firstContainer}>
@@ -33,12 +33,22 @@ export default function ScheduleCard({ item }) {
                 </View>
                 <View style={styles.buttonsContainer}>
                     <View style={styles.buttonContainer}>
-                        <Button type={"normal"} width={88} radius={24}>
+                        <Button
+                            type={"normal"}
+                            width={88}
+                            radius={24}
+                            onPress={() => onPress(item.id)}
+                        >
                             <YoYoText bold>등록</YoYoText>
                         </Button>
                     </View>
 
-                    <Button type={"normal"} width={88} radius={24}>
+                    <Button
+                        type={"normal"}
+                        width={88}
+                        radius={24}
+                        onPress={() => onPress(item.id)}
+                    >
                         <YoYoText bold>미등록</YoYoText>
                     </Button>
                 </View>

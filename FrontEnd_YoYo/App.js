@@ -36,6 +36,7 @@ import ScheduleDetail from "./pages/schedule/detail/ScheduleDetail";
 import Private from "./pages/setting/agree/Private";
 import ManageAccount from "./pages/setting/account/ManageAccount";
 import YoYoText from "./constants/YoYoText.jsx";
+import PayPage from "./pages/payment/PayPage.jsx";
 import OcrPage from "./pages/ocr/OcrPage.jsx";
 import OcrList from "./pages/ocr/list/OcrList";
 import OcrSelect from "./pages/ocr/select/OcrSelect";
@@ -117,7 +118,7 @@ function BottomTabBar() {
             />
             <BottomTab.Screen
                 name="Payment"
-                component={Login}
+                component={PayPage}
                 options={{ tabBarLabel: "페이" }}
             />
             <BottomTab.Screen
@@ -201,7 +202,13 @@ export default function App() {
                         />
                         <Stack.Screen name="Password" component={Password} />
                         <Stack.Screen name="UserInfo" component={UserInfo} />
-                        <Stack.Screen name="Login" component={Login} />
+                        <Stack.Screen
+                            name="Login"
+                            component={Login}
+                            options={{
+                                headerShown: false,
+                            }}
+                        />
                         <Stack.Screen
                             name="GiveAndTakeRegist"
                             component={GiveAndTakeRegist}
@@ -272,6 +279,10 @@ export default function App() {
                         <Stack.Screen
                             name="ScheduleDetail"
                             component={ScheduleDetail}
+                            options={{
+                                // headerShown: false,
+                                title: "일정 상세보기",
+                            }}
                         />
                         <Stack.Screen
                             name="Notification"
