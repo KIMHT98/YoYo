@@ -1,18 +1,11 @@
-import { View, StyleSheet, Pressable, Animated } from 'react-native'
+import { Animated } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import Container from '../../../components/common/Container'
 import YoYoText from '../../../constants/YoYoText'
 import { MainStyle } from '../../../constants/style'
 import Input from '../../../components/common/Input'
-import Tag from '../../../components/common/Tag'
 import Button from '../../../components/common/Button'
 import TagList from '../../../components/common/TagList'
-const tags = [
-  { type: "family", name: "가족" },
-  { type: "friend", name: "친구" },
-  { type: "company", name: "직장" },
-  { type: "etc", name: "기타" }
-];
 export default function RegistNewFriend({ route }) {
   const friend = route.params.friend
   const [name, setName] = useState(friend.name);

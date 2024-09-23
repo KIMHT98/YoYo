@@ -9,6 +9,7 @@ export default function Input({
     isError,
     text,
     notEditable,
+    errorMessage
 }) {
     const [isFocused, setIsFocused] = useState(false);
 
@@ -17,8 +18,8 @@ export default function Input({
     const borderColor = isError
         ? MainStyle.colors.error // 에러가 있을 때의 색상
         : isFocused
-        ? MainStyle.colors.main // 포커스될 때의 색상
-        : MainStyle.colors.lighter; // 기본 색상
+            ? MainStyle.colors.main // 포커스될 때의 색상
+            : MainStyle.colors.lighter; // 기본 색상
 
     return (
         <View style={styles.inputContainer}>
@@ -35,7 +36,7 @@ export default function Input({
                 value={text}
                 editable={notEditable ? false : true}
             />
-            {isError && <Text style={styles.error}>※ error Message</Text>}
+            {isError && <Text style={styles.error}>※ {errorMessage}</Text>}
         </View>
     );
 }

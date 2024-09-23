@@ -8,10 +8,10 @@ export default function SelectRegistType({ navigation }) {
   return (
     <Container>
       <View style={styles.innerContainer}>
-        <WhiteButton text="인식하기" onPress={() => alert("ocr로 이동")}>
+        <WhiteButton text="인식하기" onPress={() => navigation.navigate("OCRPAGE")}>
           <Ionicons name='camera-outline' size={80} />
         </WhiteButton>
-        <WhiteButton text="직접등록" onPress={() => navigation.navigate("GiveAndTakeRegist")}>
+        <WhiteButton text="직접등록" onPress={() => navigation.navigate("GiveAndTakeRegist", { type: 1 })}>
           <Ionicons name='create-outline' size={80} />
         </WhiteButton>
 
