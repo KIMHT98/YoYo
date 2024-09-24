@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useState } from "react";
 
 export const AuthContext = createContext({
-    toke: "",
+    token: "",
     memberId: -1,
     isAuthenticated: false,
     login: () => {},

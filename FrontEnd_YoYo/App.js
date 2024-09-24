@@ -357,6 +357,9 @@ function Root() {
         }
         fetchToken();
     }, []);
+    useEffect(() => {
+        setupInterceptors(authCtx);
+    }, [authCtx]);
     return <Navigation />;
 }
 export default function App() {
