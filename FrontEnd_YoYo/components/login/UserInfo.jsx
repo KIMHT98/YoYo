@@ -1,53 +1,43 @@
 import { View, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
 import Input from "../common/Input";
-import IconButton from "../common/IconButton";
 import validate from "../../util/validate";
 
-export default function UserInfo({ setIsActive }) {
-    const [name, setName] = useState("");
-    const [birthday, setBirthday] = useState("");
-    const [address, setAddress] = useState("");
-    const [isNameCorrect, setIsNameCorrect] = useState(false);
+export default function UserInfo({ profile, setProfile, setIsActive }) {
 
     useEffect(() => {
-        if (name.length > 0) {
-            setIsNameCorrect(validate.validateName(name));
-            setIsActive(true);
+        if (profile.name.length > 0 && validate.validateName(profile.name) && profile.birthDay.length === 10) {
+            setIsActive(true)
         }
-    }, [isNameCorrect]);
-
+    }, [profile]);
     return (
         <View style={styles.container}>
             <View style={styles.textContainer}>
                 <Input
                     type="default"
                     placeholder="이름"
-                    onChange={setName}
-                    text={name}
-                    isError={name.length === 0 ? false : isNameCorrect}
+                    onChange={(text) => {
+                        setProfile((prev) => ({
+                            ...prev,
+                            name: text
+                        }))
+                    }}
+                    text={profile.name}
+                    isError={profile.name.length > 0 && !validate.validateName(profile.name)}
                 />
             </View>
             <View style={styles.textContainer}>
                 <Input
                     type="phoneNumber"
-                    placeholder="생년월일"
-                    onChange={setBirthday}
-                    text={birthday}
+                    placeholder="생년월일(ex.2024-12-31)"
+                    onChange={(text) => {
+                        setProfile((prev) => ({
+                            ...prev,
+                            birthDay: text
+                        }))
+                    }}
+                    text={profile.birthDay}
                 />
-            </View>
-            <View style={styles.outerContainer}>
-                <View style={styles.inputContainer}>
-                    <Input
-                        type="default"
-                        placeholder="주소"
-                        onChange={setAddress}
-                        text={address}
-                    />
-                </View>
-                <View style={styles.buttonContainer}>
-                    <IconButton icon="search" size={25} />
-                </View>
             </View>
         </View>
     );

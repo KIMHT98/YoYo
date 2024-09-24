@@ -5,7 +5,7 @@ import { useState } from "react";
 import YoYoText from "../../constants/YoYoText";
 import Input from "../common/Input";
 
-export default function Password({ setIsActive }) {
+export default function Password({ setProfile, setIsActive }) {
     const [password, setPassword] = useState("");
     const [rePassword, setRePassword] = useState("");
     const [isError, setIsError] = useState(false);
@@ -21,9 +21,19 @@ export default function Password({ setIsActive }) {
         if (rePassword.length > 0) {
             setIsSame(identifyPassword());
         } else {
-            setIsSame(true);
+            setIsSame(false);
         }
-
+        if (isSame) {
+            setProfile((prev) => ({
+                ...prev,
+                password: rePassword
+            }))
+        } else {
+            setProfile((prev) => ({
+                ...prev,
+                password: ""
+            }))
+        }
         if (
             password.length > 0 &&
             rePassword.length > 0 &&
@@ -67,7 +77,8 @@ export default function Password({ setIsActive }) {
                         onChange={setPassword}
                         text={password}
                         isError={isError}
-                    ></Input>
+                        errorMessage="비밀번호 형식이 올바르지 않습니다."
+                    />
                 </View>
                 <View style={styles.textContainer}>
                     <Input
@@ -75,8 +86,9 @@ export default function Password({ setIsActive }) {
                         placeholder={"비밀번호 확인"}
                         onChange={setRePassword}
                         text={rePassword}
-                        isError={!isSame}
-                    ></Input>
+                        isError={rePassword.length > 0 && !isSame}
+                        errorMessage="비밀번호를 확인해주세요." /
+                    >
                 </View>
             </View>
         </View>

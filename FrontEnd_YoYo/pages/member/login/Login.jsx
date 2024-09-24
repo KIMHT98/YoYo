@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import React, { useContext, useState } from "react";
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { MainStyle } from "../../../constants/style";
 import YoYoText from "../../../constants/YoYoText";
 import LoginBackground from "../../../assets/svg/loginBackground.svg";
@@ -7,19 +7,31 @@ import LoginYoYo from "../../../assets/svg/loginYoYo.svg";
 import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
 import { useNavigation } from "@react-navigation/native";
-import { useFonts } from "expo-font";
 import useFontsLoader from "../../../constants/useFontsLoader";
+import { login } from "../../../apis/https/member";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from "../../../store/auth-context";
 
 export default function Login() {
+    const authCtx = useContext(AuthContext)
     const navigation = useNavigation();
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
     const clickSignUpHandler = () => {
         navigation.navigate("SignUp");
     };
-    const clickLoginHandler = () => {
+    const clickLoginHandler = async () => {
         // 로그인 버튼 클릭 시 처리할 로직
-        navigation.navigate("Home");
+        try {
+            const response = await login(phoneNumber, password)
+            authCtx.login(response.jwtToken, response.memberId)
+            navigation.navigate("Home");
+        } catch (error) {
+            Alert.alert(
+                "로그인 실패",
+                "전화번호 또는 비밀번호를 확인해주세요."
+            )
+        }
     };
     const fontsLoaded = useFontsLoader();
     if (!fontsLoaded) return null;
