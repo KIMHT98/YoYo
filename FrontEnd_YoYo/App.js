@@ -346,9 +346,9 @@ function Root() {
         }
         fetchToken();
     }, []);
-    useEffect(() => {
-        axiosInterceptor(authCtx);
-    }, [authCtx]);
+    // useEffect(() => {
+    //     axiosInterceptor(authCtx);
+    // }, [authCtx.token]);
     return <Navigation />;
 }
 export default function App() {
