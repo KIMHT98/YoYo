@@ -35,7 +35,6 @@ export default function EventRegist({ navigation }) {
     if (stage === 2) {
       if (event.location.length > 0 && event.startAt.length === 10 && event.endAt.length === 10) {
         setIsActive(true);
-        console.log(event.endAt)
       } else {
         setIsActive(false);
       }
