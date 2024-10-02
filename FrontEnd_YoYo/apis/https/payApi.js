@@ -33,7 +33,7 @@ export const managePay = async (path, data) => {
 //페이 거래 내역
 export const getPayList = async (type) => {
     const response = await axiosInstance.get(
-        END_POINT.PAYMENT_PATH("transaction") + `?payType=${type}`
+        END_POINT.PAYMENT_PATH("transaction") + `?transactionType=${type}`
     );
     return response.data;
 };
@@ -45,4 +45,17 @@ export const getPay = async () => {
     } catch (error) {
         console.log(error);
     }
+};
+//핀번호 인증
+export const checkPin = async (pin) => {
+    const response = await axiosInstance.post(
+        END_POINT.ACCOUTN_PATH("pin/check"),
+        { pin: pin }
+    );
+    return response.data;
+};
+//계좌조회
+export const getAccount = async () => {
+    const response = await axiosInstance.get(END_POINT.ACCOUNT);
+    return response.data;
 };

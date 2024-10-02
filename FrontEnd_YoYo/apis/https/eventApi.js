@@ -25,3 +25,12 @@ export async function searchEvent(keyword) {
     );
     return response.data;
 }
+//이벤트 트랜잭션
+export async function getEventTransaction(eventId, keyword, type, isRegister) {
+    const response = await axiosInstance.get(
+        END_POINT.TRANSACTIONS(
+            `event/${eventId}?search=${keyword}&relationType=${type}&isRegister=${isRegister}`
+        )
+    );
+    return response.data;
+}

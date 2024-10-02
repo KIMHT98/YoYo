@@ -71,8 +71,8 @@ export default function PayList({ route }) {
     }
   }
   useEffect(() => {
-    if (isIncome) fetchPayList('WITHDRAW')
-    else fetchPayList('DEPOSIT')
+    if (isIncome) fetchPayList('DEPOSIT')
+    else fetchPayList('WITHDRAW')
   }, [isIncome])
   return (
     <Container>
@@ -82,7 +82,7 @@ export default function PayList({ route }) {
         <SelectTap left="입금" right="출금" leftColor={MainStyle.colors.main} rightColor={MainStyle.colors.main} stateHandler={setIsIncome} />
       </View>
       {payList &&
-        <FlatList data={payList} renderItem={(item) => renderedItem(item, isIncome)} keyExtractor={(item) => item.id} style={{ marginTop: 24 }} />}
+        <FlatList data={payList} renderItem={(item) => renderedItem(item, isIncome)} keyExtractor={(item) => item.id + Math.random() + "paylist"} style={{ marginTop: 24 }} />}
     </Container>
   )
 }

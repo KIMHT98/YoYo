@@ -1,8 +1,9 @@
 import { View, StyleSheet, Image } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../../components/common/Container";
 import YoYoText from "../../../constants/YoYoText";
 import Button from "../../../components/common/Button";
+import { getAccount } from "../../../apis/https/payApi";
 
 const bankImages = {
     KB국민은행: require("../../../assets/svg/banks/KB국민은행.png"),
@@ -17,16 +18,25 @@ const bankImages = {
 };
 
 export default function ManageAccount({ navigation }) {
-    const data = {
-        name: "KB국민은행",
-        accountNumber: "123456-12-123456",
-    };
+    const [account, setAccount] = useState()
+
+    useEffect(() => {
+        async function fetchAccount() {
+            try {
+                const response = await getAccount()
+                setAccount(response)
+            } catch (error) {
+                console.log
+            }
+        }
+        fetchAccount();
+    }, [])
     function clickButton() {
         navigation.navigate("계좌등록");
     }
     return (
         <Container>
-            <View>
+            {account && <View>
                 <View>
                     <YoYoText type={"title"} bold>
                         나의 계좌
@@ -34,13 +44,13 @@ export default function ManageAccount({ navigation }) {
                 </View>
                 <View style={styles.bankContainer}>
                     <View style={styles.imageContainer}>
-                        <Image source={bankImages[data.name]} />
+                        <Image source={bankImages[account.bankName]} />
                     </View>
                     <View style={styles.textContainer}>
                         <YoYoText type={"md"} bold>
-                            {data.name}
+                            {account.bankName}
                         </YoYoText>
-                        <YoYoText type={"desc"}>{data.accountNumber}</YoYoText>
+                        <YoYoText type={"desc"}>{account.accountNumber}</YoYoText>
                     </View>
                 </View>
                 <View>
@@ -50,7 +60,7 @@ export default function ManageAccount({ navigation }) {
                         </YoYoText>
                     </Button>
                 </View>
-            </View>
+            </View>}
         </Container>
     );
 }

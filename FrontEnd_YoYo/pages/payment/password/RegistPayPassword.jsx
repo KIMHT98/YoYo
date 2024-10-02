@@ -6,7 +6,7 @@ import { MainStyle } from '../../../constants/style'
 import PayPasswordInput from '../../../components/pay/PayPasswordInput'
 import IconButton from '../../../components/common/IconButton'
 import NumberPad from '../../../components/pay/NumberPad'
-import { managePay, registAccount } from '../../../apis/https/payApi'
+import { checkPin, managePay, registAccount } from '../../../apis/https/payApi'
 
 export default function RegistPayPassword({ navigation, route }) {
   const { data, type } = route.params
@@ -29,6 +29,20 @@ export default function RegistPayPassword({ navigation, route }) {
     } catch (error) {
       Alert.alert("계좌 등록 간 문제가 발생했습니다.")
       console.log(error)
+    }
+  }
+  async function isPinOk() {
+    try {
+      const response = await checkPin(payPassword.join(""))
+      if (response.isSuccess) {
+        sendPay(data.money)
+      } else {
+        Alert.alert("결제 비밀번호 오류", "비밀번호를 다시 입력해주세요.")
+        setPayPassword([-1, -1, -1, -1, -1, -1])
+      }
+    } catch (error) {
+      Alert.alert("결제 비밀번호 오류", "비밀번호를 다시 입력해주세요.")
+      setPayPassword([-1, -1, -1, -1, -1, -1])
     }
   }
   async function sendPay(money) {
@@ -58,7 +72,7 @@ export default function RegistPayPassword({ navigation, route }) {
   }
   function next() {
     if (type === 'pay') {
-      sendPay(data.money)
+      isPinOk()
     } else {
       if (stage === 1) {
         setStage(2)
