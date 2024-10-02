@@ -10,9 +10,10 @@ import { useNavigation } from "@react-navigation/native";
 import useFontsLoader from "../../../constants/useFontsLoader";
 import { login } from "../../../apis/https/member";
 import { AuthContext } from "../../../store/auth-context";
+import { axiosInterceptor } from "../../../apis/axiosInterceptor";
 
 export default function Login() {
-    const authCtx = useContext(AuthContext)
+    const authCtx = useContext(AuthContext);
     const navigation = useNavigation();
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
@@ -22,13 +23,13 @@ export default function Login() {
     const clickLoginHandler = async () => {
         // 로그인 버튼 클릭 시 처리할 로직
         try {
-            const response = await login(phoneNumber, password)
-            authCtx.login(response.jwtToken, response.memberId)
+            const response = await login(phoneNumber, password);
+            authCtx.login(response.jwtToken, response.memberId);
         } catch (error) {
             Alert.alert(
                 "로그인 실패",
                 "전화번호 또는 비밀번호를 확인해주세요."
-            )
+            );
         }
     };
     const fontsLoaded = useFontsLoader();

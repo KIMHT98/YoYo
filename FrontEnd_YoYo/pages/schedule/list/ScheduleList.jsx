@@ -1,61 +1,67 @@
-import React, { useState } from "react";
-import { View, Text, Pressable, FlatList, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Pressable, FlatList, StyleSheet } from "react-native";
 import { MainStyle } from "../../../constants/style";
 import IconButton from "../../../components/common/IconButton";
 import Header from "../../../components/header/Header";
 import EventScheduleCard from "../../../components/card/Event/EventScheduleCard";
 import YoYoText from "../../../constants/YoYoText";
-const eventsData = [
-    {
-        // 이거 어떻게 가져올지 고민해 봐야 함
-        date: "2024.09.02",
-        events: [
-            {
-                eventId: 1,
-                title: "이벤트 이름",
-                name: "주최자 이름",
-                position: "주소",
-                date: "2024.09.02",
-                endAt: "2024.09.02",
-            },
-            {
-                eventId: 2,
-                title: "이벤트 이름",
-                name: "주최자 이름",
-                position: "주소",
-                date: "2024.09.02",
-                endAt: "2024.09.02",
-            },
-            {
-                eventId: 3,
-                title: "이벤트 이름",
-                name: "주최자 이름",
-                position: "주소",
-                date: "2024.09.02",
-                endAt: "2024.09.03",
-            },
-        ],
-    },
-    {
-        date: "2024.09.03",
-        events: [
-            {
-                eventId: 4,
-                title: "이벤트 이름",
-                name: "주최자 이름",
-                position: "주소",
-                date: "2024.09.03",
-                endAt: "2024.09.04",
-            },
-        ],
-    },
-];
+import { getSchedule } from "../../../apis/https/scheduleApi";
+import { formatDate } from "../../../util/date";
 
 export default function ScheduleList({ navigation }) {
     const [expandedDate, setExpandedDate] = useState(null);
+    const [data, setData] = useState([]);
 
-    function clickSchedule() {
-        navigation.navigate("ScheduleDetail");
+    // API 호출 및 데이터 로드
+    useEffect(() => {
+        async function fetchSchedule() {
+            try {
+                const response = await getSchedule(); // API 호출
+
+                setData(
+                    response.reduce((acc, current) => {
+                        const date = formatDate(current.startAt); // startAt을 기준으로 그룹화
+                        const event = {
+                            oppositeId: current.memberId,
+                            eventId: current.eventId,
+                            title: current.title,
+                            name: current.name,
+                            location: current.location,
+                            startAt: formatDate(current.startAt),
+                            endAt: formatDate(current.endAt),
+                        };
+
+                        // 이미 해당 날짜에 대한 객체가 있는지 확인
+                        const existingDate = acc.find(
+                            (item) => item.date === date
+                        );
+
+                        if (existingDate) {
+                            // 해당 날짜가 존재하면 events 배열에 이벤트 추가
+                            existingDate.events.push(event);
+                        } else {
+                            // 해당 날짜가 없으면 새로운 객체 생성 후 추가
+                            acc.push({
+                                date: date,
+                                events: [event],
+                            });
+                        }
+
+                        return acc;
+                    }, [])
+                );
+            } catch (error) {
+                console.error("Error fetching schedule:", error);
+            }
+        }
+
+        fetchSchedule(); // 컴포넌트가 처음 렌더링될 때 호출
+    }, []);
+
+    function clickSchedule({ item }) {
+        navigation.navigate("ScheduleDetail", {
+            item: item,
+        });
     }
     function toggleExpand(date) {
         if (expandedDate === date) {
@@ -65,7 +71,14 @@ export default function ScheduleList({ navigation }) {
         }
     }
     function renderItem({ item }) {
-        return <EventScheduleCard event={item} onPress={clickSchedule} />;
+        return (
+            <EventScheduleCard
+                event={item}
+                onPress={() => {
+                    clickSchedule({ item });
+                }}
+            />
+        );
     }
     const scheduleList = ({ item }) => (
         <View>
@@ -108,7 +121,7 @@ export default function ScheduleList({ navigation }) {
             </View>
             <View>
                 <FlatList
-                    data={eventsData}
+                    data={data}
                     renderItem={scheduleList}
                     keyExtractor={(item) => item.date}
                 />

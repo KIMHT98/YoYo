@@ -1,29 +1,60 @@
 import { View, StyleSheet, FlatList, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { MainStyle } from "../../../constants/style";
 import YoYoText from "../../../constants/YoYoText";
 import Input from "../../common/Input";
-import { MainStyle } from "../../../constants/style";
 import EventScheduleCard from "../../card/Event/EventScheduleCard";
+import { searchEvent } from "../../../apis/https/eventApi";
+import { formatDate } from "../../../util/date";
 
-export default function Event({ type, person, data, setIsActive }) {
+export default function Event({ type, person, setPerson, setIsActive }) {
     const [eventName, setEventName] = useState("");
-    const [selectedCard, setSelectedCard] = useState(-1);
-    function clickCard(id) {
-        if (id === selectedCard) {
-            setSelectedCard(-1);
+    const [cardId, setCardId] = useState(-1);
+    const [eventData, setEventData] = useState([]);
+    function clickCard(id, eventId) {
+        if (id === cardId) {
+            setCardId(-1);
             setIsActive(false);
         } else {
-            setSelectedCard(id);
+            setCardId(id);
+            setPerson((prevPerson) => ({
+                ...prevPerson,
+                eventId: eventId,
+            }));
             setIsActive(true);
         }
     }
+    useEffect(() => {
+        if (eventName.length > 0) {
+            setIsActive(true);
+            setPerson((prevPerson) => ({
+                ...prevPerson,
+                eventName: eventName,
+            }));
+        }
+    }, [eventName]);
+    useEffect(() => {
+        async function fetchEventData(eventName) {
+            const response = await searchEvent(eventName);
+            console.log(response);
+            const tmpData = response.map((item) => ({
+                eventId: item.eventId,
+                title: item.title,
+                location: item.location,
+                startAt: formatDate(item.startAt),
+                endAt: formatDate(item.endAt),
+            }));
+            setEventData(tmpData);
+        }
+        fetchEventData(eventName);
+    }, [eventName]);
     function renderedItem(item) {
         return (
             <EventScheduleCard
                 type="select"
-                onPress={() => clickCard(item.item.id)}
+                onPress={() => clickCard(item.item.id, item.item.eventId)}
                 event={item.item}
-                selectedCard={selectedCard}
+                selectedCard={cardId}
             />
         );
     }
@@ -45,9 +76,9 @@ export default function Event({ type, person, data, setIsActive }) {
                 </View>
             </View>
             <View style={styles.container}>
-                {type === 1 && data.length > 0 && (
+                {type === 1 && eventData.length > 0 && (
                     <FlatList
-                        data={data}
+                        data={eventData}
                         renderItem={renderedItem}
                         style={styles.innerContainer}
                     />
