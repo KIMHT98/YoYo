@@ -1,41 +1,64 @@
 import { View, StyleSheet, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
+import { MainStyle } from "../../../constants/style";
+import { getRelations } from "../../../apis/https/relationApi";
 import YoYoText from "../../../constants/YoYoText";
 import Input from "../../common/Input";
-import { MainStyle } from "../../../constants/style";
 import TagList from "../../common/TagList";
-import { useNavigation } from "@react-navigation/native";
 import YoYoCard from "../../card/Yoyo/YoYoCard";
 
-export default function Detail({ setIsActive, person, setPerson, data }) {
-    const navigation = useNavigation();
+export default function Detail({ setIsActive, person, setPerson }) {
     const [description, setDescription] = useState("");
     const [selectedTag, setSelectedTag] = useState("all");
-    const [selectedCard, setSelectedCard] = useState(-1);
-    function clickCard(id) {
-        if (id === selectedCard) {
-            setSelectedCard(-1);
+    const [cardId, setCardId] = useState(-1);
+    const [oppositeId, setOppositeId] = useState(-1);
+    const [relationData, setRelationData] = useState([]);
+    function clickCard(id, oppositeId) {
+        if (id === cardId) {
+            setCardId(-1);
+            setOppositeId(-1);
             setIsActive(false);
         } else {
-            setSelectedCard(id);
+            setCardId(id);
+            setOppositeId(oppositeId);
+            setPerson((prevPerson) => ({
+                ...prevPerson,
+                memberId: oppositeId,
+            }));
             setIsActive(true);
         }
     }
-
     useEffect(() => {
         if (description.length > 0) {
-            setIsActive(true);
             setPerson((prevPerson) => ({
                 ...prevPerson,
+                relationType: selectedTag,
                 description: description,
             }));
+            setIsActive(true);
         }
-    }, [description]);
-
+    }, [description, cardId]);
+    useEffect(() => {
+        async function fetchRelationData(name) {
+            const response = await getRelations(name);
+            if (response != null) {
+                const tmpData = response.map((item) => ({
+                    id: item.relationId,
+                    oppositeId: item.oppositeId,
+                    title: item.oppositeName,
+                    description: item.description,
+                    type: item.relationType.toLowerCase(),
+                    give: item.totalReceivedAmount,
+                    take: item.totalSentAmount,
+                }));
+                setRelationData(tmpData);
+            }
+        }
+        fetchRelationData(person.name);
+    }, [person.name]);
     function clickTag(type) {
         setSelectedTag(type);
     }
-
     return (
         <View>
             <View style={styles.container}>
@@ -49,15 +72,17 @@ export default function Detail({ setIsActive, person, setPerson, data }) {
                 </View>
             </View>
             <View style={styles.container}>
-                {data.length > 0 ? (
+                {relationData.length > 0 ? (
                     <FlatList
-                        data={data}
+                        data={relationData}
                         renderItem={({ item }) => (
                             <YoYoCard
-                                item={item}
-                                onPress={() => clickCard(item.id)}
+                                data={item}
+                                onPress={() =>
+                                    clickCard(item.id, item.oppositeId)
+                                }
                                 type="select"
-                                selectedCard={selectedCard}
+                                selectedCard={cardId}
                             />
                         )}
                         style={styles.innerContainer}

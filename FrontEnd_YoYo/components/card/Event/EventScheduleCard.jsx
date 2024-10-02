@@ -27,9 +27,9 @@ export default function EventScheduleCard({
                             {event.name}
                         </YoYoText>
                     </View>
-                    <YoYoText type="content">{event.date}</YoYoText>
+                    <YoYoText type="content">{event.startAt}</YoYoText>
                 </View>
-                <YoYoText type="desc">{event.position}</YoYoText>
+                <YoYoText type="desc">{event.location}</YoYoText>
             </View>
         </Card>
     );
