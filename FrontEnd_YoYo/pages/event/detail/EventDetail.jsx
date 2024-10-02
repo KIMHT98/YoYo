@@ -10,17 +10,20 @@ import EventAfterRegist from "../../../components/card/Event/EventAfterRegist";
 import IconButton from "../../../components/common/IconButton";
 import TagList from "../../../components/common/TagList";
 import Button from "./../../../components/common/Button";
-import { getEventDetail } from "../../../apis/https/eventApi";
+import { getEventDetail, getEventTransaction } from "../../../apis/https/eventApi";
 
 
 
 export default function EventDetail({ navigation, route }) {
     const [event, setEvent] = useState()
+    const [eventList, setEventList] = useState();
     const eventId = route.params.id
+    const [keyword, setKeyword] = useState('')
     const [selectedTag, setSelectedTag] = useState("all");
+    const [waitCnt, setWaitCnt] = useState(0)
     const [isWait, setIsWait] = useState(true);
     function clickWaitCard(friend) {
-        navigation.navigate("지인선택", { friend: friend });
+        navigation.navigate("지인선택", { friend: friend, eventId: event.eventId });
     }
     function clickTag(type) {
         setSelectedTag(type);
@@ -44,6 +47,26 @@ export default function EventDetail({ navigation, route }) {
             <EventAfterRegist event={item} />
         );
     };
+    useEffect(() => {
+        async function fetchEventTransaction() {
+            try {
+                const response = await getEventTransaction(eventId, keyword, "", !isWait)
+                if (response.status === 200) {
+                    if (isWait) setWaitCnt(response.data.length)
+                    if (selectedTag === "all") setEventList(response.data)
+                    else
+                        setEventList(response.data.filter((item) => item.relationType === selectedTag.toUpperCase()))
+                } else {
+                    setEventList()
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        fetchEventTransaction();
+
+    }, [keyword, selectedTag, isWait])
     useEffect(() => {
         async function fetchEvent() {
             const data = await getEventDetail(eventId)
@@ -90,7 +113,7 @@ export default function EventDetail({ navigation, route }) {
                     </YoYoText>
                     <YoYoText type="md">원의 마음을 전해주었어요.</YoYoText>
                 </View>
-                <SearchBar placeholder="이름을 입력해주세요." />
+                <SearchBar placeholder="이름을 입력해주세요." keyword={keyword} setKeyword={setKeyword} />
                 <TagList
                     onPress={clickTag}
                     selectedTag={selectedTag}
@@ -105,12 +128,13 @@ export default function EventDetail({ navigation, route }) {
                         left="등록 대기"
                         right="등록 완료"
                     />
-                    <FlatList
-                        data={event.transactions}
-                        renderItem={renderItem}
-                        keyExtractor={(item) => item.id.toString()}
-                    />
-                    <Text style={styles.waitText}>5</Text>
+                    {(eventList && eventList.length > 0) ?
+                        <FlatList
+                            data={eventList}
+                            renderItem={renderItem}
+                            keyExtractor={(item) => item.transactionId.toString()}
+                        /> : <View style={{ paddingTop: 24 }}><YoYoText type="md" bold center>거래 내역이 없습니다.</YoYoText></View>}
+                    {<Text style={styles.waitText}>{waitCnt}</Text>}
                 </View>
             </Container>
             <Button
@@ -149,7 +173,7 @@ const styles = StyleSheet.create({
     },
     waitText: {
         color: "white",
-        backgroundColor: "red",
+        backgroundColor: 'red',
         paddingVertical: 1,
         paddingHorizontal: 7,
         borderRadius: 100,

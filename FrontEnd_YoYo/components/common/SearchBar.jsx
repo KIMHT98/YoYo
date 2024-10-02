@@ -2,8 +2,8 @@ import { View, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MainStyle } from '../../constants/style';
 import React, { useState } from 'react';
-export default function SearchBar({ placeholder }) {
-  const [keyword, setKeyword] = useState('')
+export default function SearchBar({ placeholder, keyword, setKeyword }) {
+
   function pressCancelHandler() {
     setKeyword("");
   }
