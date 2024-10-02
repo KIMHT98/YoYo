@@ -205,7 +205,14 @@ function AuthenticatedStack() {
                     title: "",
                 }}
             />
-            <Stack.Screen name="GiveAndTake" component={GiveAndTakeList} />
+            <Stack.Screen
+                name="GiveAndTake"
+                component={GiveAndTakeList}
+                options={{
+                    // headerShown: false,
+                    title: "요요 목록보기",
+                }}
+            />
             <Stack.Screen name="YoYoDetail" component={GiveAndTakeDetail} />
             <Stack.Screen name="EventDetail" component={EventDetail} />
             <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
@@ -215,6 +222,9 @@ function AuthenticatedStack() {
             <Stack.Screen
                 name="GiveAndTakeRegist"
                 component={GiveAndTakeRegist}
+                options={{
+                    title: "거래내역추가",
+                }}
             />
             <Stack.Screen name="지인선택" component={SelectCard} />
             <Stack.Screen name="지인추가" component={RegistNewFriend} />
@@ -268,15 +278,12 @@ function AuthenticatedStack() {
             <Stack.Screen
                 name="GiveAndTakeDetail"
                 component={GiveAndTakeDetail}
-            />
-            <Stack.Screen
-                name="ScheduleDetail"
-                component={ScheduleDetail}
                 options={{
                     // headerShown: false,
-                    title: "일정 상세보기",
+                    title: "요요 상세보기",
                 }}
             />
+            <Stack.Screen name="ScheduleDetail" component={ScheduleDetail} />
             <Stack.Screen
                 name="Notification"
                 component={Notification}

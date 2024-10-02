@@ -5,7 +5,7 @@ import { MainStyle } from "../../../constants/style";
 import Input from "../../common/Input";
 import ButtonList from "../../common/ButtonList";
 
-export default function Money({ setIsActive }) {
+export default function Money({ setIsActive, person, setPerson }) {
     const [amount, setAmount] = useState(0);
     const [memo, setMemo] = useState("");
     const amountChange = (value) => {
@@ -15,6 +15,12 @@ export default function Money({ setIsActive }) {
     useEffect(() => {
         if (amount > 0 || memo.length > 0) {
             setIsActive(true);
+            setPerson((prevPerson) => ({
+                ...prevPerson,
+                amount: amount,
+                memo: memo,
+            }));
+            console.log(person);
         }
     }, [amount, memo]);
     return (
