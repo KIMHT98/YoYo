@@ -44,6 +44,8 @@ import { useContext, useEffect } from "react";
 import AuthContextProvider, { AuthContext } from "./store/auth-context.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { axiosInterceptor } from "./apis/axiosInterceptor.js";
+import { Provider } from "react-redux";
+import { store } from "./store/store.js";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -73,22 +75,20 @@ function BottomTabBar() {
                 headerShown: false,
                 tabBarIcon: ({ focused }) => {
                     let icon;
-
                     switch (route.name) {
-                        case "Home":
+                        case "HomeTab":
                             icon = "home";
                             break;
-                        case "Schedule":
+                        case "ScheduleTab":
                             icon = "calendar-number-sharp";
                             break;
-                        case "Payment":
+                        case "PaymentTab":
                             icon = "wallet";
                             break;
-                        case "Setting":
+                        case "SettingTab":
                             icon = "settings";
                             break;
                     }
-
                     return (
                         <Ionicons
                             name={icon}
@@ -104,23 +104,27 @@ function BottomTabBar() {
             })}
         >
             <BottomTab.Screen
-                name="Home"
-                component={MainPage}
+                name="HomeTab"
+                component={SharedStack} // SharedStack으로 변경
+                initialParams={{ screenName: "Home" }} // 파라미터를 추가하여 사용할 수 있음
                 options={{ tabBarLabel: "홈" }}
             />
             <BottomTab.Screen
-                name="Schedule"
-                component={ScheduleList}
+                name="ScheduleTab"
+                component={SharedStack} // SharedStack으로 변경
+                initialParams={{ screenName: "Schedule" }} // 파라미터를 추가하여 사용할 수 있음
                 options={{ tabBarLabel: "일정" }}
             />
             <BottomTab.Screen
-                name="Payment"
-                component={PayPage}
+                name="PaymentTab"
+                component={SharedStack} // SharedStack으로 변경
+                initialParams={{ screenName: "Payment" }} // 파라미터를 추가하여 사용할 수 있음
                 options={{ tabBarLabel: "페이" }}
             />
             <BottomTab.Screen
-                name="Setting"
-                component={SettingList}
+                name="SettingTab"
+                component={SharedStack} // SharedStack으로 변경
+                initialParams={{ screenName: "Setting" }} // 파라미터를 추가하여 사용할 수 있음
                 options={{ tabBarLabel: "설정" }}
             />
         </BottomTab.Navigator>
@@ -154,7 +158,8 @@ function AuthStack() {
         </Stack.Navigator>
     );
 }
-function AuthenticatedStack() {
+function SharedStack({ route }) {
+    const { screenName } = route.params;
     return (
         <Stack.Navigator
             screenOptions={{
@@ -164,13 +169,42 @@ function AuthenticatedStack() {
                 headerTitleAlign: "center",
             }}
         >
-            <Stack.Screen
-                name="BottomTabBar"
-                component={BottomTabBar}
-                options={{
-                    headerShown: false,
-                }}
-            />
+            {screenName === "Home" ? (
+                <Stack.Screen
+                    name="Home"
+                    component={MainPage}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+            ) : null}
+            {screenName === "Schedule" ? (
+                <Stack.Screen
+                    name="Schedule"
+                    component={ScheduleList}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+            ) : null}
+            {screenName === "Payment" ? (
+                <Stack.Screen
+                    name="Payment"
+                    component={PayPage}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+            ) : null}
+            {screenName === "Setting" ? (
+                <Stack.Screen
+                    name="Setting"
+                    component={SettingList}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+            ) : null}
             <Stack.Screen
                 name="계좌등록"
                 component={AccountRegist}
@@ -332,6 +366,26 @@ function AuthenticatedStack() {
         </Stack.Navigator>
     );
 }
+function AuthenticatedStack() {
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: MainStyle.colors.white,
+                },
+                headerTitleAlign: "center",
+            }}
+        >
+            <Stack.Screen
+                name="BottomTabBar"
+                component={BottomTabBar}
+                options={{
+                    headerShown: false,
+                }}
+            />
+        </Stack.Navigator>
+    );
+}
 function Navigation() {
     const authCtx = useContext(AuthContext);
     return (
@@ -363,11 +417,13 @@ export default function App() {
         <>
             <SafeAreaView />
             <StatusBar style="dark" />
+            {/* <Provider store={store}> */}
             <AuthContextProvider>
                 <GestureHandlerRootView style={{ flex: 1 }}>
                     <Root />
                 </GestureHandlerRootView>
             </AuthContextProvider>
+            {/* </Provider> */}
         </>
     );
 }
