@@ -8,6 +8,7 @@ import { MainStyle } from '../../../constants/style';
 import { formatDate } from './../../../util/date';
 
 export default function EventAfterRegist({ event }) {
+  console.log("이벤트 트랜잭션", event)
   const navigation = useNavigation();
   function clickFriendHandler() {
     navigation.navigate("GiveAndTakeDetail", { id: event.oppositeId })

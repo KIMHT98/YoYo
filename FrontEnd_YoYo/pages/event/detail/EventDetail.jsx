@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import Container from "./../../../components/common/Container";
 import YoYoText from "../../../constants/YoYoText";
 import { MainStyle } from "../../../constants/style";
@@ -11,6 +11,7 @@ import IconButton from "../../../components/common/IconButton";
 import TagList from "../../../components/common/TagList";
 import Button from "./../../../components/common/Button";
 import { getEventDetail, getEventTransaction } from "../../../apis/https/eventApi";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 
@@ -47,33 +48,34 @@ export default function EventDetail({ navigation, route }) {
             <EventAfterRegist event={item} />
         );
     };
-    useEffect(() => {
-        async function fetchEventTransaction() {
-            try {
-                const response = await getEventTransaction(eventId, keyword, "", !isWait)
-                if (response.status === 200) {
-                    if (isWait) setWaitCnt(response.data.length)
-                    if (selectedTag === "all") setEventList(response.data)
-                    else
-                        setEventList(response.data.filter((item) => item.relationType === selectedTag.toUpperCase()))
-                } else {
-                    setEventList()
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        }
 
-        fetchEventTransaction();
-
-    }, [keyword, selectedTag, isWait])
     useEffect(() => {
         async function fetchEvent() {
             const data = await getEventDetail(eventId)
             setEvent(data)
         }
         fetchEvent()
-    }, [])
+    }, [eventId])
+    useFocusEffect(
+        useCallback(() => {
+            async function fetchEventTransaction() {
+                try {
+                    const response = await getEventTransaction(eventId, keyword, "", !isWait)
+                    if (response.status === 200) {
+                        if (isWait) setWaitCnt(response.data.length)
+                        if (selectedTag === "all") setEventList(response.data)
+                        else
+                            setEventList(response.data.filter((item) => item.relationType === selectedTag.toUpperCase()))
+                    } else {
+                        setEventList()
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            fetchEventTransaction();
+        }, [keyword, selectedTag, isWait])
+    )
     useLayoutEffect(() => {
         if (event) {
             navigation.setOptions({

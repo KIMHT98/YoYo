@@ -19,7 +19,7 @@ export default function PayCard({ data, account, onPress }) {
     })
   }
   function clickPayListHandler() {
-    navigation.navigate("Pay List")
+    navigation.navigate("Pay List", { payInfo: data })
   }
   return (
     <View style={styles.container}>

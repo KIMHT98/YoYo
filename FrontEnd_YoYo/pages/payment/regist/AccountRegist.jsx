@@ -116,7 +116,7 @@ export default function AccountRegist({ navigation }) {
           accountNumber: text
         }))
       }} onPress={clickAuth} />}
-      {stage === 2 && <RegistAuthNumber bank={accountAuthNumber} bankImg={bankImages[info.bankName]} accountNumber={info.accountNumber} setAccountAuthNumber={setAccountAuthNumber} onPress={() => {
+      {stage === 2 && <RegistAuthNumber bank={info.bankName} bankImg={bankImages[info.bankName]} accountNumber={info.accountNumber} setAccountAuthNumber={setAccountAuthNumber} onPress={() => {
         setStage(3)
         setInfo((prev) => ({
           ...prev,
