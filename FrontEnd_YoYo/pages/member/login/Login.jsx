@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { MainStyle } from "../../../constants/style";
 import YoYoText from "../../../constants/YoYoText";
@@ -8,12 +8,12 @@ import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
 import { useNavigation } from "@react-navigation/native";
 import useFontsLoader from "../../../constants/useFontsLoader";
-import { login } from "../../../apis/https/member";
-import { AuthContext } from "../../../store/auth-context";
-import { axiosInterceptor } from "../../../apis/axiosInterceptor";
+import { login as loginApi } from "../../../apis/https/member";
+import { useDispatch } from "react-redux";
+import { login } from "../../../store/slices/authSlice";
 
 export default function Login() {
-    const authCtx = useContext(AuthContext);
+    const dispatch = useDispatch()
     const navigation = useNavigation();
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
@@ -23,8 +23,10 @@ export default function Login() {
     const clickLoginHandler = async () => {
         // 로그인 버튼 클릭 시 처리할 로직
         try {
-            const response = await login(phoneNumber, password);
-            authCtx.login(response.jwtToken, response.memberId);
+            const response = await loginApi(phoneNumber, password);
+            const token = response.jwtToken
+            const memberId = response.memberId
+            dispatch(login({ token, memberId }))
         } catch (error) {
             Alert.alert(
                 "로그인 실패",

@@ -1,14 +1,14 @@
-import { View, Text, Pressable, StyleSheet, FlatList } from "react-native";
-import React, { useContext } from "react";
+import { View, Pressable, StyleSheet, FlatList } from "react-native";
 import Header from "../../../components/header/Header";
 import YoYoText from "../../../constants/YoYoText";
 import IconButton from "../../../components/common/IconButton";
 import { MainStyle } from "../../../constants/style";
 import { useNavigation } from "@react-navigation/native";
-import { AuthContext } from "../../../store/auth-context";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../store/slices/authSlice";
 
 export default function SettingList() {
-    const authCtx = useContext(AuthContext);
+    const dispatch = useDispatch()
     const navigation = useNavigation();
     const settingList = [
         { id: "1", title: "개인정보 처리방침" },
@@ -17,7 +17,7 @@ export default function SettingList() {
 
     const navigationList = {
         1: () => navigation.navigate("Private"), // 실제 네비게이션 이동
-        2: () => authCtx.logout(), // 로그아웃을 처리할 함수
+        2: () => dispatch(logout()), // 로그아웃을 처리할 함수
     };
 
     function clickItem(item) {

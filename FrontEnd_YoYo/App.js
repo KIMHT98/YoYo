@@ -40,12 +40,11 @@ import PayPage from "./pages/payment/PayPage.jsx";
 import OcrPage from "./pages/ocr/OcrPage.jsx";
 import OcrList from "./pages/ocr/list/OcrList";
 import OcrSelect from "./pages/ocr/select/OcrSelect";
-import { useContext, useEffect } from "react";
-import AuthContextProvider, { AuthContext } from "./store/auth-context.js";
+import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { axiosInterceptor } from "./apis/axiosInterceptor.js";
-import { Provider } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store/store.js";
+import { setStoredAuth } from "./store/slices/authSlice.js";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -387,43 +386,48 @@ function AuthenticatedStack() {
     );
 }
 function Navigation() {
-    const authCtx = useContext(AuthContext);
+    const { isAuthenticated } = useSelector((state) => state.auth);
     return (
         <NavigationContainer>
-            {!authCtx.isAuthenticated && <AuthStack />}
-            {authCtx.isAuthenticated && <AuthenticatedStack />}
+            {!isAuthenticated && <AuthStack />}
+            {isAuthenticated && <AuthenticatedStack />}
         </NavigationContainer>
     );
 }
 function Root() {
-    const authCtx = useContext(AuthContext);
+    const dispatch = useDispatch();
+
     useEffect(() => {
         async function fetchToken() {
             const storedToken = await AsyncStorage.getItem("token");
-            const nowMember = await AsyncStorage.getItem("memberId");
-            if (storedToken && nowMember) {
-                authCtx.login(storedToken, nowMember);
+            const storedMemberId = await AsyncStorage.getItem("memberId");
+
+            if (storedToken && storedMemberId) {
+                // AsyncStorage에서 불러온 값으로 Redux 상태 업데이트
+                dispatch(
+                    setStoredAuth({
+                        token: storedToken,
+                        memberId: parseInt(storedMemberId),
+                    })
+                );
             }
         }
         fetchToken();
-    }, []);
-    // useEffect(() => {
-    //     axiosInterceptor(authCtx);
-    // }, [authCtx.token]);
+    }, [dispatch]);
+
     return <Navigation />;
 }
+
 export default function App() {
     return (
         <>
             <SafeAreaView />
             <StatusBar style="dark" />
-            {/* <Provider store={store}> */}
-            <AuthContextProvider>
+            <Provider store={store}>
                 <GestureHandlerRootView style={{ flex: 1 }}>
                     <Root />
                 </GestureHandlerRootView>
-            </AuthContextProvider>
-            {/* </Provider> */}
+            </Provider>
         </>
     );
 }
