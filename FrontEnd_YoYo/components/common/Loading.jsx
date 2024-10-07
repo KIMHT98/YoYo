@@ -1,16 +1,18 @@
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
-import React, { useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import Container from "./Container";
 
 export default function Loading() {
     return (
-        <LottieView
-            style={styles.iconContainer}
-            source={require("../../assets/loadingIcon.json")}
-            autoPlay
-            loop
-        />
+        <Container>
+            <LottieView
+                style={styles.iconContainer}
+                source={require("../../assets/loadingIcon.json")}
+                autoPlay
+                loop
+            />
+        </Container>
     );
 }
 

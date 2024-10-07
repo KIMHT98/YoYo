@@ -247,7 +247,11 @@ function SharedStack({ route }) {
                 }}
             />
             <Stack.Screen name="YoYoDetail" component={GiveAndTakeDetail} />
-            <Stack.Screen name="EventDetail" component={EventDetail} />
+            <Stack.Screen
+                name="EventDetail"
+                component={EventDetail}
+                options={{ title: "" }}
+            />
             <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
             <Stack.Screen name="Password" component={Password} />
             <Stack.Screen name="UserInfo" component={UserInfo} />
