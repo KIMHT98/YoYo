@@ -5,7 +5,7 @@ import * as Clipboard from "expo-clipboard"
 import { MainStyle } from '../../constants/style';
 export default function EventLink({ eventId, setIsModalOpen }) {
   const copyToClipboard = async () => {
-    await Clipboard.setStringAsync(`http://j11a308.p.ssafy.io/payment/checkout/${eventId}`);
+    await Clipboard.setStringAsync(`https://j11a308.p.ssafy.io/payment/checkout/${eventId}`);
     setIsModalOpen(false)
   };
 
@@ -14,7 +14,7 @@ export default function EventLink({ eventId, setIsModalOpen }) {
     <View style={styles.outerContainer}>
       <View style={styles.modalContainer}>
         <YoYoText bold center type="md" color={MainStyle.colors.main}>지인에게 전송하여 마음을 받으세요!</YoYoText>
-        <YoYoText type="desc" center bold >{`http://j11a308.p.ssafy.io/payment/checkout/${eventId}`}</YoYoText>
+        <YoYoText type="desc" center bold >{`https://j11a308.p.ssafy.io/payment/checkout/${eventId}`}</YoYoText>
         <Button type="fill" radius={16} width={150} onPress={copyToClipboard}><YoYoText type="subContent" bold>복사</YoYoText></Button>
       </View>
     </View>
