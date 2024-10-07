@@ -33,43 +33,45 @@ export default function GiveAndTakeDetail({ route }) {
         take: 0,
     });
     const { id } = route.params;
-    async function fetchRelation(oppositeId) {
-        const response = await getRelation(oppositeId);
-        console.log(response);
-        setData({
-            name: response.oppositeName,
-            description: response.description,
-            tag: response.relationType.toLowerCase(),
-            give: response.totalSentAmount,
-            take: response.totalReceivedAmount,
-        });
-    }
-    async function fetchTransaction(oppositeId) {
-        const response = await getTransaction(oppositeId);
-        setTakeData(
-            response.receive.map((item) => ({
-                transactionId: item.transactionId,
-                date: formatDate(item.time),
-                name: item.memo,
-                tag: item.relationType,
-                amount: item.amount,
-            }))
-        );
-        setGiveData(
-            response.send.map((item) => ({
-                transactionId: item.transactionId,
-                date: formatDate(item.time),
-                name: item.memo,
-                tag: item.relationType,
-                amount: item.amount,
-            }))
-        );
-    }
     useEffect(() => {
-        fetchTransaction(id);
-        fetchRelation(id);
-        setIsLoading(false);
-    }, []);
+        async function fetchData() {
+            try {
+                const [relationResponse, transactionResponse] =
+                    await Promise.all([getRelation(id), getTransaction(id)]);
+                setData({
+                    name: relationResponse.oppositeName,
+                    description: relationResponse.description,
+                    tag: relationResponse.relationType.toLowerCase(),
+                    give: relationResponse.totalSentAmount,
+                    take: relationResponse.totalReceivedAmount,
+                });
+                setTakeData(
+                    transactionResponse.receive.map((item) => ({
+                        transactionId: item.transactionId.toString(),
+                        date: formatDate(item.time),
+                        name: item.memo,
+                        tag: item.relationType,
+                        amount: item.amount,
+                    }))
+                );
+                setGiveData(
+                    transactionResponse.send.map((item) => ({
+                        transactionId: item.transactionId.toString(),
+                        date: formatDate(item.time),
+                        name: item.memo,
+                        tag: item.relationType,
+                        amount: item.amount,
+                    }))
+                );
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
+    }, [id]);
     function renderItem({ item }) {
         return <YoYoCardDetail data={item} />;
     }
@@ -151,7 +153,7 @@ export default function GiveAndTakeDetail({ route }) {
             </View>
             {isLoading ? (
                 <ActivityIndicator
-                    style={styles.loadingContainer}
+                    style={styles.resultContainer}
                     size={((height = 100), (width = 100))}
                     color={MainStyle.colors.main}
                 />

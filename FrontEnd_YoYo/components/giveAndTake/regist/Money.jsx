@@ -24,7 +24,6 @@ export default function Money({ setIsActive, person, setPerson }) {
     useEffect(() => {
         if (person.amount > 0 || person.memo.length > 0) {
             setIsActive(true);
-            console.log(person);
         }
     }, [person.amount, person.memo]);
 

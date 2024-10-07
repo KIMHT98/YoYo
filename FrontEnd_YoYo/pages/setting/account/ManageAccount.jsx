@@ -18,49 +18,53 @@ const bankImages = {
 };
 
 export default function ManageAccount({ navigation }) {
-    const [account, setAccount] = useState()
+    const [account, setAccount] = useState();
 
     useEffect(() => {
         async function fetchAccount() {
             try {
-                const response = await getAccount()
-                setAccount(response)
+                const response = await getAccount();
+                setAccount(response);
             } catch (error) {
-                console.log
+                console.log(error);
             }
         }
         fetchAccount();
-    }, [])
+    }, []);
     function clickButton() {
         navigation.navigate("계좌등록");
     }
     return (
         <Container>
-            {account && <View>
+            {account && (
                 <View>
-                    <YoYoText type={"title"} bold>
-                        나의 계좌
-                    </YoYoText>
-                </View>
-                <View style={styles.bankContainer}>
-                    <View style={styles.imageContainer}>
-                        <Image source={bankImages[account.bankName]} />
-                    </View>
-                    <View style={styles.textContainer}>
-                        <YoYoText type={"md"} bold>
-                            {account.bankName}
+                    <View>
+                        <YoYoText type={"title"} bold>
+                            나의 계좌
                         </YoYoText>
-                        <YoYoText type={"desc"}>{account.accountNumber}</YoYoText>
+                    </View>
+                    <View style={styles.bankContainer}>
+                        <View style={styles.imageContainer}>
+                            <Image source={bankImages[account.bankName]} />
+                        </View>
+                        <View style={styles.textContainer}>
+                            <YoYoText type={"md"} bold>
+                                {account.bankName}
+                            </YoYoText>
+                            <YoYoText type={"desc"}>
+                                {account.accountNumber}
+                            </YoYoText>
+                        </View>
+                    </View>
+                    <View>
+                        <Button type={"fill"} radius={16} onPress={clickButton}>
+                            <YoYoText type={"md"} bold>
+                                계좌 변경하기
+                            </YoYoText>
+                        </Button>
                     </View>
                 </View>
-                <View>
-                    <Button type={"fill"} radius={16} onPress={clickButton}>
-                        <YoYoText type={"md"} bold>
-                            계좌 변경하기
-                        </YoYoText>
-                    </Button>
-                </View>
-            </View>}
+            )}
         </Container>
     );
 }

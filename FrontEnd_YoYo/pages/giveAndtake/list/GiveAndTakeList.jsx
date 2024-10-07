@@ -7,10 +7,12 @@ import YoYoText from "../../../constants/YoYoText";
 import Button from "../../../components/common/Button";
 import TagList from "../../../components/common/TagList";
 import { getRelations } from "../../../apis/https/relationApi";
+import Loading from "../../../components/common/Loading";
 
 export default function GiveAndTakeList({ navigation }) {
     const [selectedTag, setSelectedTag] = useState("all");
     const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         async function fetchData() {
@@ -26,6 +28,7 @@ export default function GiveAndTakeList({ navigation }) {
                     take: item.totalSentAmount,
                 }));
                 setData(tmpData);
+                setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching Relation:", error);
             }
@@ -51,6 +54,7 @@ export default function GiveAndTakeList({ navigation }) {
             <YoYoCard data={item} onPress={() => clickDetailHandler(item)} />
         );
     }
+    if (isLoading) return <Loading />;
 
     return (
         <>

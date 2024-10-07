@@ -37,7 +37,6 @@ export default function Event({ type, person, setPerson, setIsActive }) {
     useEffect(() => {
         async function fetchEventData(eventName) {
             const response = await searchEvent(eventName);
-            console.log(response);
             const tmpData = response.map((item) => ({
                 eventId: item.eventId,
                 title: item.title,
