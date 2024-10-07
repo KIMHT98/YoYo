@@ -6,11 +6,17 @@ import Button from "../../../components/common/Button";
 import YoYoText from "../../../constants/YoYoText";
 import { getEventList } from "../../../apis/https/eventApi";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function EventList({ navigation }) {
     const [eventList, setEventList] = useState([]);
-    function clickEvent(id) {
-        navigation.navigate("EventDetail", { id: id });
+    async function clickEvent(id) {
+        try {
+            await AsyncStorage.setItem("eventId", id.toString());
+            navigation.navigate("EventDetail", { id });
+        } catch (error) {
+            console.error("Error storing the event ID:", error);
+        }
     }
     function registEvent() {
         navigation.navigate("EventRegist");
