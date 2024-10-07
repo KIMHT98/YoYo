@@ -14,7 +14,7 @@ export default function GiveAndTakeRegist({ navigation, route }) {
     const [stage, setStage] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const [person, setPerson] = useState({
-        transactionType: type === 1 ? "SEND" : "RECEIVE",
+        transactionType: type === 1 ? "RECEIVE" : "SEND",
         memberId: 0,
         name: "",
         relationType: "",
