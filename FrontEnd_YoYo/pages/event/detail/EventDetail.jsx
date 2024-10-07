@@ -31,10 +31,10 @@ export default function EventDetail({ navigation, route }) {
     }
     function clickBottomButton() {
         if (isWait) {
-            navigation.navigate("SelectRegistType", { eventId: event.eventId });
+            navigation.navigate("SelectRegistType", { event: event });
         } else {
             navigation.navigate("SelectLinkType", {
-                eventId: event.eventId,
+                event: event,
             });
         }
     }

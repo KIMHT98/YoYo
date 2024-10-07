@@ -45,6 +45,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store/store.js";
 import { setStoredAuth } from "./store/slices/authSlice.js";
+import EventReceiveRegist from "./pages/event/regist/EventReceiveRegist.jsx";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -204,13 +205,7 @@ function SharedStack({ route }) {
                     }}
                 />
             ) : null}
-            <Stack.Screen
-                name="계좌등록"
-                component={AccountRegist}
-                options={{
-                    headerBackVisible: false,
-                }}
-            />
+
             <Stack.Screen
                 name="Pay List"
                 component={PayList}
@@ -222,20 +217,12 @@ function SharedStack({ route }) {
                     ),
                 }}
             />
-            <Stack.Screen name="돈보내기" component={SendMoney} />
+
             <Stack.Screen
                 name="EventList"
                 component={EventList}
                 options={{
                     title: "경조사 목록",
-                }}
-            />
-            <Stack.Screen
-                name="EventRegist"
-                component={EventRegist}
-                options={{
-                    // headerShown: false,
-                    title: "",
                 }}
             />
             <Stack.Screen
@@ -248,33 +235,10 @@ function SharedStack({ route }) {
             />
             <Stack.Screen name="YoYoDetail" component={GiveAndTakeDetail} />
             <Stack.Screen name="EventDetail" component={EventDetail} />
-            <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
+            {/* <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
             <Stack.Screen name="Password" component={Password} />
-            <Stack.Screen name="UserInfo" component={UserInfo} />
+            <Stack.Screen name="UserInfo" component={UserInfo} /> */}
 
-            <Stack.Screen
-                name="GiveAndTakeRegist"
-                component={GiveAndTakeRegist}
-                options={{
-                    title: "거래내역추가",
-                }}
-            />
-            <Stack.Screen name="지인선택" component={SelectCard} />
-            <Stack.Screen name="지인추가" component={RegistNewFriend} />
-            <Stack.Screen
-                name="SelectRegistType"
-                component={SelectRegistType}
-                options={{
-                    title: "",
-                }}
-            />
-            <Stack.Screen
-                name="SelectLinkType"
-                component={SelectLinkType}
-                options={{
-                    title: "",
-                }}
-            />
             <Stack.Screen
                 name="QrCode"
                 component={QrCode}
@@ -283,31 +247,7 @@ function SharedStack({ route }) {
                     presentation: "modal",
                 }}
             />
-            <Stack.Screen
-                name="RegistPayPassword"
-                component={RegistPayPassword}
-                options={{
-                    headerShown: false,
-                    presentation: "modal",
-                }}
-            />
-            <Stack.Screen
-                name="AfterPassword"
-                component={AfterPassword}
-                options={{
-                    headerShown: false,
-                    presentation: "modal",
-                }}
-            />
 
-            <Stack.Screen
-                name="SelectGiveAndTake"
-                component={SelectGiveAndTake}
-                options={{
-                    // headerShown: false,
-                    title: "",
-                }}
-            />
             <Stack.Screen
                 name="GiveAndTakeDetail"
                 component={GiveAndTakeDetail}
@@ -341,6 +281,71 @@ function SharedStack({ route }) {
                     title: "나의 계좌",
                 }}
             />
+        </Stack.Navigator>
+    );
+}
+function AuthenticatedStack() {
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: MainStyle.colors.white,
+                },
+                headerTitleAlign: "center",
+            }}
+        >
+            <Stack.Screen
+                name="BottomTabBar"
+                component={BottomTabBar}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="EventRegist"
+                component={EventRegist}
+                options={{
+                    // headerShown: false,
+                    title: "",
+                }}
+            />
+            <Stack.Screen
+                name="EventReceiveRegist"
+                component={EventReceiveRegist}
+                options={{
+                    title: "직접 등록",
+                }}
+            />
+            <Stack.Screen
+                name="GiveAndTakeRegist"
+                component={GiveAndTakeRegist}
+                options={{
+                    title: "거래내역추가",
+                }}
+            />
+
+            <Stack.Screen
+                name="SelectGiveAndTake"
+                component={SelectGiveAndTake}
+                options={{
+                    // headerShown: false,
+                    title: "",
+                }}
+            />
+            <Stack.Screen
+                name="SelectRegistType"
+                component={SelectRegistType}
+                options={{
+                    title: "",
+                }}
+            />
+            <Stack.Screen
+                name="SelectLinkType"
+                component={SelectLinkType}
+                options={{
+                    title: "",
+                }}
+            />
             <Stack.Screen
                 name="OCRPAGE"
                 component={OcrPage}
@@ -362,24 +367,30 @@ function SharedStack({ route }) {
                     title: "",
                 }}
             />
-        </Stack.Navigator>
-    );
-}
-function AuthenticatedStack() {
-    return (
-        <Stack.Navigator
-            screenOptions={{
-                headerStyle: {
-                    backgroundColor: MainStyle.colors.white,
-                },
-                headerTitleAlign: "center",
-            }}
-        >
             <Stack.Screen
-                name="BottomTabBar"
-                component={BottomTabBar}
+                name="계좌등록"
+                component={AccountRegist}
+                options={{
+                    headerBackVisible: false,
+                }}
+            />
+            <Stack.Screen name="돈보내기" component={SendMoney} />
+            <Stack.Screen name="지인선택" component={SelectCard} />
+            <Stack.Screen name="지인추가" component={RegistNewFriend} />
+            <Stack.Screen
+                name="RegistPayPassword"
+                component={RegistPayPassword}
                 options={{
                     headerShown: false,
+                    presentation: "modal",
+                }}
+            />
+            <Stack.Screen
+                name="AfterPassword"
+                component={AfterPassword}
+                options={{
+                    headerShown: false,
+                    presentation: "modal",
                 }}
             />
         </Stack.Navigator>

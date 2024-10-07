@@ -7,7 +7,7 @@ import { MainStyle } from '../../constants/style';
 import YoYoCard from '../card/Yoyo/YoYoCard';
 import Button from '../common/Button';
 
-export default function SelectModal({ data, onPress, friend, setFriend }) {
+export default function SelectModal({ data, onPress, friend, setFriend, type }) {
   const [selectedCard, setSelectedCard] = useState(-1);
   const prevFriend = friend
   const animation = useRef(new Animated.Value(0)).current
@@ -29,22 +29,43 @@ export default function SelectModal({ data, onPress, friend, setFriend }) {
   function clickCard(item) {
     if (item.id === selectedCard) {
       setSelectedCard(-1)
-      setFriend((prev) => ({
-        ...prev,
-        name: prevFriend.name,
-        description: prevFriend.description,
-        relationType: prevFriend.relationType,
-        oppositeId: prevFriend.oppositeId
-      }))
+      if (type === "event") {
+        setFriend((prev) => ({
+          ...prev,
+          name: prevFriend.name,
+          description: prevFriend.description,
+          relationType: prevFriend.relationType,
+          memberId: prevFriend.oppositeId
+        }))
+      } else {
+        setFriend((prev) => ({
+          ...prev,
+          name: prevFriend.name,
+          description: prevFriend.description,
+          relationType: prevFriend.relationType,
+          oppositeId: prevFriend.oppositeId
+        }))
+      }
+
     } else {
       setSelectedCard(item.id);
-      setFriend((prev) => ({
-        ...prev,
-        name: item.name,
-        description: item.description,
-        relationType: item.type.toUpperCase(),
-        oppositeId: item.oppositeId
-      }))
+      if (type === "event") {
+        setFriend((prev) => ({
+          ...prev,
+          name: item.name,
+          description: item.description,
+          relationType: item.type.toUpperCase(),
+          memberId: item.oppositeId
+        }))
+      } else {
+        setFriend((prev) => ({
+          ...prev,
+          name: item.name,
+          description: item.description,
+          relationType: item.type.toUpperCase(),
+          oppositeId: item.oppositeId
+        }))
+      }
     }
   }
   return (
