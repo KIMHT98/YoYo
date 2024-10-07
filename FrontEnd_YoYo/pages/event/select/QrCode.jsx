@@ -6,7 +6,7 @@ import QRCode from 'react-native-qrcode-svg'
 export default function QrCode({ route }) {
   const event = route.params.event
   const qrData = {
-    link: `http://j11a308.p.ssafy.io/payment/checkout/${event.eventId}`,
+    link: `https://j11a308.p.ssafy.io/payment/checkout/${event.eventId}`,
     description: `${event.title}에 참석해주셔서 감사합니다.`,
     title: '마음을 전해주세요.',
     createdAt: new Date().toISOString()
