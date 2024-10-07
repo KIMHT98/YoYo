@@ -8,6 +8,7 @@ import PayButton from "../../components/pay/PayButton";
 import { useNavigation } from "@react-navigation/native";
 import { getPay } from "../../apis/https/payApi";
 import Button from "../../components/common/Button";
+import Loading from "../../components/common/Loading";
 const data = {
     Migration: {
         mode: 1,
@@ -20,7 +21,7 @@ const data = {
         mode: 1,
         type: "Charge",
         title: "충전",
-        text: "요요페이에 돈을 충전해요.",
+        text: "요요페이를 충전해요.",
         style: { width: 90, height: 120 },
     },
     PayList: {
@@ -39,8 +40,9 @@ const data = {
     },
 };
 export default function PayPage() {
-    const [payInfo, setPayInfo] = useState()
+    const [payInfo, setPayInfo] = useState();
     const navigation = useNavigation();
+    const [isLoading, setIsLoading] = useState(true);
     const navigationList = {
         Migration: () =>
             navigation.navigate("돈보내기", {
@@ -52,51 +54,73 @@ export default function PayPage() {
     };
     async function getPayInfo() {
         const response = await getPay();
-        setPayInfo(response)
-
+        setPayInfo(response);
+        setIsLoading(false);
     }
     useEffect(() => {
         getPayInfo();
-    }, [])
+    }, []);
+
+    if (isLoading) {
+        return <Loading />;
+    }
     return (
         <Container>
             <Header />
-            {payInfo &&
+            {payInfo && (
                 <View style={styles.moneyContainer}>
                     <YoYoText type={"subTitle"} bold>
                         {payInfo.memberName}님, 반갑습니다!
                     </YoYoText>
                     <MoneyCard account={payInfo} money={payInfo.balance} />
-                </View>}
+                </View>
+            )}
 
             <View style={styles.buttonContainer}>
-                {payInfo ? <><View style={styles.firstContainer}>
-                    <View style={styles.migrationContainer}>
-                        <PayButton
-                            data={data.Migration}
-                            onPress={navigationList.Migration}
-                        />
-                    </View>
+                {payInfo ? (
+                    <>
+                        <View style={styles.firstContainer}>
+                            <View style={styles.migrationContainer}>
+                                <PayButton
+                                    data={data.Migration}
+                                    onPress={navigationList.Migration}
+                                />
+                            </View>
 
-                    <View style={styles.chargeContainer}>
-                        <PayButton
-                            data={data.Charge}
-                            onPress={navigationList.Charge}
-                        />
-                    </View>
-                </View>
-                    <View>
-                        <PayButton
-                            data={data.PayList}
-                            onPress={() => navigationList.PayList(payInfo)}
-                        />
-                    </View>
-                    <View>
-                        <PayButton
-                            data={data.MyAccount}
-                            onPress={navigationList.MyAccount}
-                        />
-                    </View></> : <><Button type="normal" width="100%" radius={24} onPress={() => navigation.navigate("계좌등록")}><YoYoText type="md" bold>계좌 등록하러 가기</YoYoText></Button></>}
+                            <View style={styles.chargeContainer}>
+                                <PayButton
+                                    data={data.Charge}
+                                    onPress={navigationList.Charge}
+                                />
+                            </View>
+                        </View>
+                        <View>
+                            <PayButton
+                                data={data.PayList}
+                                onPress={() => navigationList.PayList(payInfo)}
+                            />
+                        </View>
+                        <View>
+                            <PayButton
+                                data={data.MyAccount}
+                                onPress={navigationList.MyAccount}
+                            />
+                        </View>
+                    </>
+                ) : (
+                    <>
+                        <Button
+                            type="normal"
+                            width="100%"
+                            radius={24}
+                            onPress={() => navigation.navigate("계좌등록")}
+                        >
+                            <YoYoText type="md" bold>
+                                계좌 등록하러 가기
+                            </YoYoText>
+                        </Button>
+                    </>
+                )}
             </View>
         </Container>
     );

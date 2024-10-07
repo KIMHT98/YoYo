@@ -8,16 +8,20 @@ import ScheduleCard from "../../components/notification/ScheduleCard";
 import { getNotification } from "../../apis/https/notificationApi";
 import { formatDate } from "../../util/date";
 import { registerSchedule } from "../../apis/https/scheduleApi";
+import LoadingSpinner from "../../components/common/LoadingSpinner";
+import YoYoText from "../../constants/YoYoText";
 
 export default function Notification() {
     const [isLeft, setIsLeft] = useState(true);
     const [notificationData, setNotificationData] = useState([]);
     const type = isLeft ? "EVENT" : "PAY";
+    const [isLoading, setIsLoading] = useState(true);
 
     // API 호출 및 데이터 로드
     useEffect(() => {
         async function fetchNotification() {
             try {
+                setIsLoading(true);
                 const response = await getNotification(type); // API 호출
                 const tmpData = response.map((item) => ({
                     notificationId: item.notificationId,
@@ -31,13 +35,13 @@ export default function Notification() {
                     type: item.type,
                 }));
                 setNotificationData(tmpData);
+                setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching Notification:", error);
             }
         }
         fetchNotification(); // 컴포넌트가 처음 렌더링될 때 호출
     }, [type]);
-    //TODO: NOTIFICATION 삭제 필요함
     async function clickScheduleButton(notificationId, isRegister) {
         try {
             await registerSchedule(notificationId, isRegister);
@@ -70,22 +74,35 @@ export default function Notification() {
     }
 
     const notificationList = () => {
-        if (isLeft) {
-            return (
-                <FlatList
-                    data={notificationData}
-                    renderItem={renderScheduleItem}
-                    keyExtractor={(item) => item.notificationId}
-                />
-            );
+        if (isLoading) {
+            return <LoadingSpinner />;
         } else {
-            return (
-                <FlatList
-                    data={notificationData}
-                    renderItem={renderNotificationItem}
-                    keyExtractor={(item) => item.notificationId}
-                />
-            );
+            if (notificationData.length === 0) {
+                return (
+                    <View style={styles.resultContainer}>
+                        <YoYoText type={"title"} bold>
+                            알림이 없어요.
+                        </YoYoText>
+                    </View>
+                );
+            }
+            if (isLeft) {
+                return (
+                    <FlatList
+                        data={notificationData}
+                        renderItem={renderScheduleItem}
+                        keyExtractor={(item) => item.notificationId}
+                    />
+                );
+            } else {
+                return (
+                    <FlatList
+                        data={notificationData}
+                        renderItem={renderNotificationItem}
+                        keyExtractor={(item) => item.notificationId}
+                    />
+                );
+            }
         }
     };
 
@@ -112,5 +129,10 @@ const styles = StyleSheet.create({
     },
     tapContainer: {
         marginVertical: 16,
+    },
+    resultContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
     },
 });

@@ -17,7 +17,10 @@ export default function ScheduleList({ navigation }) {
         async function fetchSchedule() {
             try {
                 const response = await getSchedule(); // API 호출
-
+                if (response.length === 0) {
+                    setData();
+                    return;
+                }
                 setData(
                     response.reduce((acc, current) => {
                         const date = formatDate(current.startAt); // startAt을 기준으로 그룹화

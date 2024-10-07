@@ -29,9 +29,6 @@ import SelectLinkType from "./pages/event/select/SelectLinkType";
 import QrCode from "./pages/event/select/QrCode";
 import RegistPayPassword from "./pages/payment/password/RegistPayPassword";
 import AfterPassword from "./pages/payment/password/AfterPassword.jsx";
-import PhoneNumber from "./components/login/PhoneNumber";
-import Password from "./components/login/Password";
-import UserInfo from "./components/login/UserInfo";
 import ScheduleDetail from "./pages/schedule/detail/ScheduleDetail";
 import Private from "./pages/setting/agree/Private";
 import ManageAccount from "./pages/setting/account/ManageAccount";
@@ -234,10 +231,11 @@ function SharedStack({ route }) {
                 }}
             />
             <Stack.Screen name="YoYoDetail" component={GiveAndTakeDetail} />
-            <Stack.Screen name="EventDetail" component={EventDetail} />
-            {/* <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
-            <Stack.Screen name="Password" component={Password} />
-            <Stack.Screen name="UserInfo" component={UserInfo} /> */}
+            <Stack.Screen
+                name="EventDetail"
+                component={EventDetail}
+                options={{ title: "" }}
+            />
 
             <Stack.Screen
                 name="QrCode"
