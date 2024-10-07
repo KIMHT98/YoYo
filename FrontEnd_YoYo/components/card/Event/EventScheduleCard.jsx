@@ -20,7 +20,9 @@ export default function EventScheduleCard({
                                 {event.title}
                             </YoYoText>
                             {type === "select" && (
-                                <CheckBox checked={event.id === selectedCard} />
+                                <CheckBox
+                                    checked={event.eventId === selectedCard}
+                                />
                             )}
                         </View>
                         <YoYoText type="md" bold>

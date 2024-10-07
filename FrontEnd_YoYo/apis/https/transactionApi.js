@@ -15,7 +15,7 @@ export async function getTransaction(oppositeId) {
 
 // 이벤트에 해당하는 거래내역 가져오기
 export async function postTransaction(data) {
-    const response = await axiosInstance.post(END_POINT.TRANSACTION, { data });
+    const response = await axiosInstance.post(END_POINT.TRANSACTION, data);
 
     return response.data.data;
 }

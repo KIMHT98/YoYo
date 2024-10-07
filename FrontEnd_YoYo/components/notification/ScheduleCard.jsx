@@ -6,11 +6,11 @@ import Tag from "../common/Tag";
 import Button from "../common/Button";
 
 const tagTranslate = {
-    ALL: "전체",
-    FRIEND: "친구",
-    FAMILY: "가족",
-    COMPANY: "직장",
-    OTHERS: "기타",
+    all: "전체",
+    friend: "친구",
+    family: "가족",
+    company: "직장",
+    others: "기타",
 };
 
 export default function ScheduleCard({ item, onPress }) {
@@ -27,7 +27,7 @@ export default function ScheduleCard({ item, onPress }) {
             </View>
             <View style={styles.thirdContainer}>
                 <View>
-                    <Tag type={tagTranslateToLowerCase[item.tag]} width={88}>
+                    <Tag type={item.tag} width={88}>
                         {tagTranslate[item.tag]}
                     </Tag>
                 </View>
