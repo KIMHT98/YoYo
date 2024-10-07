@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import MainPageCard from "../../components/card/mainPage/MainPageCard";
 import PayCard from "../../components/card/mainPage/PayCard";
 import Container from "../../components/common/Container";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { StyleSheet, View } from "react-native";
 import Header from "../../components/header/Header";
 import { getPay } from "../../apis/https/payApi";
@@ -19,14 +19,17 @@ export default function MainPage() {
     function clickYoyoHandler() {
         navigation.navigate("GiveAndTake");
     }
-    async function getPayInfo() {
-        const response = await getPay();
-        setPayInfo(response)
+    useFocusEffect(
+        useCallback(() => {
+            async function getPayInfo() {
+                const response = await getPay();
+                setPayInfo(response)
 
-    }
-    useEffect(() => {
-        getPayInfo();
-    }, [])
+            }
+            getPayInfo()
+        }, [])
+    )
+
     return (
         <Container>
             <Header />

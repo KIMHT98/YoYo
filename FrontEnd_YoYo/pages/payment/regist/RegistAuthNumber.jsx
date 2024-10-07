@@ -75,53 +75,48 @@ export default function RegistAuthNumber({ bank, accountNumber, setAccountAuthNu
   }
   return (
     <>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled'>
-            <Container>
-              <View style={styles.container}>
-                <YoYoText type="md" bold center>1원을 보냈습니다.</YoYoText>
-                <YoYoText type="desc" bold center color={MainStyle.colors.lightGray}>
-                  입금내역에 표시된 숫자 4자리를 입력해주세요.
-                </YoYoText>
-                <Detail />
-                <View style={styles.accountContainer}>
-                  <Image source={bankImg} />
-                  <YoYoText type="desc" bold>{bank}</YoYoText>
-                </View>
-                <View style={styles.accountContainer}>
-                  <YoYoText type="md" bold>{"   "}계좌번호 : {accountNumber} </YoYoText>
-                </View>
-                <View style={styles.inputContainer}>
-                  <AccountAuthInput
-                    ref={ref_input[0]}
-                    number={first}
-                    onChangeText={(text) => handleChange(text, 0)}
-                  />
-                  <AccountAuthInput
-                    ref={ref_input[1]}
-                    number={second}
-                    onChangeText={(text) => handleChange(text, 1)}
-                  />
-                  <AccountAuthInput
-                    ref={ref_input[2]}
-                    number={third}
-                    onChangeText={(text) => handleChange(text, 2)}
-                  />
-                  <AccountAuthInput
-                    ref={ref_input[3]}
-                    number={fourth}
-                    onChangeText={(text) => handleChange(text, 3)}
-                  />
-                </View>
-              </View>
-            </Container>
-          </ScrollView>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled'>
+        <Container>
+          <View style={styles.container}>
+            <YoYoText type="md" bold center>1원을 보냈습니다.</YoYoText>
+            <YoYoText type="desc" bold center color={MainStyle.colors.lightGray}>
+              입금내역에 표시된 숫자 4자리를 입력해주세요.
+            </YoYoText>
+            <Detail />
+            <View style={styles.accountContainer}>
+              <Image source={bankImg} />
+              <YoYoText type="desc" bold>{bank}</YoYoText>
+            </View>
+            <View style={styles.accountContainer}>
+              <YoYoText type="md" bold>{"   "}계좌번호 : {accountNumber} </YoYoText>
+            </View>
+            <View style={styles.inputContainer}>
+              <AccountAuthInput
+                ref={ref_input[0]}
+                number={first}
+                onChangeText={(text) => handleChange(text, 0)}
+              />
+              <AccountAuthInput
+                ref={ref_input[1]}
+                number={second}
+                onChangeText={(text) => handleChange(text, 1)}
+              />
+              <AccountAuthInput
+                ref={ref_input[2]}
+                number={third}
+                onChangeText={(text) => handleChange(text, 2)}
+              />
+              <AccountAuthInput
+                ref={ref_input[3]}
+                number={fourth}
+                onChangeText={(text) => handleChange(text, 3)}
+              />
+            </View>
+          </View>
+        </Container>
+      </ScrollView>
+      {/* </TouchableWithoutFeedback> */}
       <Button width="100%" type={isValid() ? "fill" : "inactive"} radius={16} onPress={clickButton}>
         <YoYoText type="md" bold>확인</YoYoText>
       </Button>
@@ -143,7 +138,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    gap: 16
+    gap: 16,
+
   }
 });
 

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FlatList, View } from "react-native";
 import Container from "../../../components/common/Container";
 import EventListCard from "./../../../components/card/Event/EventListCard";
 import Button from "../../../components/common/Button";
 import YoYoText from "../../../constants/YoYoText";
 import { getEventList } from "../../../apis/https/eventApi";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function EventList({ navigation }) {
     const [eventList, setEventList] = useState([]);
@@ -17,16 +18,19 @@ export default function EventList({ navigation }) {
     function renderItem({ item }) {
         return <EventListCard event={item} onPress={() => clickEvent(item.eventId)} />;
     }
-    useEffect(() => {
-        async function fetchEventList() {
-            try {
-                const list = await getEventList();
-                setEventList(list)
-            } catch (error) {
+    useFocusEffect(
+        useCallback(() => {
+            async function fetchEventList() {
+                try {
+                    const list = await getEventList();
+                    setEventList(list);
+                } catch (error) {
+                    // 오류 처리
+                }
             }
-        }
-        fetchEventList()
-    }, [])
+            fetchEventList();
+        }, [])
+    );
     if (!eventList) {
         return <View><YoYoText>없어</YoYoText></View>
     }

@@ -1,7 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useState } from "react";
-import { axiosInterceptor } from "../apis/axiosInterceptor";
-import { axiosInstance } from "../apis/axiosInstance";
 
 export const AuthContext = createContext({
     token: "",
