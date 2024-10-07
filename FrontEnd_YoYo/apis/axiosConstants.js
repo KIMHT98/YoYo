@@ -1,4 +1,6 @@
-export const BASE_URL = `http://70.12.247.36:8000/yoyo/`;
+// export const BASE_URL = `http://192.168.123.184:8000/yoyo/`;
+// export const BASE_URL = `http://70.12.247.36:8000/yoyo/`;
+export const BASE_URL = `https://j11a308.p.ssafy.io/yoyo/`;
 
 export const END_POINT = {
     //회원

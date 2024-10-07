@@ -403,6 +403,7 @@ function Root() {
             const storedMemberId = await AsyncStorage.getItem("memberId");
 
             if (storedToken && storedMemberId) {
+                console.log(storedToken);
                 // AsyncStorage에서 불러온 값으로 Redux 상태 업데이트
                 dispatch(
                     setStoredAuth({

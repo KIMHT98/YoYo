@@ -19,3 +19,29 @@ export async function postTransaction(data) {
 
     return response.data.data;
 }
+//ocr이미지 전송
+export async function sendOcrImage(uri) {
+    const data = new FormData();
+    data.append("imageFile", {
+        uri: uri,
+        name: "image",
+        type: "image/jpg",
+    });
+    const response = await axiosInstance.post(
+        END_POINT.TRANSACTIONS("ocr-image"),
+        data,
+        {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }
+    );
+    return response.data.data;
+}
+//OCR-확정
+export const confirmOcr = async (id, data) => {
+    return await axiosInstance.post(
+        END_POINT.TRANSACTIONS(`ocr-confirm/${id}`),
+        data
+    );
+};
