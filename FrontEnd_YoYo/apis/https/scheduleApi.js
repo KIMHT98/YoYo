@@ -12,9 +12,9 @@ export async function getSchedule() {
 // Schedule 등록
 export async function registerSchedule(notificationId, isRegister) {
     try {
-        const response = await axiosInstance.patch(END_POINT.SCHEDULE, {
-            notificationId: notificationId,
-            isRegister: isRegister,
+        const response = await axiosInstance.patch(END_POINT.NOTIFICATION, {
+            notificationId,
+            isRegister,
         });
 
         return response.status === 201;

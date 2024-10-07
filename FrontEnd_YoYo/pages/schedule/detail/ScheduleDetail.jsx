@@ -10,6 +10,7 @@ import DetailMoneyGauge from "../../../components/card/Yoyo/DetailMoneyGauge";
 import YoYoCardDetail from "../../../components/card/Yoyo/YoYoCardDetail";
 import YoYoText from "../../../constants/YoYoText";
 import { formatDate } from "../../../util/date";
+import { getRelation } from "../../../apis/https/relationApi";
 
 export default function ScheduleDetail({ route, navigation }) {
     const [giveAndTake, setGiveAndTake] = useState(true);
@@ -22,34 +23,39 @@ export default function ScheduleDetail({ route, navigation }) {
     });
     const { item } = route.params;
 
+    async function fetchRelation(oppositeId) {
+        const response = await getRelation(oppositeId);
+        setData({
+            name: response.oppositeName,
+            give: response.totalSentAmount,
+            take: response.totalReceivedAmount,
+        });
+    }
+    async function fetchTransaction(oppositeId) {
+        const response = await getTransaction(oppositeId);
+        setTakeData(
+            response.receive.map((item) => ({
+                transactionId: item.transactionId,
+                date: formatDate(item.time),
+                name: item.memo,
+                tag: item.relationType,
+                amount: item.amount,
+            }))
+        );
+        setGiveData(
+            response.send.map((item) => ({
+                transactionId: item.transactionId,
+                date: formatDate(item.time),
+                name: item.memo,
+                tag: item.relationType,
+                amount: item.amount,
+            }))
+        );
+    }
+
     useEffect(() => {
-        async function fetchTransaction(oppositeId) {
-            const response = await getTransaction(oppositeId);
-            setTakeData(
-                response.receive.map((item) => ({
-                    transactionId: item.transactionId,
-                    date: formatDate(item.time),
-                    name: item.memo,
-                    tag: item.relationType,
-                    amount: item.amount,
-                }))
-            );
-            setGiveData(
-                response.send.map((item) => ({
-                    transactionId: item.transactionId,
-                    date: formatDate(item.time),
-                    name: item.memo,
-                    tag: item.relationType,
-                    amount: item.amount,
-                }))
-            );
-            setData({
-                give: response.totalSentAmount,
-                take: response.totalReceivedAmount,
-                name: response.oppositeName,
-            });
-        }
         fetchTransaction(item.oppositeId);
+        fetchRelation(item.oppositeId);
     }, []);
     useLayoutEffect(() => {
         navigation.setOptions({

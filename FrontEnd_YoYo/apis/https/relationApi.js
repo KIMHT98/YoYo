@@ -8,3 +8,10 @@ export async function getRelations(search) {
 
     return response.data.data;
 }
+
+export async function getRelation(oppositeId) {
+    const response = await axiosInstance.get(
+        END_POINT.RELATIONS_PATH(oppositeId)
+    );
+    return response.data.data;
+}

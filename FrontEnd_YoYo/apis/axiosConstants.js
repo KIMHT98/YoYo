@@ -1,5 +1,4 @@
-export const BASE_URL = `http://192.168.0.16:8000/yoyo/`;
-
+export const BASE_URL = `http://70.12.247.178:8000/yoyo/`;
 
 export const END_POINT = {
     //회원
@@ -17,9 +16,8 @@ export const END_POINT = {
     TRANSACTION: `transactions`,
     TRANSACTION_PATH: (path) => `transactions/${path}`,
 
-    RELATION: `members-relation`,
     RELATIONS: `members-relations`,
-    RELATION_PATH: (path) => `members-relations/${path}`,
+    RELATIONS_PATH: (path) => `members-relations/${path}`,
 
     //계좌
     ACCOUNT: "account",
