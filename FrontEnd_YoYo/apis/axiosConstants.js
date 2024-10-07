@@ -18,9 +18,8 @@ export const END_POINT = {
     TRANSACTION: `transactions`,
     TRANSACTION_PATH: (path) => `transactions/${path}`,
 
-    RELATION: `members-relation`,
     RELATIONS: `members-relations`,
-    RELATION_PATH: (path) => `members-relations/${path}`,
+    RELATIONS_PATH: (path) => `members-relations/${path}`,
 
     //계좌
     ACCOUNT: "account",

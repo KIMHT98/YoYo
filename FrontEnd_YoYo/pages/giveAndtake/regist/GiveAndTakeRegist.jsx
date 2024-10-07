@@ -14,7 +14,7 @@ export default function GiveAndTakeRegist({ navigation, route }) {
     const [stage, setStage] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const [person, setPerson] = useState({
-        transactionType: type === 1 ? "SEND" : "RECEIVE",
+        transactionType: type === 1 ? "RECEIVE" : "SEND",
         memberId: 0,
         name: "",
         relationType: "",
@@ -25,7 +25,7 @@ export default function GiveAndTakeRegist({ navigation, route }) {
         memo: "",
     });
 
-    function clickNextButton() {
+    function clickNextButton(person) {
         if (isActive) {
             if (stage < 3) {
                 setStage(stage + 1);
@@ -49,7 +49,7 @@ export default function GiveAndTakeRegist({ navigation, route }) {
             headerRight: () => (
                 <Next
                     isActive={isActive}
-                    onPress={clickNextButton}
+                    onPress={() => clickNextButton(person)}
                     final={stage === 3}
                 />
             ),
@@ -61,7 +61,7 @@ export default function GiveAndTakeRegist({ navigation, route }) {
                 />
             ),
         });
-    }, [navigation, stage, isActive]);
+    }, [navigation, stage, person, isActive]);
 
     return (
         <Container>

@@ -10,20 +10,23 @@ import YoYoCard from "../../card/Yoyo/YoYoCard";
 export default function Detail({ setIsActive, person, setPerson }) {
     const [description, setDescription] = useState("");
     const [selectedTag, setSelectedTag] = useState("all");
-    const [cardId, setCardId] = useState(-1);
-    const [oppositeId, setOppositeId] = useState(-1);
+    const [cardId, setCardId] = useState(0);
+    const [oppositeId, setOppositeId] = useState(0);
     const [relationData, setRelationData] = useState([]);
-    function clickCard(id, oppositeId) {
-        if (id === cardId) {
-            setCardId(-1);
-            setOppositeId(-1);
+    function clickCard({ item }) {
+        if (item.id === cardId) {
+            setCardId(0);
+            setOppositeId(0);
             setIsActive(false);
         } else {
-            setCardId(id);
-            setOppositeId(oppositeId);
+            setCardId(item.id);
+            setOppositeId(item.oppositeId);
             setPerson((prevPerson) => ({
                 ...prevPerson,
-                memberId: oppositeId,
+                memberId: item.oppositeId,
+                name: item.title,
+                relationType: item.type.toUpperCase(),
+                description: item.description,
             }));
             setIsActive(true);
         }
@@ -78,9 +81,7 @@ export default function Detail({ setIsActive, person, setPerson }) {
                         renderItem={({ item }) => (
                             <YoYoCard
                                 data={item}
-                                onPress={() =>
-                                    clickCard(item.id, item.oppositeId)
-                                }
+                                onPress={() => clickCard({ item })}
                                 type="select"
                                 selectedCard={cardId}
                             />

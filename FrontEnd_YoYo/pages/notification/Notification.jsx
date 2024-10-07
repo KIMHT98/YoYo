@@ -9,14 +9,6 @@ import { getNotification } from "../../apis/https/notificationApi";
 import { formatDate } from "../../util/date";
 import { registerSchedule } from "../../apis/https/scheduleApi";
 
-const tagTranslateToLowerCase = {
-    ALL: "all",
-    FRIEND: "friend",
-    FAMILY: "family",
-    COMPANY: "company",
-    OTHERS: "etc",
-};
-
 export default function Notification() {
     const [isLeft, setIsLeft] = useState(true);
     const [notificationData, setNotificationData] = useState([]);
@@ -32,13 +24,12 @@ export default function Notification() {
                     date: formatDate(item.createdAt), // createdAt을 Date 객체로 변환
                     memberId: item.memberId,
                     name: item.name,
-                    tag: item.tag,
+                    tag: item.tag.toLowerCase(),
                     description: item.description,
                     eventId: item.eventId,
                     title: item.title,
-                    type: tagTranslateToLowerCase[item.type],
+                    type: item.type,
                 }));
-
                 setNotificationData(tmpData);
             } catch (error) {
                 console.error("Error fetching Notification:", error);

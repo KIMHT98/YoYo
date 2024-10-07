@@ -9,17 +9,18 @@ import { formatDate } from "../../../util/date";
 
 export default function Event({ type, person, setPerson, setIsActive }) {
     const [eventName, setEventName] = useState("");
-    const [cardId, setCardId] = useState(-1);
+    const [cardId, setCardId] = useState(0);
     const [eventData, setEventData] = useState([]);
-    function clickCard(id, eventId) {
-        if (id === cardId) {
-            setCardId(-1);
+    function clickCard({ item }) {
+        if (item.eventId === cardId) {
+            setCardId(0);
             setIsActive(false);
         } else {
-            setCardId(id);
+            setCardId(item.eventId);
             setPerson((prevPerson) => ({
                 ...prevPerson,
-                eventId: eventId,
+                eventId: item.eventId,
+                eventName: item.eventName,
             }));
             setIsActive(true);
         }
@@ -48,12 +49,12 @@ export default function Event({ type, person, setPerson, setIsActive }) {
         }
         fetchEventData(eventName);
     }, [eventName]);
-    function renderedItem(item) {
+    function renderedItem({ item }) {
         return (
             <EventScheduleCard
                 type="select"
-                onPress={() => clickCard(item.item.id, item.item.eventId)}
-                event={item.item}
+                onPress={() => clickCard({ item })}
+                event={item}
                 selectedCard={cardId}
             />
         );
@@ -81,6 +82,7 @@ export default function Event({ type, person, setPerson, setIsActive }) {
                         data={eventData}
                         renderItem={renderedItem}
                         style={styles.innerContainer}
+                        keyExtractor={(item) => item.eventId}
                     />
                 )}
             </View>
