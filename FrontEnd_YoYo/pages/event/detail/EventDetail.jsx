@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import React, {
     useCallback,
-    useEffect,
     useLayoutEffect,
     useState,
 } from "react";
@@ -20,7 +19,6 @@ import {
     getEventTransaction,
 } from "../../../apis/https/eventApi";
 import { useFocusEffect } from "@react-navigation/native";
-import LottieView from "lottie-react-native";
 import Loading from "../../../components/common/Loading";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
@@ -82,10 +80,10 @@ export default function EventDetail({ navigation, route }) {
                                 selectedTag === "all"
                                     ? data
                                     : data.filter(
-                                          (item) =>
-                                              item.relationType ===
-                                              selectedTag.toUpperCase()
-                                      );
+                                        (item) =>
+                                            item.relationType ===
+                                            selectedTag.toUpperCase()
+                                    );
                             setEventList(filteredData);
                         } else {
                             setEventList([]);

@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     token: "",
     memberId: -1,
+    pushToken: "",
     isAuthenticated: false,
 };
 
@@ -14,6 +15,7 @@ const authSlice = createSlice({
         login(state, action) {
             state.token = action.payload.token;
             state.memberId = action.payload.memberId;
+            state.pushToken = action.payload.pushToken;
             state.isAuthenticated = true;
 
             AsyncStorage.setItem("token", action.payload.token);
@@ -21,6 +23,7 @@ const authSlice = createSlice({
                 "memberId",
                 action.payload.memberId.toString()
             );
+            AsyncStorage.setItem("pushToken", action.payload.pushToken);
         },
         logout(state) {
             state.token = "";
@@ -29,10 +32,12 @@ const authSlice = createSlice({
 
             AsyncStorage.removeItem("token");
             AsyncStorage.removeItem("memberId");
+            AsyncStorage.removeItem("pushToken");
         },
         setStoredAuth(state, action) {
             state.token = action.payload.token;
             state.memberId = action.payload.memberId;
+            state.pushToken = action.payload.pushToken;
             state.isAuthenticated = !!action.payload.token;
         },
     },

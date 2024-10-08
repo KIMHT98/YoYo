@@ -394,6 +394,7 @@ function AuthenticatedStack() {
         </Stack.Navigator>
     );
 }
+
 function Navigation() {
     const { isAuthenticated } = useSelector((state) => state.auth);
     return (
@@ -410,14 +411,15 @@ function Root() {
         async function fetchToken() {
             const storedToken = await AsyncStorage.getItem("token");
             const storedMemberId = await AsyncStorage.getItem("memberId");
-
-            if (storedToken && storedMemberId) {
+            const storedPushToken = await AsyncStorage.getItem("pushToken");
+            if ((storedToken && storedMemberId, storedPushToken)) {
                 console.log(storedToken);
                 // AsyncStorage에서 불러온 값으로 Redux 상태 업데이트
                 dispatch(
                     setStoredAuth({
                         token: storedToken,
                         memberId: parseInt(storedMemberId),
+                        pushToken: storedPushToken,
                     })
                 );
             }

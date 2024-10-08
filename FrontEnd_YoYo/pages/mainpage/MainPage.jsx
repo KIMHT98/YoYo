@@ -1,12 +1,12 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import MainPageCard from "../../components/card/mainPage/MainPageCard";
 import PayCard from "../../components/card/mainPage/PayCard";
 import Container from "../../components/common/Container";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { StyleSheet, View } from "react-native";
 import Header from "../../components/header/Header";
 import { getPay } from "../../apis/https/payApi";
 import Loading from "../../components/common/Loading";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function MainPage() {
     const [payInfo, setPayInfo] = useState();
@@ -26,6 +26,7 @@ export default function MainPage() {
             async function getPayInfo() {
                 const response = await getPay();
                 setPayInfo(response);
+                await AsyncStorage.setItem("memberName", response.memberName)
                 setIsLoading(false);
             }
             getPayInfo();
@@ -59,8 +60,3 @@ export default function MainPage() {
         </Container>
     );
 }
-const styles = StyleSheet.create({
-    header: {
-        marginVertical: 24,
-    },
-});
