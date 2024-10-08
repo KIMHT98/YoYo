@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { FlatList } from "react-native-gesture-handler";
 import { MainStyle } from "../../../constants/style";
 import { getTransaction } from "../../../apis/https/transactionApi";
@@ -11,6 +11,7 @@ import YoYoCardDetail from "../../../components/card/Yoyo/YoYoCardDetail";
 import YoYoText from "../../../constants/YoYoText";
 import { formatDate } from "../../../util/date";
 import { getRelation } from "../../../apis/https/relationApi";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function ScheduleDetail({ route, navigation }) {
     const [giveAndTake, setGiveAndTake] = useState(true);
@@ -23,40 +24,42 @@ export default function ScheduleDetail({ route, navigation }) {
     });
     const { item } = route.params;
 
-    async function fetchRelation(oppositeId) {
-        const response = await getRelation(oppositeId);
-        setData({
-            name: response.oppositeName,
-            give: response.totalSentAmount,
-            take: response.totalReceivedAmount,
-        });
-    }
-    async function fetchTransaction(oppositeId) {
-        const response = await getTransaction(oppositeId);
-        setTakeData(
-            response.receive.map((item) => ({
-                transactionId: item.transactionId,
-                date: formatDate(item.time),
-                name: item.memo,
-                tag: item.relationType,
-                amount: item.amount,
-            }))
-        );
-        setGiveData(
-            response.send.map((item) => ({
-                transactionId: item.transactionId,
-                date: formatDate(item.time),
-                name: item.memo,
-                tag: item.relationType,
-                amount: item.amount,
-            }))
-        );
-    }
 
-    useEffect(() => {
-        fetchTransaction(item.oppositeId);
-        fetchRelation(item.oppositeId);
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            async function fetchRelation(oppositeId) {
+                const response = await getRelation(oppositeId);
+                setData({
+                    name: response.oppositeName,
+                    give: response.totalSentAmount,
+                    take: response.totalReceivedAmount,
+                });
+            }
+            async function fetchTransaction(oppositeId) {
+                const response = await getTransaction(oppositeId);
+                setTakeData(
+                    response.receive.map((item) => ({
+                        transactionId: item.transactionId,
+                        date: formatDate(item.time),
+                        name: item.memo,
+                        tag: item.relationType,
+                        amount: item.amount,
+                    }))
+                );
+                setGiveData(
+                    response.send.map((item) => ({
+                        transactionId: item.transactionId,
+                        date: formatDate(item.time),
+                        name: item.memo,
+                        tag: item.relationType,
+                        amount: item.amount,
+                    }))
+                );
+            }
+            fetchTransaction(item.oppositeId);
+            fetchRelation(item.oppositeId);
+        }, [])
+    )
     useLayoutEffect(() => {
         navigation.setOptions({
             headerTitle: () => headerTitle(item.title), // 전달된 item.name이 없으면 기본 타이틀로 설정
@@ -119,7 +122,7 @@ export default function ScheduleDetail({ route, navigation }) {
                     </View>
                     <View>
                         <YoYoText type={"subTitle"} bold>
-                            {data.name}님과의 내역
+                            {item.name}님과의 내역
                         </YoYoText>
                         <DetailMoneyGauge
                             give={data.give}

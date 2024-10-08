@@ -6,8 +6,11 @@ import { MainStyle } from "../../../constants/style";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../store/slices/authSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 
 export default function SettingList() {
+    const [memberName, setMemberName] = useState("")
     const dispatch = useDispatch()
     const navigation = useNavigation();
     const settingList = [
@@ -19,7 +22,13 @@ export default function SettingList() {
         1: () => navigation.navigate("Private"), // 실제 네비게이션 이동
         2: () => dispatch(logout()), // 로그아웃을 처리할 함수
     };
-
+    useEffect(() => {
+        async function getMemberName() {
+            const name = await AsyncStorage.getItem("memberName")
+            setMemberName(name)
+        }
+        getMemberName()
+    }, [])
     function clickItem(item) {
         const action = navigationList[item.id]; // id에 해당하는 액션을 찾아서 실행
         if (action) {
@@ -44,7 +53,7 @@ export default function SettingList() {
             <View style={styles.container}>
                 <Header />
                 <YoYoText type={"title"} bold>
-                    이찬진님, 반갑습니다.
+                    {memberName}님, 반갑습니다.
                 </YoYoText>
             </View>
             <View>
