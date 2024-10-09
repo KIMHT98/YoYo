@@ -34,6 +34,7 @@ export default function GiveAndTakeList({ navigation }) {
                     setIsLoading(false);
                 } catch (error) {
                     setData([])
+                    setIsLoading(false)
                     // console.error("Error fetching Relation:", error);
                 }
             }

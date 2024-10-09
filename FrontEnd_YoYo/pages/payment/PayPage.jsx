@@ -69,7 +69,7 @@ export default function PayPage() {
         },
         MyAccount: () => {
             if (payInfo && payInfo.balance >= 0) {
-                navigation.navigate("Pay List", { payInfo: data });
+                navigation.navigate("ManageAccount");
             } else {
                 Alert.alert("계좌가 없습니다.", "계좌를 등록해주세요.", [
                     {

@@ -1,5 +1,6 @@
 {
     "expo": {
+        "scheme": "yoyo",
         "name": "Yo! Yo!",
         "slug": "FrontEnd_YoYo",
         "version": "1.0.0",
@@ -29,7 +30,12 @@
                         {
                             "scheme": "https",
                             "host": "j11a308.p.ssafy.io",
-                            "pathPrefix": "/payment/checkout"
+                            "pathPattern": "/payment/checkout/.*"
+                        },
+                        {
+                            "scheme": "yoyo",
+                            "host": "*",
+                            "pathPrefix": "/"
                         }
                     ],
                     "category": ["BROWSABLE", "DEFAULT"]

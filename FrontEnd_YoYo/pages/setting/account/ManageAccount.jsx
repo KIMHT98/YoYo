@@ -26,6 +26,7 @@ export default function ManageAccount({ navigation }) {
                 const response = await getAccount();
                 setAccount(response);
             } catch (error) {
+                console.log(error)
                 setAccount();
             }
         }

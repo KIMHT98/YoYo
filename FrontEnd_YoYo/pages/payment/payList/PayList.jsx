@@ -7,54 +7,6 @@ import SelectTap from '../../../components/common/SelectTap'
 import { MainStyle } from '../../../constants/style'
 import PayListCard from '../../../components/card/PayListCard'
 import { getPayList } from '../../../apis/https/payApi'
-const datas = [{
-  id: 1,
-  title: "이택근",
-  date: "2024.08.29",
-  money: 50000
-},
-{
-  id: 2,
-  title: "이택근",
-  date: "2024.08.29",
-  money: 50000
-},
-{
-  id: 3,
-  title: "이택근",
-  date: "2024.08.29",
-  money: 50000
-},
-{
-  id: 4,
-  title: "이택근",
-  date: "2024.08.29",
-  money: 50000
-},
-{
-  id: 5,
-  title: "이택근",
-  date: "2024.08.29",
-  money: 50000
-},
-{
-  id: 6,
-  title: "이택근",
-  date: "2024.08.29",
-  money: 50000
-},
-{
-  id: 7,
-  title: "이택근",
-  date: "2024.08.29",
-  money: 50000
-},
-{
-  id: 8,
-  title: "이택근",
-  date: "2024.08.29",
-  money: 50000
-}]
 function renderedItem(item, type) {
   return <PayListCard data={item.item} type={type} />
 }

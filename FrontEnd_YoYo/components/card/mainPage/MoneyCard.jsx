@@ -1,9 +1,9 @@
 import { View, StyleSheet } from "react-native";
-import React from "react";
 import YoYoText from "../../../constants/YoYoText";
 import YoYoIcon from "../../../assets/svg/YoYoIcon.svg";
 import { MainStyle } from "../../../constants/style";
 export default function MoneyCard({ account, money }) {
+
     return (
         <View style={styles.moneyContainer}>
             <View style={styles.payContainer}>
@@ -17,7 +17,7 @@ export default function MoneyCard({ account, money }) {
                 bold
                 color={MainStyle.colors.white}
             >
-                {account.balance >= 0
+                {money >= 0
                     ? money + "원"
                     : "등록된 계좌가 없습니다."}
             </YoYoText>
