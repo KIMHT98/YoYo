@@ -43,7 +43,8 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store/store.js";
 import { setStoredAuth } from "./store/slices/authSlice.js";
 import EventReceiveRegist from "./pages/event/regist/EventReceiveRegist.jsx";
-
+import * as Linking from "expo-linking";
+import BeforeSendMoney from "./pages/payment/send/BeforeSendMoney.jsx";
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -373,6 +374,10 @@ function AuthenticatedStack() {
                 }}
             />
             <Stack.Screen name="돈보내기" component={SendMoney} />
+            <Stack.Screen
+                name="돈보내기전로딩페이지"
+                component={BeforeSendMoney}
+            />
             <Stack.Screen name="지인선택" component={SelectCard} />
             <Stack.Screen name="지인추가" component={RegistNewFriend} />
             <Stack.Screen
@@ -397,8 +402,18 @@ function AuthenticatedStack() {
 
 function Navigation() {
     const { isAuthenticated } = useSelector((state) => state.auth);
+    const linking = {
+        prefixes: ["https://j11a308.p.ssafy.io", "yoyo://"],
+        config: {
+            screens: {
+                돈보내기: "send-money/:eventId",
+            },
+        },
+    };
+    console.log("isAuthenticated:", isAuthenticated);
+    console.log("linking config:", linking);
     return (
-        <NavigationContainer>
+        <NavigationContainer linking={linking}>
             {!isAuthenticated && <AuthStack />}
             {isAuthenticated && <AuthenticatedStack />}
         </NavigationContainer>

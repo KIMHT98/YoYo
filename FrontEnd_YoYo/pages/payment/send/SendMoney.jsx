@@ -4,6 +4,7 @@ import Container from "../../../components/common/Container";
 import YoYoText from "../../../constants/YoYoText";
 import Input from "../../../components/common/Input";
 import Button from "../../../components/common/Button";
+import { MainStyle } from "../../../constants/style";
 const prices = [5000, 10000, 50000, 100000];
 export default function SendMoney({ route, navigation }) {
     const [price, setPrice] = useState(0);
@@ -22,16 +23,15 @@ export default function SendMoney({ route, navigation }) {
         navigation.navigate("RegistPayPassword", {
             data: {
                 title: `${title} 완료`,
-                content: `${price}원이 ${
-                    title === "충전하기" ? "충전되었습니다" : "송금되었습니다"
-                }.`,
+                content: `${price}원이 ${title === "충전하기" ? "충전되었습니다" : "송금되었습니다"
+                    }.`,
                 money: price,
             },
             item: {
-                memberId: item.memberId,
-                memberName: item.memberName,
-                eventId: item.eventId,
-                title: item.title,
+                memberId: item ? item.memberId : "",
+                memberName: item ? item.memberName : "",
+                eventId: item ? item.eventId : "",
+                title: item ? item.title : "",
                 amount: price,
             },
             type: "pay",
@@ -49,6 +49,7 @@ export default function SendMoney({ route, navigation }) {
                     placeholder="금액을 입력해주세요."
                     type="phoneNumber"
                 />
+                {title === "마음 전달" && <YoYoText type="content" color={MainStyle.colors.error} bold>※부족한 금액은 자동 충전됩니다.</YoYoText>}
                 <View style={styles.buttonContainer}>
                     {prices.map((money) => (
                         <Button

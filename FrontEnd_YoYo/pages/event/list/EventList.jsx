@@ -71,7 +71,7 @@ export default function EventList({ navigation }) {
                             />
                         ) : (
                             <YoYoText type="subTitle" bold center>
-                                없어요.
+                                경조사가 없어요.
                             </YoYoText>
                         )}
                     </Container>
