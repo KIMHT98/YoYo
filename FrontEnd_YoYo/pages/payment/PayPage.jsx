@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import Container from "../../components/common/Container";
 import Header from "../../components/header/Header";
@@ -44,13 +44,41 @@ export default function PayPage() {
     const navigation = useNavigation();
     const [isLoading, setIsLoading] = useState(true);
     const navigationList = {
-        Migration: () =>
-            navigation.navigate("돈보내기", {
-                title: "옮기기",
-            }),
-        Charge: () => navigation.navigate("돈보내기", { title: "충전하기" }),
-        PayList: (data) => navigation.navigate("Pay List", { payInfo: data }),
-        MyAccount: () => navigation.navigate("ManageAccount"),
+        Migration: () => {
+            if (payInfo && payInfo.balance >= 0) {
+                navigation.navigate("돈보내기", {
+                    title: "옮기기",
+                });
+            } else {
+                Alert.alert("계좌를 등록해주세요.");
+            }
+        },
+        Charge: () => {
+            if (payInfo && payInfo.balance >= 0) {
+                navigation.navigate("돈보내기", { title: "충전하기" });
+            } else {
+                Alert.alert("계좌를 등록해주세요.");
+            }
+        },
+        PayList: (data) => {
+            if (payInfo && payInfo.balance >= 0) {
+                navigation.navigate("Pay List", { payInfo: data });
+            } else {
+                Alert.alert("계좌를 등록해주세요.");
+            }
+        },
+        MyAccount: () => {
+            if (payInfo && payInfo.balance >= 0) {
+                navigation.navigate("Pay List", { payInfo: data });
+            } else {
+                Alert.alert("계좌가 없습니다.", "계좌를 등록해주세요.", [
+                    {
+                        text: "확인",
+                        onPress: () => navigation.navigate("계좌등록"),
+                    },
+                ]);
+            }
+        },
     };
     async function getPayInfo() {
         const response = await getPay();
@@ -133,6 +161,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         rowGap: 16,
         paddingVertical: 16,
+        marginBottom: 16,
     },
     firstContainer: {
         flexDirection: "row",

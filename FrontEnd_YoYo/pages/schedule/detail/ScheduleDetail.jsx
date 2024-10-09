@@ -1,5 +1,10 @@
 import { View, StyleSheet } from "react-native";
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import React, {
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useState,
+} from "react";
 import { FlatList } from "react-native-gesture-handler";
 import { MainStyle } from "../../../constants/style";
 import { getTransaction } from "../../../apis/https/transactionApi";
@@ -23,7 +28,6 @@ export default function ScheduleDetail({ route, navigation }) {
         name: "",
     });
     const { item } = route.params;
-
 
     useFocusEffect(
         useCallback(() => {
@@ -59,7 +63,7 @@ export default function ScheduleDetail({ route, navigation }) {
             fetchTransaction(item.oppositeId);
             fetchRelation(item.oppositeId);
         }, [])
-    )
+    );
     useLayoutEffect(() => {
         navigation.setOptions({
             headerTitle: () => headerTitle(item.title), // 전달된 item.name이 없으면 기본 타이틀로 설정
@@ -97,6 +101,12 @@ export default function ScheduleDetail({ route, navigation }) {
     function clickButton() {
         navigation.navigate("돈보내기", {
             title: "마음 전달",
+            item: {
+                memberId: item.oppositeId,
+                memberName: data.name,
+                eventId: item.eventId,
+                title: item.title,
+            },
         });
     }
 
