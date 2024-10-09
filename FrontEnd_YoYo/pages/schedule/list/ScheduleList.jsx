@@ -22,36 +22,42 @@ export default function ScheduleList({ navigation }) {
                     return;
                 }
                 setData(
-                    response.reduce((acc, current) => {
-                        const date = formatDate(current.startAt); // startAt을 기준으로 그룹화
-                        const event = {
-                            oppositeId: current.memberId,
-                            eventId: current.eventId,
-                            title: current.title,
-                            name: current.name,
-                            location: current.location,
-                            startAt: formatDate(current.startAt),
-                            endAt: formatDate(current.endAt),
-                        };
+                    response
+                        .reduce((acc, current) => {
+                            const date = formatDate(current.startAt); // startAt을 기준으로 그룹화
+                            const dateTimestamp = new Date(
+                                current.startAt
+                            ).getTime();
+                            const event = {
+                                oppositeId: current.memberId,
+                                eventId: current.eventId,
+                                title: current.title,
+                                name: current.name,
+                                location: current.location,
+                                startAt: formatDate(current.startAt),
+                                endAt: formatDate(current.endAt),
+                            };
 
-                        // 이미 해당 날짜에 대한 객체가 있는지 확인
-                        const existingDate = acc.find(
-                            (item) => item.date === date
-                        );
+                            // 이미 해당 날짜에 대한 객체가 있는지 확인
+                            const existingDate = acc.find(
+                                (item) => item.date === date
+                            );
 
-                        if (existingDate) {
-                            // 해당 날짜가 존재하면 events 배열에 이벤트 추가
-                            existingDate.events.push(event);
-                        } else {
-                            // 해당 날짜가 없으면 새로운 객체 생성 후 추가
-                            acc.push({
-                                date: date,
-                                events: [event],
-                            });
-                        }
+                            if (existingDate) {
+                                // 해당 날짜가 존재하면 events 배열에 이벤트 추가
+                                existingDate.events.push(event);
+                            } else {
+                                // 해당 날짜가 없으면 새로운 객체 생성 후 추가
+                                acc.push({
+                                    date: date,
+                                    dateTimestamp: dateTimestamp,
+                                    events: [event],
+                                });
+                            }
 
-                        return acc;
-                    }, [])
+                            return acc;
+                        }, [])
+                        .sort((a, b) => a.dateTimestamp - b.dateTimestamp)
                 );
             } catch (error) {
                 console.error("Error fetching schedule:", error);
