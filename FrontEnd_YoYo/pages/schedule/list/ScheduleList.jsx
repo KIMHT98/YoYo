@@ -93,7 +93,7 @@ export default function ScheduleList({ navigation }) {
         <View>
             <Pressable
                 onPress={() => toggleExpand(item.date)}
-                style={({ }) => [styles.dateContainer]}
+                style={({}) => [styles.dateContainer]}
             >
                 <YoYoText type={"md"} bold>
                     {item.date}
@@ -129,11 +129,17 @@ export default function ScheduleList({ navigation }) {
                 <Header />
             </View>
 
-            {data && data.length > 0 ? <FlatList
-                data={data}
-                renderItem={scheduleList}
-                keyExtractor={(item) => item.date}
-            /> : <YoYoText type="subTitle" bold center>일정이 없어요.</YoYoText>}
+            {data && data.length > 0 ? (
+                <FlatList
+                    data={data}
+                    renderItem={scheduleList}
+                    keyExtractor={(item) => item.date}
+                />
+            ) : (
+                <YoYoText type="subTitle" bold center>
+                    등록된 일정이 없어요.
+                </YoYoText>
+            )}
         </View>
     );
 }

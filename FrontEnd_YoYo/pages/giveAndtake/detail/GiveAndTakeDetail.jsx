@@ -46,22 +46,26 @@ export default function GiveAndTakeDetail({ route }) {
                     take: relationResponse.totalReceivedAmount,
                 });
                 setTakeData(
-                    transactionResponse.receive.map((item) => ({
-                        transactionId: item.transactionId.toString(),
-                        date: formatDate(item.time),
-                        name: item.memo,
-                        tag: item.relationType,
-                        amount: item.amount,
-                    }))
+                    transactionResponse.receive
+                        .sort((a, b) => new Date(b.time) - new Date(a.time))
+                        .map((item) => ({
+                            transactionId: item.transactionId.toString(),
+                            date: formatDate(item.time),
+                            name: item.memo,
+                            tag: item.relationType,
+                            amount: item.amount,
+                        }))
                 );
                 setGiveData(
-                    transactionResponse.send.map((item) => ({
-                        transactionId: item.transactionId.toString(),
-                        date: formatDate(item.time),
-                        name: item.memo,
-                        tag: item.relationType,
-                        amount: item.amount,
-                    }))
+                    transactionResponse.send
+                        .sort((a, b) => new Date(b.time) - new Date(a.time))
+                        .map((item) => ({
+                            transactionId: item.transactionId.toString(),
+                            date: formatDate(item.time),
+                            name: item.memo,
+                            tag: item.relationType,
+                            amount: item.amount,
+                        }))
                 );
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -80,7 +84,7 @@ export default function GiveAndTakeDetail({ route }) {
             if (takeData.length === 0) {
                 return (
                     <View style={styles.resultContainer}>
-                        <YoYoText type={"title"} bold>
+                        <YoYoText type={"subTitle"} bold>
                             거래 내역이 없습니다.
                         </YoYoText>
                     </View>
@@ -98,7 +102,7 @@ export default function GiveAndTakeDetail({ route }) {
             if (giveData.length === 0) {
                 return (
                     <View style={styles.resultContainer}>
-                        <YoYoText type={"title"} bold>
+                        <YoYoText type={"subTitle"} bold>
                             거래 내역이 없습니다.
                         </YoYoText>
                     </View>
@@ -177,7 +181,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     selectContainer: {
-        marginVertical: 10,
+        marginVertical: 20,
     },
     resultContainer: {
         flex: 1,
