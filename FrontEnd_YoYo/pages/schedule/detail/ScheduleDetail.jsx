@@ -30,8 +30,8 @@ export default function ScheduleDetail({ route, navigation }) {
     });
     const { item } = route.params;
     const storedPayInfo = async () => {
-        return await AsyncStorage.getItem("payInfo")
-    }
+        return await AsyncStorage.getItem("payInfo");
+    };
     useFocusEffect(
         useCallback(() => {
             async function fetchRelation(oppositeId) {
@@ -45,22 +45,26 @@ export default function ScheduleDetail({ route, navigation }) {
             async function fetchTransaction(oppositeId) {
                 const response = await getTransaction(oppositeId);
                 setTakeData(
-                    response.receive.map((item) => ({
-                        transactionId: item.transactionId,
-                        date: formatDate(item.time),
-                        name: item.memo,
-                        tag: item.relationType,
-                        amount: item.amount,
-                    }))
+                    response.receive
+                        .sort((a, b) => new Date(b.time) - new Date(a.time))
+                        .map((item) => ({
+                            transactionId: item.transactionId,
+                            date: formatDate(item.time),
+                            name: item.memo,
+                            tag: item.relationType,
+                            amount: item.amount,
+                        }))
                 );
                 setGiveData(
-                    response.send.map((item) => ({
-                        transactionId: item.transactionId,
-                        date: formatDate(item.time),
-                        name: item.memo,
-                        tag: item.relationType,
-                        amount: item.amount,
-                    }))
+                    response.send
+                        .sort((a, b) => new Date(b.time) - new Date(a.time))
+                        .map((item) => ({
+                            transactionId: item.transactionId,
+                            date: formatDate(item.time),
+                            name: item.memo,
+                            tag: item.relationType,
+                            amount: item.amount,
+                        }))
                 );
             }
             fetchTransaction(item.oppositeId);
@@ -108,7 +112,7 @@ export default function ScheduleDetail({ route, navigation }) {
                 eventId: item.eventId,
             });
         } else {
-            Alert.alert("페이 정보가 없습니다.", "YoYo페이를 등록해주세요.")
+            Alert.alert("페이 정보가 없습니다.", "YoYo페이를 등록해주세요.");
         }
     }
 
