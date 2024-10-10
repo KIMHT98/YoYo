@@ -22,8 +22,8 @@ export default function SettingList() {
     const navigationList = {
         1: () => navigation.navigate("Private"), // 실제 네비게이션 이동
         2: async () => {
-            dispatch(logout())
             await deletePushToken()
+            dispatch(logout())
         }, // 로그아웃을 처리할 함수
     };
     useEffect(() => {

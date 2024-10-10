@@ -412,27 +412,7 @@ function Navigation() {
         </NavigationContainer>
     );
 }
-async function getPushToken() {
-    try {
-        const token = (await Notifications.getExpoPushTokenAsync()).data;
-        return token;
-    } catch (error) {
-        console.error("Error getting FCM token: ", error);
-        return null;
-    }
-}
-async function requestPushToken() {
-    const { status } = await Notifications.getPermissionsAsync();
-    if (status !== "granted") {
-        const { status: newStatus } =
-            await Notifications.requestPermissionsAsync();
-        if (newStatus !== "granted") {
-            alert("Push notification permissions required!");
-            return;
-        }
-    }
-    return await getPushToken();
-}
+
 function Root() {
     const dispatch = useDispatch();
 
@@ -440,11 +420,11 @@ function Root() {
         async function fetchToken() {
             const storedToken = await AsyncStorage.getItem("token");
             const storedMemberId = await AsyncStorage.getItem("memberId");
-            const pushToken = await requestPushToken();
-            await savePushToken(pushToken);
+            const pushToken = await AsyncStorage.getItem("pushToken");
+
             // console.log(storedToken, "\n", storedMemberId, "\n", pushToken);
             if ((storedToken && storedMemberId, pushToken)) {
-                // console.log(storedToken, "\n", storedMemberId, "\n", pushToken);
+                await savePushToken(pushToken);
                 // AsyncStorage에서 불러온 값으로 Redux 상태 업데이트
                 dispatch(
                     setStoredAuth({

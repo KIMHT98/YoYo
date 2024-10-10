@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import React, {
     useCallback,
     useEffect,
@@ -17,6 +17,7 @@ import YoYoText from "../../../constants/YoYoText";
 import { formatDate } from "../../../util/date";
 import { getRelation } from "../../../apis/https/relationApi";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ScheduleDetail({ route, navigation }) {
     const [giveAndTake, setGiveAndTake] = useState(true);
@@ -28,7 +29,9 @@ export default function ScheduleDetail({ route, navigation }) {
         name: "",
     });
     const { item } = route.params;
-
+    const storedPayInfo = async () => {
+        return await AsyncStorage.getItem("payInfo")
+    }
     useFocusEffect(
         useCallback(() => {
             async function fetchRelation(oppositeId) {
@@ -99,11 +102,14 @@ export default function ScheduleDetail({ route, navigation }) {
         }
     };
     function clickButton() {
-        navigation.navigate("돈보내기", {
-            title: "마음 전달",
-            eventId: item.eventId,
-
-        });
+        if (storedPayInfo.balance >= 0) {
+            navigation.navigate("돈보내기", {
+                title: "마음 전달",
+                eventId: item.eventId,
+            });
+        } else {
+            Alert.alert("페이 정보가 없습니다.", "YoYo페이를 등록해주세요.")
+        }
     }
 
     return (

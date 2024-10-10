@@ -61,7 +61,7 @@ export default function EventRegist({ navigation }) {
           endAt: new Date(event.endAt)
         }
         await registEvent(data)
-        Alert.alert("등록 완료", "이벤트가 등록되었습니다!", [
+        Alert.alert("등록 완료", "경조사가 등록되었습니다!", [
           {
             text: "확인",
             onPress: () => navigation.navigate("EventList", {
@@ -107,11 +107,11 @@ export default function EventRegist({ navigation }) {
   return (
     <Container>
       <View>
-        <YoYoText type="subTitle" bold color={MainStyle.colors.main}>{stage === 0 ? "이벤트 유형" : stage === 1 ? "제목" : "상세 정보"}</YoYoText>
+        <YoYoText type="subTitle" bold color={MainStyle.colors.main}>{stage === 0 ? "경조사 유형" : stage === 1 ? "제목" : "상세 정보"}</YoYoText>
       </View>
       <View style={styles.container}>
         {stage === 0 && <EventType setIsActive={setIsActive} event={event} setEvent={setEvent} />}
-        {stage === 1 && <Input placeholder="행사명을 입력해주세요." type="default" text={event.title} onChange={(text) => {
+        {stage === 1 && <Input placeholder="경조사명을 입력해주세요." type="default" text={event.title} onChange={(text) => {
           setEvent((prev) => ({
             ...prev,
             title: text

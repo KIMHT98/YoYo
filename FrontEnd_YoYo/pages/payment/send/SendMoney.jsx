@@ -1,14 +1,18 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import Container from "../../../components/common/Container";
 import YoYoText from "../../../constants/YoYoText";
 import Input from "../../../components/common/Input";
 import Button from "../../../components/common/Button";
 import { MainStyle } from "../../../constants/style";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const prices = [5000, 10000, 50000, 100000];
 export default function SendMoney({ route, navigation }) {
     const [price, setPrice] = useState(0);
     const eventId = route.params.eventId;
+    const storedPayInfo = async () => {
+        return await AsyncStorage.getItem("payInfo")
+    }
     const title = route.params.title || "마음 전달";
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -20,16 +24,20 @@ export default function SendMoney({ route, navigation }) {
         setPrice(numericValue);
     }
     function clickNextHandler() {
-        navigation.navigate("RegistPayPassword", {
-            data: {
-                title: `${title} 완료`,
-                content: `${price}원이 ${title === "충전하기" ? "충전되었습니다" : "송금되었습니다"
-                    }.`,
-                money: price,
-            },
-            eventId: eventId ? eventId : "",
-            type: "pay",
-        });
+        if (storedPayInfo.balance >= 0) {
+            navigation.navigate("RegistPayPassword", {
+                data: {
+                    title: `${title} 완료`,
+                    content: `${price}원이 ${title === "충전하기" ? "충전되었습니다" : "송금되었습니다"
+                        }.`,
+                    money: price,
+                },
+                eventId: eventId ? eventId : "",
+                type: "pay",
+            });
+        } else {
+            Alert.alert("페이 정보가 없습니다.", "YoYo페이를 등록해주세요.")
+        }
     }
     return (
         <>

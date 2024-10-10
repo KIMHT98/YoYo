@@ -39,12 +39,11 @@ export const login = async (phoneNumber, password) => {
 //FCM 토큰 저장
 export async function savePushToken(pushToken) {
     const response = await axiosInstance.post(END_POINT.MEMBER("fcm-token"), {
-        pushToken,
+        pushToken: pushToken,
     });
     return response.data.status === 200;
 }
 //FCM 토큰 삭제
 export async function deletePushToken() {
-    const response = await axiosInstance.delete(END_POINT.MEMBER("fcm-token"));
-    return response.data.status === 200;
+    return await axiosInstance.delete(END_POINT.MEMBER("fcm-token"));
 }
