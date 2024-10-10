@@ -3,22 +3,16 @@ import React from "react";
 import YoYoText from "../../../constants/YoYoText";
 import IconButton from "../../common/IconButton";
 import { MainStyle } from "../../../constants/style";
+import format from "../../../util/format";
+import { deleteTransaction } from "../../../apis/https/transactionApi";
 
 export default function YoYoCardDetail({ data, type, onPress }) {
-    function handleDeleteHandler() {
-        onPress();
-    }
     return (
         <View style={styles.cardContainer}>
             <View style={styles.innerContainer}>
                 <YoYoText type="subTitle" bold>
                     {data.name}
                 </YoYoText>
-                <IconButton
-                    icon="trash"
-                    size={16}
-                    onPress={handleDeleteHandler}
-                />
             </View>
             <View style={styles.innerContainer2}>
                 <YoYoText type="content">{data.date}</YoYoText>
@@ -27,7 +21,9 @@ export default function YoYoCardDetail({ data, type, onPress }) {
                         alignItems: "flex-end",
                     }}
                 >
-                    <YoYoText type="subTitle">{data.amount}원</YoYoText>
+                    <YoYoText type="subTitle">
+                        {format.formatNumber(data.amount)}원
+                    </YoYoText>
                 </View>
             </View>
         </View>
