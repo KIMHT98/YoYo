@@ -8,10 +8,11 @@ import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
 import { useNavigation } from "@react-navigation/native";
 import useFontsLoader from "../../../constants/useFontsLoader";
-import { login as loginApi } from "../../../apis/https/member";
+import { login as loginApi, savePushToken } from "../../../apis/https/member";
 import { useDispatch } from "react-redux";
 import { login } from "../../../store/slices/authSlice";
-import * as Notifications from "expo-notifications";
+import * as Notifications from "expo-notifications"
+
 export default function Login() {
     const dispatch = useDispatch()
     const navigation = useNavigation();
@@ -20,6 +21,7 @@ export default function Login() {
     const clickSignUpHandler = () => {
         navigation.navigate("SignUp");
     };
+
     async function getPushToken() {
         try {
             const token = (await Notifications.getExpoPushTokenAsync()).data;
@@ -41,7 +43,6 @@ export default function Login() {
         }
         return await getPushToken();
     }
-
     const clickLoginHandler = async () => {
         // 로그인 버튼 클릭 시 처리할 로직
         try {
@@ -50,6 +51,12 @@ export default function Login() {
             const memberId = response.memberId
             const pushToken = await requestPushToken();
 
+
+
+
+            dispatch(login({ token, memberId, pushToken }))
+            console.log(pushToken)
+            await savePushToken(pushToken);
             // 푸시 알림 수신 핸들러 설정
             Notifications.setNotificationHandler({
                 handleNotification: async () => ({
@@ -58,8 +65,6 @@ export default function Login() {
                     shouldSetBadge: true,
                 }),
             });
-
-            dispatch(login({ token, memberId, pushToken }))
         } catch (error) {
             Alert.alert(
                 "로그인 실패",

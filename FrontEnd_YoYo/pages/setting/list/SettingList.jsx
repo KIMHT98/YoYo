@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../store/slices/authSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
+import { deletePushToken } from "../../../apis/https/member";
 
 export default function SettingList() {
     const [memberName, setMemberName] = useState("")
@@ -20,7 +21,10 @@ export default function SettingList() {
 
     const navigationList = {
         1: () => navigation.navigate("Private"), // 실제 네비게이션 이동
-        2: () => dispatch(logout()), // 로그아웃을 처리할 함수
+        2: async () => {
+            await deletePushToken()
+            dispatch(logout())
+        }, // 로그아웃을 처리할 함수
     };
     useEffect(() => {
         async function getMemberName() {

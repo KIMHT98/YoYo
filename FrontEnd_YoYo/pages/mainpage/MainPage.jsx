@@ -27,6 +27,7 @@ export default function MainPage() {
                 const response = await getPay();
                 setPayInfo(response);
                 await AsyncStorage.setItem("memberName", response.memberName)
+                await AsyncStorage.setItem("payInfo", JSON.stringify(response))
                 setIsLoading(false);
             }
             getPayInfo();

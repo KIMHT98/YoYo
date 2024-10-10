@@ -9,7 +9,7 @@ import NumberPad from "../../../components/pay/NumberPad";
 import { checkPin, managePay, registAccount } from "../../../apis/https/payApi";
 
 export default function RegistPayPassword({ navigation, route }) {
-    const { data, type, item } = route.params;
+    const { data, type, eventId } = route.params;
     const [payPassword, setPayPassword] = useState([-1, -1, -1, -1, -1, -1]);
     const [checkPayPassword, setCheckPayPassword] = useState([
         -1, -1, -1, -1, -1, -1,
@@ -36,7 +36,6 @@ export default function RegistPayPassword({ navigation, route }) {
     async function isPinOk() {
         try {
             const response = await checkPin(payPassword.join(""));
-            console.log(response);
             if (response.isSuccess) {
                 sendPay(data.money);
             } else {
@@ -53,7 +52,6 @@ export default function RegistPayPassword({ navigation, route }) {
     }
     async function sendPay(money) {
         const type = data.title.split(" ")[0];
-        console.log(item);
         try {
             let response;
             if (type === "충전하기") {
@@ -61,10 +59,10 @@ export default function RegistPayPassword({ navigation, route }) {
             } else if (type === "옮기기") {
                 response = await managePay("refund", { payAmount: money });
             } else {
-                response = await managePay("transfer", item);
-                navigation.navigate("AfterPassword", {
-                    data: data,
-                });
+                response = await managePay("transfer", { eventId: eventId, payAmount: money });
+                // navigation.navigate("AfterPassword", {
+                //     data: data,
+                // });
             }
             if (response.isSuccess) {
                 navigation.navigate("AfterPassword", {
@@ -78,7 +76,7 @@ export default function RegistPayPassword({ navigation, route }) {
                 [
                     {
                         text: "확인",
-                        onPress: () => navigation.navigate("Payment"),
+                        onPress: () => navigation.navigate("PaymentTab"),
                     },
                 ]
             );
@@ -132,11 +130,11 @@ export default function RegistPayPassword({ navigation, route }) {
                     <View style={styles.rowContainer}>
                         {stage === 1
                             ? payPassword.map((num, idx) => (
-                                  <PayPasswordInput number={num} key={idx} />
-                              ))
+                                <PayPasswordInput number={num} key={idx} />
+                            ))
                             : checkPayPassword.map((num, idx) => (
-                                  <PayPasswordInput number={num} key={idx} />
-                              ))}
+                                <PayPasswordInput number={num} key={idx} />
+                            ))}
                     </View>
                 </View>
             </Container>

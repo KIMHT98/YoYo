@@ -26,9 +26,7 @@ export default function OcrList({ navigation }) {
         amount: item.amount,
         description: item.description
       }))
-      console.log("내가 보낸거", sendData)
       const response = await confirmOcr(eventId, sendData)
-      console.log("OCR보냈다", response.data.data)
       Alert.alert("등록 완료!", "명단 등록이 완료되었습니다.", [{
         text: "확인",
         onPress: () => navigation.navigate("EventDetail", { id: eventId })

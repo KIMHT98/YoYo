@@ -6,7 +6,13 @@ import Tag from '../../common/Tag';
 import { useNavigation } from '@react-navigation/native';
 import { MainStyle } from '../../../constants/style';
 import { formatDate } from './../../../util/date';
-
+const tagTranslate = {
+  all: "전체",
+  friend: "친구",
+  family: "가족",
+  company: "직장",
+  etc: "기타",
+};
 export default function EventAfterRegist({ event }) {
   const navigation = useNavigation();
   function clickFriendHandler() {
@@ -20,7 +26,7 @@ export default function EventAfterRegist({ event }) {
             <YoYoText type="subTitle" bold>{event.senderName}</YoYoText>
             <YoYoText type="content">{event.memo}</YoYoText>
           </View>
-          <Tag type={event.relationType.toLowerCase()} width={88}>친구</Tag>
+          <Tag type={event.relationType.toLowerCase()} width={88}>{tagTranslate[event.relationType.toLowerCase()]}</Tag>
         </View>
         <View style={styles.innerContainer2}>
           <YoYoText type="desc" bold>{formatDate(event.time)}</YoYoText>

@@ -39,7 +39,6 @@ export default function ScheduleCard({ item, onPress }) {
                             radius={24}
                             onPress={() => onPress(item.notificationId, "true")}
                         >
-                            {console.log(item)}
                             <YoYoText bold>등록</YoYoText>
                         </Button>
                     </View>

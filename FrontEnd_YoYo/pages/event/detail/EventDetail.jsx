@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, Alert } from "react-native";
 import React, {
     useCallback,
     useLayoutEffect,
@@ -21,6 +21,7 @@ import {
 import { useFocusEffect } from "@react-navigation/native";
 import Loading from "../../../components/common/Loading";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function EventDetail({ navigation, route }) {
     const [event, setEvent] = useState();
@@ -40,13 +41,18 @@ export default function EventDetail({ navigation, route }) {
     function clickTag(type) {
         setSelectedTag(type);
     }
-    function clickBottomButton() {
+    async function clickBottomButton() {
         if (isWait) {
             navigation.navigate("SelectRegistType", { event: event });
         } else {
-            navigation.navigate("SelectLinkType", {
-                event: event,
-            });
+            const payInfo = await AsyncStorage.getItem("payInfo")
+            if (payInfo.balance >= 0) {
+                navigation.navigate("SelectLinkType", {
+                    event: event,
+                });
+            } else {
+                Alert.alert("페이 정보가 없습니다.", "YoYo페이를 등록해주세요.")
+            }
         }
     }
     const renderItem = ({ item }) => {
