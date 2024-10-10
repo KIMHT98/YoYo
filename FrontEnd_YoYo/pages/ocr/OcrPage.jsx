@@ -51,7 +51,6 @@ export default function OcrPage({ navigation }) {
         relationStatus: item.relationStatus,
         relationType: item.relationType,
       }))
-      console.log("OCRPAGE 결과", ocrList)
       dispatch(setOcrData(ocrList))
       navigation.navigate("OCRLIST");
     } catch (error) {

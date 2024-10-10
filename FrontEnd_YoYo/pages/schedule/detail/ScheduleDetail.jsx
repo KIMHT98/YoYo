@@ -101,12 +101,8 @@ export default function ScheduleDetail({ route, navigation }) {
     function clickButton() {
         navigation.navigate("돈보내기", {
             title: "마음 전달",
-            item: {
-                memberId: item.oppositeId,
-                memberName: data.name,
-                eventId: item.eventId,
-                title: item.title,
-            },
+            eventId: item.eventId,
+
         });
     }
 

@@ -19,9 +19,6 @@ export default function OcrSelect({ route, navigation }) {
     const [friends, setFriends] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const animation = useRef(new Animated.Value(0)).current;
-    useEffect(() => {
-        console.log(friend);
-    }, [friend]);
     function isButtonOpen() {
         return (
             friend.name.length > 0 &&
@@ -93,7 +90,6 @@ export default function OcrSelect({ route, navigation }) {
                             give: item.totalReceivedAmount,
                             take: item.totalSentAmount,
                         }));
-                        console.log("OCR친구", tmpData);
                         setFriends(tmpData);
                     } else {
                         setFriends();

@@ -43,11 +43,10 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store/store.js";
 import { setStoredAuth } from "./store/slices/authSlice.js";
 import EventReceiveRegist from "./pages/event/regist/EventReceiveRegist.jsx";
-import * as Linking from "expo-linking";
-import BeforeSendMoney from "./pages/payment/send/BeforeSendMoney.jsx";
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
+import * as Notifications from "expo-notifications";
+import { savePushToken } from "./apis/https/member.js";
 function BottomTabBar() {
     return (
         <BottomTab.Navigator
@@ -374,10 +373,6 @@ function AuthenticatedStack() {
                 }}
             />
             <Stack.Screen name="돈보내기" component={SendMoney} />
-            <Stack.Screen
-                name="돈보내기전로딩페이지"
-                component={BeforeSendMoney}
-            />
             <Stack.Screen name="지인선택" component={SelectCard} />
             <Stack.Screen name="지인추가" component={RegistNewFriend} />
             <Stack.Screen
@@ -410,14 +405,33 @@ function Navigation() {
             },
         },
     };
-    console.log("isAuthenticated:", isAuthenticated);
-    console.log("linking config:", linking);
     return (
         <NavigationContainer linking={linking}>
             {!isAuthenticated && <AuthStack />}
             {isAuthenticated && <AuthenticatedStack />}
         </NavigationContainer>
     );
+}
+async function getPushToken() {
+    try {
+        const token = (await Notifications.getExpoPushTokenAsync()).data;
+        return token;
+    } catch (error) {
+        console.error("Error getting FCM token: ", error);
+        return null;
+    }
+}
+async function requestPushToken() {
+    const { status } = await Notifications.getPermissionsAsync();
+    if (status !== "granted") {
+        const { status: newStatus } =
+            await Notifications.requestPermissionsAsync();
+        if (newStatus !== "granted") {
+            alert("Push notification permissions required!");
+            return;
+        }
+    }
+    return await getPushToken();
 }
 function Root() {
     const dispatch = useDispatch();
@@ -426,15 +440,17 @@ function Root() {
         async function fetchToken() {
             const storedToken = await AsyncStorage.getItem("token");
             const storedMemberId = await AsyncStorage.getItem("memberId");
-            const storedPushToken = await AsyncStorage.getItem("pushToken");
-            if ((storedToken && storedMemberId, storedPushToken)) {
-                console.log(storedToken);
+            const pushToken = await requestPushToken();
+            await savePushToken(pushToken);
+            // console.log(storedToken, "\n", storedMemberId, "\n", pushToken);
+            if ((storedToken && storedMemberId, pushToken)) {
+                // console.log(storedToken, "\n", storedMemberId, "\n", pushToken);
                 // AsyncStorage에서 불러온 값으로 Redux 상태 업데이트
                 dispatch(
                     setStoredAuth({
                         token: storedToken,
                         memberId: parseInt(storedMemberId),
-                        pushToken: storedPushToken,
+                        pushToken: pushToken,
                     })
                 );
             }

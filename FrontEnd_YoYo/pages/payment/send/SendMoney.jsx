@@ -8,8 +8,8 @@ import { MainStyle } from "../../../constants/style";
 const prices = [5000, 10000, 50000, 100000];
 export default function SendMoney({ route, navigation }) {
     const [price, setPrice] = useState(0);
-    const item = route.params.item;
-    const title = route.params.title;
+    const eventId = route.params.eventId;
+    const title = route.params.title || "마음 전달";
     useLayoutEffect(() => {
         navigation.setOptions({
             title: title,
@@ -27,13 +27,7 @@ export default function SendMoney({ route, navigation }) {
                     }.`,
                 money: price,
             },
-            item: {
-                memberId: item ? item.memberId : "",
-                memberName: item ? item.memberName : "",
-                eventId: item ? item.eventId : "",
-                title: item ? item.title : "",
-                amount: price,
-            },
+            eventId: eventId ? eventId : "",
             type: "pay",
         });
     }

@@ -9,7 +9,6 @@ import TagList from '../../../components/common/TagList'
 import { updateTransaction } from '../../../apis/https/transactionApi'
 export default function RegistNewFriend({ route, navigation }) {
   const { friend, id } = route.params
-  console.log("친구선택", friend)
   const [name, setName] = useState(friend.senderName);
   const [tag, setTag] = useState(friend.relationType.toLowerCase());
   const [memo, setMemo] = useState(friend.memo)
