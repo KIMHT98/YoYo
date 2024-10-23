@@ -5,7 +5,7 @@ services:
     ports:
       - "8200:8200"
     environment:
-      VAULT_DEV_ROOT_TOKEN_ID: yoyovault
+    # 토큰 설정 가능
     restart: always
     cap_add:
       - IPC_LOCK
