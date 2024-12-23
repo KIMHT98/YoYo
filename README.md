@@ -31,6 +31,9 @@ YoYo를 통해 경조사비를 간편하게 관리하세요!
 
 <p>
   <img src="https://img.shields.io/badge/intellij-2C2255.svg?&style=for-the-badge&logo=intellijidea&logoColor=white"/>
+   <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=Spring&logoColor=white">
+   <img src="https://img.shields.io/badge/mysql-4479A1.svg?&style=for-the-badge&logo=mysql&logoColor=white"/>
+  <img src="https://img.shields.io/badge/redis-CB3837.svg?&style=for-the-badge&logo=redis&logoColor=white"/>
   <br> 
   </p>
   <div align="right">
@@ -60,8 +63,7 @@ Npm 9.2.0
 ### 🗄️ DataBase
 
 <p>
-  <img src="https://img.shields.io/badge/mysql-4479A1.svg?&style=for-the-badge&logo=mysql&logoColor=white"/>
-  <img src="https://img.shields.io/badge/redis-CB3837.svg?&style=for-the-badge&logo=redis&logoColor=white"/>
+ 
   <div align="right">
   MySQL:8.0
   
