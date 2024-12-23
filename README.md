@@ -31,7 +31,7 @@ YoYo를 통해 경조사비를 간편하게 관리하세요!
 
 <p>
   <img src="https://img.shields.io/badge/intellij-2C2255.svg?&style=for-the-badge&logo=intellijidea&logoColor=white"/>
-   <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=Spring&logoColor=white">
+   <img src="https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white">
    <img src="https://img.shields.io/badge/mysql-4479A1.svg?&style=for-the-badge&logo=mysql&logoColor=white"/>
   <img src="https://img.shields.io/badge/redis-CB3837.svg?&style=for-the-badge&logo=redis&logoColor=white"/>
   <br> 
@@ -49,6 +49,8 @@ Spring Boot:3.3.2
 <p>
   <img src="https://img.shields.io/badge/android%20studio-3DDC84.svg?&style=for-the-badge&logo=androidstudio&logoColor=white"/>
   <img src="https://img.shields.io/badge/VISUAL%20STUDIO%20CODE-007ACC.svg?&style=for-the-badge&logo=visual%20studio%20code&logoColor=white"/>
+  <img src="https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
+  <img src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white"/>
   <img src="https://img.shields.io/badge/npm-CB3837.svg?&style=for-the-badge&logo=npm&logoColor=white"/>
 <div align="right">
 Android Studio:2024.01<br>
@@ -59,20 +61,6 @@ Npm 9.2.0
 </p>
 
 ---
-
-### 🗄️ DataBase
-
-<p>
- 
-  <div align="right">
-  MySQL:8.0
-  
-   Redis:alpine
-  </div>
-</p>
-
----
-
 ### 🛠 Infra
 
 <p>
